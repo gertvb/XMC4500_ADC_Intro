@@ -1,0 +1,334 @@
+package Model.APPS.VADC_GROUP_CONFIG.v4_0_6;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class VADC_GROUP_CONFIG_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_channels;
+	 public GTab gtab_request_sources;
+	 public GTab gtab_arbitration;
+	 public GTab gtab_input_classes;
+	 public GTab gtab_result_registers;
+	 public GTab gtab_general_settings;
+	 public GTab gtab_dummy;
+	 public GImage gimage_queue_req_src;
+	 public GImage gimage_scan_req_src;
+	 public GImage gimage_bkgnd_req_src;
+	 public GImage gimage_arbitration_schema;
+	 public GInteger ginteger_grpic0_emux_conv_sample_phase_length;
+	 public GInteger ginteger_grpic0_std_conv_sample_phase_length;
+	 public GInteger ginteger_grpic1_emux_conv_sample_phase_length;
+	 public GInteger ginteger_grpic1_std_conv_sample_phase_length;
+	 public GInteger ginteger_boundary0;
+	 public GInteger ginteger_boundary1;
+	 public GInteger ginteger_extmul_start_selection;
+	 public GCombo gcombo_queue_req_src_entry0;
+	 public GCombo gcombo_queue_req_src_entry1;
+	 public GCombo gcombo_queue_req_src_entry2;
+	 public GCombo gcombo_queue_req_src_entry3;
+	 public GCombo gcombo_queue_req_src_entry4;
+	 public GCombo gcombo_queue_req_src_entry5;
+	 public GCombo gcombo_queue_req_src_entry6;
+	 public GCombo gcombo_queue_req_src_entry7;
+	 public GCombo gcombo_queue_req_src_trigger_mode;
+	 public GCombo gcombo_queue_req_src_gate_enable;
+	 public GCombo gcombo_queue_req_src_res_reg;
+	 public GCombo gcombo_scan_req_src_trigger_mode;
+	 public GCombo gcombo_scan_req_src_gate_enable;
+	 public GCombo gcombo_scan_req_src_res_reg;
+	 public GCombo gcombo_arbitration_slot1_priority;
+	 public GCombo gcombo_arbitration_slot0_priority;
+	 public GCombo gcombo_arbitration_slot3_priority;
+	 public GCombo gcombo_arbitration_slot0_conversion_start_mode;
+	 public GCombo gcombo_arbitration_slot3_conversion_start_mode;
+	 public GCombo gcombo_arbitration_slot1_conversion_start_mode;
+	 public GCombo gcombo_grpic0_emux_conv_conversion_mode;
+	 public GCombo gcombo_grpic0_std_conv_conversion_mode;
+	 public GCombo gcombo_grpic1_emux_conv_conversion_mode;
+	 public GCombo gcombo_grpic1_std_conv_conversion_mode;
+	 public GCombo gcombo_synctr_stsel;
+	 public GCombo gcombo_bfa_0;
+	 public GCombo gcombo_bfa_1;
+	 public GCombo gcombo_bfa_2;
+	 public GCombo gcombo_bfa_3;
+	 public GCombo gcombo_extmul_mode;
+	 public GCombo gcombo_extmul_coding_scheme;
+	 public GCombo gcombo_extmul_sample_time_control;
+	 public GString gstring_bkgnd_req_src_trigger_mode;
+	 public GString gstring_bkgnd_req_src_gate_enable;
+	 public GString gstring_bkgnd_req_src_result_reg;
+	 public GString gstring_arbitration_slot2_priority;
+	 public GString gstring_arbitration_slot2_conversion_start_mode;
+	 public GCheck gcheck_queue_req_src_entry0_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry0_event_enable;
+	 public GCheck gcheck_queue_req_src_entry1_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry1_event_enable;
+	 public GCheck gcheck_queue_req_src_entry2_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry2_event_enable;
+	 public GCheck gcheck_queue_req_src_entry3_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry4_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry5_event_enable;
+	 public GCheck gcheck_queue_req_src_entry5_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry4_event_enable;
+	 public GCheck gcheck_queue_req_src_entry3_event_enable;
+	 public GCheck gcheck_queue_req_src_entry6_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry7_event_enable;
+	 public GCheck gcheck_queue_req_src_entry7_trigger_enable;
+	 public GCheck gcheck_queue_req_src_entry6_event_enable;
+	 public GCheck gcheck_queue_req_src_entry0_refill;
+	 public GCheck gcheck_queue_req_src_entry1_refill;
+	 public GCheck gcheck_queue_req_src_entry2_refill;
+	 public GCheck gcheck_queue_req_src_entry3_refill;
+	 public GCheck gcheck_queue_req_src_entry4_refill;
+	 public GCheck gcheck_queue_req_src_entry5_refill;
+	 public GCheck gcheck_queue_req_src_entry6_refill;
+	 public GCheck gcheck_queue_req_src_entry7_refill;
+	 public GCheck gcheck_queue_req_src_enable_timer_mode;
+	 public GCheck gcheck_queue_req_src_enable_trigger;
+	 public GCheck gcheck_scan_req_src_autoscan_enabled;
+	 public GCheck gcheck_scan_req_src_ch7;
+	 public GCheck gcheck_scan_req_src_ch6;
+	 public GCheck gcheck_scan_req_src_ch5;
+	 public GCheck gcheck_scan_req_src_ch4;
+	 public GCheck gcheck_scan_req_src_ch3;
+	 public GCheck gcheck_scan_req_src_ch2;
+	 public GCheck gcheck_scan_req_src_ch1;
+	 public GCheck gcheck_scan_req_src_ch0;
+	 public GCheck gcheck_scan_req_src_enable_trigger;
+	 public GCheck gcheck_scan_req_src_enable_timer_mode;
+	 public GCheck gcheck_scan_req_src_enable_interrupt;
+	 public GCheck gcheck_bkgnd_req_src_ch0;
+	 public GCheck gcheck_bkgnd_req_src_ch1;
+	 public GCheck gcheck_bkgnd_req_src_ch2;
+	 public GCheck gcheck_bkgnd_req_src_ch3;
+	 public GCheck gcheck_bkgnd_req_src_ch4;
+	 public GCheck gcheck_bkgnd_req_src_ch5;
+	 public GCheck gcheck_bkgnd_req_src_ch6;
+	 public GCheck gcheck_bkgnd_req_src_ch7;
+	 public GCheck gcheck_bkgnd_req_src_autoscan_enabled;
+	 public GCheck gcheck_bkgnd_req_src_enable_trigger;
+	 public GCheck gcheck_bkgnd_req_src_enable_timer_mode;
+	 public GCheck gcheck_bkgnd_req_src_enable_interrupt;
+	 public GCheck gcheck_arbitration_slot3_enable;
+	 public GCheck gcheck_arbitration_slot2_enable;
+	 public GCheck gcheck_arbitration_slot0_enable;
+	 public GCheck gcheck_arbitration_slot1_enable;
+	 public GCheck gcheck_en_bfl_0;
+	 public GCheck gcheck_inv_bfl_0;
+	 public GCheck gcheck_en_bfl_1;
+	 public GCheck gcheck_inv_bfl_1;
+	 public GCheck gcheck_en_bfl_2;
+	 public GCheck gcheck_inv_bfl_2;
+	 public GCheck gcheck_en_bfl_3;
+	 public GCheck gcheck_inv_bfl_3;
+	 public GCheck gcheck_extmul_ch0;
+	 public GCheck gcheck_extmul_ch1;
+	 public GCheck gcheck_extmul_ch2;
+	 public GCheck gcheck_extmul_ch3;
+	 public GCheck gcheck_extmul_ch4;
+	 public GCheck gcheck_extmul_ch5;
+	 public GCheck gcheck_extmul_ch6;
+	 public GCheck gcheck_extmul_ch7;
+	 public GLabel glabel_grpic0_emux_conv_conversion_mode;
+	 public GLabel glabel_grpic0_emux_conv_sample_phase_length;
+	 public GLabel glabel_grpic0_std_conv_sample_phase_length;
+	 public GLabel glabel_grpic0_std_conv_conversion_mode;
+	 public GLabel glabel_grpic1_emux_conv_conversion_mode;
+	 public GLabel glabel_grpic1_emux_conv_sample_phase_length;
+	 public GLabel glabel_grpic1_std_conv_sample_phase_length;
+	 public GLabel glabel_grpic1_std_conv_conversion_mode;
+	 public GLabel glabel_synctr_stsel;
+	 public GLabel glabel_boundary0;
+	 public GLabel glabel_boundary1;
+	 public GLabel glabel_bfl0;
+	 public GLabel glabel_bfl1;
+	 public GLabel glabel_bfl2;
+	 public GLabel glabel_bfl3;
+	 public GLabel glabel_118;
+	 public GLabel glabel_117;
+	 public GGroup ggroup_grpic0;
+	 public GGroup ggroup_grpic1;
+	 public GGroup ggroup_synchronization;
+	 public GGroup ggroup_boundaries;
+	 public GGroup ggroup_external_multiplexer_control;
+	 public GMessage gmessage_extmux;
+	 public GIndexCombo gindexcombo_ch_selection;
+	 public GIndexCombo gindexcombo_result_registers_configuration;
+	 public GIndexGroup gindexgroup_channels_configuration;
+	 public RArray<Gindexgroup_channels_configuration> rArraygindexgroup_channels_configuration = RArray(8);
+
+	 public GIndexGroup gindexgroup_result_registers_configuration;
+	 public RArray<Gindexgroup_result_registers_configuration> rArraygindexgroup_result_registers_configuration = RArray(16);
+
+
+	 public VADC_GROUP_CONFIG_GUI(DaveEnv daveEnv){
+
+	 gtab_channels = GTab(widgetName:"gtab_channels", text:"Channels", enabled:true, visible:true)
+	 gtab_request_sources = GTab(widgetName:"gtab_request_sources", text:"Request Sources", enabled:true, visible:true)
+	 gtab_arbitration = GTab(widgetName:"gtab_arbitration", text:"Arbitration", enabled:true, visible:true)
+	 gtab_input_classes = GTab(widgetName:"gtab_input_classes", text:"Input Classes", enabled:true, visible:true)
+	 gtab_result_registers = GTab(widgetName:"gtab_result_registers", text:"Result Registers", enabled:true, visible:true)
+	 gtab_general_settings = GTab(widgetName:"gtab_general_settings", text:"Other Settings", enabled:true, visible:true)
+	 gtab_dummy = GTab(widgetName:"gtab_dummy", text:"Dummy", enabled:false, visible:true)
+	 gimage_queue_req_src = GImage(widgetName:"gimage_queue_req_src", path: "doc/VADC_GROUP_CONFIG_Queue_request_source.png", enabled:true, visible:true)
+	 gimage_scan_req_src = GImage(widgetName:"gimage_scan_req_src", path: "doc/VADC_GROUP_CONFIG_Scan_request_source_no_autoscan.png", enabled:true, visible:true)
+	 gimage_bkgnd_req_src = GImage(widgetName:"gimage_bkgnd_req_src", path: "doc/VADC_GROUP_CONFIG_Background_request_source_no_autoscan.png", enabled:true, visible:true)
+	 gimage_arbitration_schema = GImage(widgetName:"gimage_arbitration_schema", path: "doc/VADC_GROUP_CONFIG_arbitration_schema.png", enabled:true, visible:true)
+	 ginteger_grpic0_emux_conv_sample_phase_length = GInteger(widgetName:"ginteger_grpic0_emux_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_grpic0_std_conv_sample_phase_length = GInteger(widgetName:"ginteger_grpic0_std_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_grpic1_emux_conv_sample_phase_length = GInteger(widgetName:"ginteger_grpic1_emux_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_grpic1_std_conv_sample_phase_length = GInteger(widgetName:"ginteger_grpic1_std_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_boundary0 = GInteger(widgetName:"ginteger_boundary0", value:0, minValue:0, maxValue:4095, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_boundary1 = GInteger(widgetName:"ginteger_boundary1", value:0, minValue:0, maxValue:4095, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_extmul_start_selection = GInteger(widgetName:"ginteger_extmul_start_selection", value:0, minValue:Long.MIN_VALUE, maxValue:Long.MAX_VALUE, enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry0 = GCombo(widgetName:"gcombo_queue_req_src_entry0", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry1 = GCombo(widgetName:"gcombo_queue_req_src_entry1", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry2 = GCombo(widgetName:"gcombo_queue_req_src_entry2", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry3 = GCombo(widgetName:"gcombo_queue_req_src_entry3", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry4 = GCombo(widgetName:"gcombo_queue_req_src_entry4", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry5 = GCombo(widgetName:"gcombo_queue_req_src_entry5", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry6 = GCombo(widgetName:"gcombo_queue_req_src_entry6", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_entry7 = GCombo(widgetName:"gcombo_queue_req_src_entry7", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_trigger_mode = GCombo(widgetName:"gcombo_queue_req_src_trigger_mode", options:["None","Upon a Falling Edge","Upon a Rising Edge","Upon any Edge"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_gate_enable = GCombo(widgetName:"gcombo_queue_req_src_gate_enable", options:["Block Conversion","Always Convert","Ungate On A High(REQGTx =1)","Ungate On A Low (REQGTx =0)"], value:"Always Convert", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_queue_req_src_res_reg = GCombo(widgetName:"gcombo_queue_req_src_res_reg", options:["No Specific Register","GxRES0","GxRES1","GxRES2","GxRES3","GxRES4","GxRES5","GxRES6","GxRES7","GxRES8","GxRES9","GxRES10","GxRES11","GxRES12","GxRES13","GxRES14","GxRES15"], value:"No Specific Register", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_scan_req_src_trigger_mode = GCombo(widgetName:"gcombo_scan_req_src_trigger_mode", options:["None","Upon a Falling Edge","Upon a Rising Edge","Upon any Edge"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_scan_req_src_gate_enable = GCombo(widgetName:"gcombo_scan_req_src_gate_enable", options:["Block Conversion","Always Convert","Ungate On A High(REQGTx =1)","Ungate On A Low (REQGTx =0)"], value:"Always Convert", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_scan_req_src_res_reg = GCombo(widgetName:"gcombo_scan_req_src_res_reg", options:["No Specific Register","GxRES0","GxRES1","GxRES2","GxRES3","GxRES4","GxRES5","GxRES6","GxRES7","GxRES8","GxRES9","GxRES10","GxRES11","GxRES12","GxRES13","GxRES14","GxRES15"], value:"No Specific Register", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slot1_priority = GCombo(widgetName:"gcombo_arbitration_slot1_priority", options:["0 (lowest)","1","2","3 (highest)"], value:"0 (lowest)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slot0_priority = GCombo(widgetName:"gcombo_arbitration_slot0_priority", options:["0 (lowest)","1","2","3 (highest)"], value:"0 (lowest)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slot3_priority = GCombo(widgetName:"gcombo_arbitration_slot3_priority", options:["3 (highest)"], value:"3 (highest)", enabled:false, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slot0_conversion_start_mode = GCombo(widgetName:"gcombo_arbitration_slot0_conversion_start_mode", options:["Wait-For-Start","Cancel-Inject-Repeat"], value:"Wait-For-Start", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slot3_conversion_start_mode = GCombo(widgetName:"gcombo_arbitration_slot3_conversion_start_mode", options:["wait-for-start","cancel-inject-repeat"], value:"cancel-inject-repeat", enabled:false, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slot1_conversion_start_mode = GCombo(widgetName:"gcombo_arbitration_slot1_conversion_start_mode", options:["Wait-For-Start","Cancel-Inject-Repeat"], value:"Wait-For-Start", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_grpic0_emux_conv_conversion_mode = GCombo(widgetName:"gcombo_grpic0_emux_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_grpic0_std_conv_conversion_mode = GCombo(widgetName:"gcombo_grpic0_std_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_grpic1_emux_conv_conversion_mode = GCombo(widgetName:"gcombo_grpic1_emux_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_grpic1_std_conv_conversion_mode = GCombo(widgetName:"gcombo_grpic1_std_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_synctr_stsel = GCombo(widgetName:"gcombo_synctr_stsel", options:["Master","Slave, His Master is Kernel 0","Slave, His Master is Kernel 1","Slave, His Master is Kernel 2","Slave, His Master is Kernel 3"], value:"Master", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_bfa_0 = GCombo(widgetName:"gcombo_bfa_0", options:["Set BFL If Result Is Above Band","Set BFL If Result Is Below Band"], value:"Set BFL If Result Is Above Band", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_bfa_1 = GCombo(widgetName:"gcombo_bfa_1", options:["Set BFL If Result Is Above Band","Set BFL If Result Is Below Band"], value:"Set BFL If Result Is Above Band", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_bfa_2 = GCombo(widgetName:"gcombo_bfa_2", options:["Set BFL If Result Is Above Band","Set BFL If Result Is Below Band"], value:"Set BFL If Result Is Above Band", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_bfa_3 = GCombo(widgetName:"gcombo_bfa_3", options:["Set BFL If Result Is Above Band","Set BFL If Result Is Below Band"], value:"Set BFL If Result Is Above Band", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_extmul_mode = GCombo(widgetName:"gcombo_extmul_mode", options:["Software Control","Steady Mode","Single-step Mode","Sequence Mode"], value:"Software Control", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_extmul_coding_scheme = GCombo(widgetName:"gcombo_extmul_coding_scheme", options:["Binary Code","Gray Code"], value:"Binary Code", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_extmul_sample_time_control = GCombo(widgetName:"gcombo_extmul_sample_time_control", options:["Use STCE whenever the setting changes","Use STCE for each conversion of an external channel"], value:"Use STCE whenever the setting changes", enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_bkgnd_req_src_trigger_mode = GString(widgetName:"gstring_bkgnd_req_src_trigger_mode", value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_bkgnd_req_src_gate_enable = GString(widgetName:"gstring_bkgnd_req_src_gate_enable", value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_bkgnd_req_src_result_reg = GString(widgetName:"gstring_bkgnd_req_src_result_reg", value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gstring_arbitration_slot2_priority = GString(widgetName:"gstring_arbitration_slot2_priority", value:"0 (lowest)", enabled:false, visible:true, isMandatoryValue:false)
+	 gstring_arbitration_slot2_conversion_start_mode = GString(widgetName:"gstring_arbitration_slot2_conversion_start_mode", value:"Cancel-Inject-Repeat", enabled:false, visible:true, isMandatoryValue:false)
+	 gcheck_queue_req_src_entry0_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry0_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry0_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry0_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry1_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry1_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry1_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry1_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry2_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry2_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry2_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry2_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry3_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry3_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry4_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry4_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry5_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry5_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry5_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry5_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry4_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry4_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry3_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry3_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry6_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry6_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry7_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry7_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry7_trigger_enable = GCheck(widgetName:"gcheck_queue_req_src_entry7_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry6_event_enable = GCheck(widgetName:"gcheck_queue_req_src_entry6_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry0_refill = GCheck(widgetName:"gcheck_queue_req_src_entry0_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry1_refill = GCheck(widgetName:"gcheck_queue_req_src_entry1_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry2_refill = GCheck(widgetName:"gcheck_queue_req_src_entry2_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry3_refill = GCheck(widgetName:"gcheck_queue_req_src_entry3_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry4_refill = GCheck(widgetName:"gcheck_queue_req_src_entry4_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry5_refill = GCheck(widgetName:"gcheck_queue_req_src_entry5_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry6_refill = GCheck(widgetName:"gcheck_queue_req_src_entry6_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_entry7_refill = GCheck(widgetName:"gcheck_queue_req_src_entry7_refill", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_enable_timer_mode = GCheck(widgetName:"gcheck_queue_req_src_enable_timer_mode", value:false, enabled:true, visible:true)
+	 gcheck_queue_req_src_enable_trigger = GCheck(widgetName:"gcheck_queue_req_src_enable_trigger", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_autoscan_enabled = GCheck(widgetName:"gcheck_scan_req_src_autoscan_enabled", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch7 = GCheck(widgetName:"gcheck_scan_req_src_ch7", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch6 = GCheck(widgetName:"gcheck_scan_req_src_ch6", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch5 = GCheck(widgetName:"gcheck_scan_req_src_ch5", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch4 = GCheck(widgetName:"gcheck_scan_req_src_ch4", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch3 = GCheck(widgetName:"gcheck_scan_req_src_ch3", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch2 = GCheck(widgetName:"gcheck_scan_req_src_ch2", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch1 = GCheck(widgetName:"gcheck_scan_req_src_ch1", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_ch0 = GCheck(widgetName:"gcheck_scan_req_src_ch0", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_enable_trigger = GCheck(widgetName:"gcheck_scan_req_src_enable_trigger", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_enable_timer_mode = GCheck(widgetName:"gcheck_scan_req_src_enable_timer_mode", value:false, enabled:true, visible:true)
+	 gcheck_scan_req_src_enable_interrupt = GCheck(widgetName:"gcheck_scan_req_src_enable_interrupt", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch0 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch0", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch1 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch1", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch2 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch2", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch3 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch3", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch4 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch4", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch5 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch5", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch6 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch6", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_ch7 = GCheck(widgetName:"gcheck_bkgnd_req_src_ch7", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_autoscan_enabled = GCheck(widgetName:"gcheck_bkgnd_req_src_autoscan_enabled", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_enable_trigger = GCheck(widgetName:"gcheck_bkgnd_req_src_enable_trigger", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_enable_timer_mode = GCheck(widgetName:"gcheck_bkgnd_req_src_enable_timer_mode", value:false, enabled:true, visible:true)
+	 gcheck_bkgnd_req_src_enable_interrupt = GCheck(widgetName:"gcheck_bkgnd_req_src_enable_interrupt", value:false, enabled:true, visible:true)
+	 gcheck_arbitration_slot3_enable = GCheck(widgetName:"gcheck_arbitration_slot3_enable", value:true, enabled:false, visible:true)
+	 gcheck_arbitration_slot2_enable = GCheck(widgetName:"gcheck_arbitration_slot2_enable", value:false, enabled:true, visible:true)
+	 gcheck_arbitration_slot0_enable = GCheck(widgetName:"gcheck_arbitration_slot0_enable", value:false, enabled:true, visible:true)
+	 gcheck_arbitration_slot1_enable = GCheck(widgetName:"gcheck_arbitration_slot1_enable", value:false, enabled:true, visible:true)
+	 gcheck_en_bfl_0 = GCheck(widgetName:"gcheck_en_bfl_0", value:false, enabled:true, visible:true)
+	 gcheck_inv_bfl_0 = GCheck(widgetName:"gcheck_inv_bfl_0", value:false, enabled:true, visible:true)
+	 gcheck_en_bfl_1 = GCheck(widgetName:"gcheck_en_bfl_1", value:false, enabled:true, visible:true)
+	 gcheck_inv_bfl_1 = GCheck(widgetName:"gcheck_inv_bfl_1", value:false, enabled:true, visible:true)
+	 gcheck_en_bfl_2 = GCheck(widgetName:"gcheck_en_bfl_2", value:false, enabled:true, visible:true)
+	 gcheck_inv_bfl_2 = GCheck(widgetName:"gcheck_inv_bfl_2", value:false, enabled:true, visible:true)
+	 gcheck_en_bfl_3 = GCheck(widgetName:"gcheck_en_bfl_3", value:false, enabled:true, visible:true)
+	 gcheck_inv_bfl_3 = GCheck(widgetName:"gcheck_inv_bfl_3", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch0 = GCheck(widgetName:"gcheck_extmul_ch0", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch1 = GCheck(widgetName:"gcheck_extmul_ch1", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch2 = GCheck(widgetName:"gcheck_extmul_ch2", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch3 = GCheck(widgetName:"gcheck_extmul_ch3", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch4 = GCheck(widgetName:"gcheck_extmul_ch4", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch5 = GCheck(widgetName:"gcheck_extmul_ch5", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch6 = GCheck(widgetName:"gcheck_extmul_ch6", value:false, enabled:true, visible:true)
+	 gcheck_extmul_ch7 = GCheck(widgetName:"gcheck_extmul_ch7", value:false, enabled:true, visible:true)
+	 glabel_grpic0_emux_conv_conversion_mode = GLabel(widgetName:"glabel_grpic0_emux_conv_conversion_mode", text:"Conversion mode for EMUX conversions:", enabled:true, visible:true)
+	 glabel_grpic0_emux_conv_sample_phase_length = GLabel(widgetName:"glabel_grpic0_emux_conv_sample_phase_length", text:"Sample phase clock cycles for EMUX conversions:", enabled:true, visible:true)
+	 glabel_grpic0_std_conv_sample_phase_length = GLabel(widgetName:"glabel_grpic0_std_conv_sample_phase_length", text:"Sample phase clock cycles for standard conversions:", enabled:true, visible:true)
+	 glabel_grpic0_std_conv_conversion_mode = GLabel(widgetName:"glabel_grpic0_std_conv_conversion_mode", text:"Conversion mode for standard conversions:", enabled:true, visible:true)
+	 glabel_grpic1_emux_conv_conversion_mode = GLabel(widgetName:"glabel_grpic1_emux_conv_conversion_mode", text:"Conversion mode for EMUX conversions:", enabled:true, visible:true)
+	 glabel_grpic1_emux_conv_sample_phase_length = GLabel(widgetName:"glabel_grpic1_emux_conv_sample_phase_length", text:"Sample phase clock cycles for EMUX conversions:", enabled:true, visible:true)
+	 glabel_grpic1_std_conv_sample_phase_length = GLabel(widgetName:"glabel_grpic1_std_conv_sample_phase_length", text:"Sample phase clock cycles for standard conversions:", enabled:true, visible:true)
+	 glabel_grpic1_std_conv_conversion_mode = GLabel(widgetName:"glabel_grpic1_std_conv_conversion_mode", text:"Conversion mode for standard conversions:", enabled:true, visible:true)
+	 glabel_synctr_stsel = GLabel(widgetName:"glabel_synctr_stsel", text:"Group is synchronization (GxSYNCTR.STSEL):", enabled:true, visible:true)
+	 glabel_boundary0 = GLabel(widgetName:"glabel_boundary0", text:"Boundary value 0:", enabled:true, visible:true)
+	 glabel_boundary1 = GLabel(widgetName:"glabel_boundary1", text:"Boundary value 1:", enabled:true, visible:true)
+	 glabel_bfl0 = GLabel(widgetName:"glabel_bfl0", text:"Boundary flag 0:", enabled:true, visible:true)
+	 glabel_bfl1 = GLabel(widgetName:"glabel_bfl1", text:"Boundary flag 1:", enabled:true, visible:true)
+	 glabel_bfl2 = GLabel(widgetName:"glabel_bfl2", text:"Boundary flag 2:", enabled:true, visible:true)
+	 glabel_bfl3 = GLabel(widgetName:"glabel_bfl3", text:"Boundary flag 3:", enabled:true, visible:true)
+	 glabel_118 = GLabel(widgetName:"glabel_118", text:"Channel Select:", enabled:true, visible:true)
+	 glabel_117 = GLabel(widgetName:"glabel_117", text:"Sample Time Control:", enabled:true, visible:true)
+	 ggroup_grpic0 = GGroup(widgetName:"ggroup_grpic0", text:"Group Input Class 0", enabled:true, visible:true)
+	 ggroup_grpic1 = GGroup(widgetName:"ggroup_grpic1", text:"Group Input Class 1", enabled:true, visible:true)
+	 ggroup_synchronization = GGroup(widgetName:"ggroup_synchronization", text:"Group Synchronization", enabled:true, visible:true)
+	 ggroup_boundaries = GGroup(widgetName:"ggroup_boundaries", text:"Boundaries", enabled:true, visible:true)
+	 ggroup_external_multiplexer_control = GGroup(widgetName:"ggroup_external_multiplexer_control", text:"External Multiplexer Control", enabled:true, visible:true)
+	 gmessage_extmux = GMessage(widgetName:"gmessage_extmux", text:"Only a single channel is available as external mux channel", isError:true, visible:true)
+	 gindexcombo_ch_selection = GIndexCombo(widgetName:"gindexcombo_ch_selection", options:["Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"Channel 0")
+	 gindexcombo_result_registers_configuration = GIndexCombo(widgetName:"gindexcombo_result_registers_configuration", options:["GxRES0","GxRES1","GxRES2","GxRES3","GxRES4","GxRES5","GxRES6","GxRES7","GxRES8","GxRES9","GxRES10","GxRES11","GxRES12","GxRES13","GxRES14","GxRES15"], value:"GxRES0")
+	 gindexgroup_channels_configuration = GIndexGroup(widgetName:"gindexgroup_channels_configuration", text:"Channel Configuration", enabled:true, visible:true, gIndexCombo:gindexcombo_ch_selection, rArray:rArraygindexgroup_channels_configuration)
+	 for(int i=0; i<8; i++){
+		rArraygindexgroup_channels_configuration[i] = new Gindexgroup_channels_configuration(daveEnv, "gindexgroup_channels_configuration", i)
+	 }
+	 gindexgroup_result_registers_configuration = GIndexGroup(widgetName:"gindexgroup_result_registers_configuration", text:"Result Registers", enabled:true, visible:true, gIndexCombo:gindexcombo_result_registers_configuration, rArray:rArraygindexgroup_result_registers_configuration)
+	 for(int i=0; i<16; i++){
+		rArraygindexgroup_result_registers_configuration[i] = new Gindexgroup_result_registers_configuration(daveEnv, "gindexgroup_result_registers_configuration", i)
+	 }
+
+
+	 }
+	/* End : UI variable section */
+}

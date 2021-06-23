@@ -1,0 +1,595 @@
+package Model.APPS.VADC_GLOBAL_CONFIG.v4_0_8.Templates;
+
+import Model.APPS.VADC_GLOBAL_CONFIG.v4_0_8.VADC_GLOBAL_CONFIG
+
+out.print("""
+/***********************************************************************************************************************
+ *
+ * Copyright (c) 2015-2016, Infineon Technologies AG
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification,are permitted provided that the
+ * following conditions are met:
+ *
+ *   Redistributions of source code must retain the above copyright notice, this list of conditions and the  following
+ *   disclaimer.
+ *
+ *   Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the
+ *   following disclaimer in the documentation and/or other materials provided with the distribution.
+ *
+ *   Neither the name of the copyright holders nor the names of its contributors may be used to endorse or promote
+ *   products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT  OF THE
+ * USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To improve the quality of the software, users are encouraged to share modifications, enhancements or bug fixes
+ * with Infineon Technologies AG (dave@infineon.com).
+ ***********************************************************************************************************************
+ *
+ * Change History
+ * --------------
+ *
+ * 2016-06-27:
+ *     - Initial version for DAVEv4
+ *
+ * 2016-08-17:
+ *     - Corrected typos in the UI.<br> 
+ * 
+ * 2017-11-10:
+ *     - Fix C++ compilation warnings 
+ * 
+ * @endcond
+ *
+ */
+/***********************************************************************************************************************
+ * HEADER FILES
+ **********************************************************************************************************************/
+#include "vadc_global_config.h"
+
+/***********************************************************************************************************************
+ * EXTERN DECLARATIONS
+ **********************************************************************************************************************/
+
+""")
+
+/*----- TAB : General -----------------------------*/
+Map analog_reference_voltage = [
+	'External Reference, Upper Supply Range'  : 0,
+	'Internal Reference, Upper Supply Range'  : 2,
+	'Internal Reference, Lower Supply Range'  : 3
+]
+
+/*----- TAB : Inputs ------------------------------*/
+Map input_class_conversion_mode = [
+	'12 Bit Conversion'       : 'XMC_VADC_CONVMODE_12BIT',
+	'10 Bit Conversion'       : 'XMC_VADC_CONVMODE_10BIT',
+	'8 Bit Conversion'        : 'XMC_VADC_CONVMODE_8BIT',
+	'10 Bit Fast Conversion'  : 'XMC_VADC_CONVMODE_FASTCOMPARE'
+]
+
+Map gain_factor = [
+	'1'  : 0,
+	'3'  : 1,
+	'6'  : 2,
+	'12'  : 3
+]
+
+/*----- TAB : Calibration -------------------------*/
+Map calibration_order = [
+	'Do Conversions Then Calibration'  : 'XMC_VADC_GLOBAL_SHS_CALIBRATION_ORDER_POST_CONV',
+	'Do Calibration Then Conversions'  : 'XMC_VADC_GLOBAL_SHS_CALIBRATION_ORDER_PRE_CONV'
+]
+
+/*----- TAB : Stepper -....------------------------*/
+Map stepper_kernel_select = [
+	'None'     : 0,
+	'Group 0'  : 0,
+	'Group 1'  : 1,
+	'Group 2'  : 2,
+	'Group 3'  : 3
+]
+
+
+/*----- TAB : Arbitration --...--------------------*/
+Map arbitration_mode = [
+	'Always (Runs Permanently)'                      : 'XMC_VADC_GROUP_ARBMODE_ALWAYS',
+	'Run on a Conversion Request'  : 'XMC_VADC_GROUP_ARBMODE_ONDEMAND'
+]
+
+Map arbitration_round_length = [
+	'4'   : 0,
+	'8'   : 1,
+	'16'  : 2,
+	'20'  : 3
+]
+
+/*----- TAB : Other settings ----------------------*/
+Map sigma_delta_loop_ch = [
+	'Input Channel 0'  : 0,
+	'Input Channel 1'  : 1,
+	'Input Channel 2'  : 2,
+	'Input Channel 3'  : 3,
+	'Input Channel 4'  : 4,
+	'Input Channel 5'  : 5,
+	'Input Channel 6'  : 6,
+	'Input Channel 7'  : 7
+]
+
+Map sigma_delta_loop_sh = [
+	'S&H unit 0'  : '(XMC_VADC_GROUP_INDEX_t) XMC_VADC_GROUP_INDEX_0',
+	'S&H unit 1'  : '(XMC_VADC_GROUP_INDEX_t) XMC_VADC_GROUP_INDEX_1'
+]
+
+List StartMode        = ['XMC_VADC_STARTMODE_WFS','XMC_VADC_STARTMODE_CIR','XMC_VADC_STARTMODE_CNR']
+List Trigger          = ['XMC_VADC_TRIGGER_EDGE_NONE','XMC_VADC_TRIGGER_EDGE_RISING','XMC_VADC_TRIGGER_EDGE_FALLING','XMC_VADC_TRIGGER_EDGE_ANY'];
+List Gating           = ['XMC_VADC_GATEMODE_BLOCK','XMC_VADC_GATEMODE_IGNORE','XMC_VADC_GATEMODE_ACTIVEHIGH','XMC_VADC_GATEMODE_ACTIVELOW'];
+List rs_priority	  = ['XMC_VADC_GROUP_RS_PRIORITY_0','XMC_VADC_GROUP_RS_PRIORITY_1','XMC_VADC_GROUP_RS_PRIORITY_2','XMC_VADC_GROUP_RS_PRIORITY_3']
+
+List Gating_signal = ['XMC_VADC_REQ_GT_A','XMC_VADC_REQ_GT_B','XMC_VADC_REQ_GT_C','XMC_VADC_REQ_GT_D','XMC_VADC_REQ_GT_E','XMC_VADC_REQ_GT_F',
+					  'XMC_VADC_REQ_GT_G','XMC_VADC_REQ_GT_H','XMC_VADC_REQ_GT_I','XMC_VADC_REQ_GT_J','XMC_VADC_REQ_GT_K','XMC_VADC_REQ_GT_L',
+					  'XMC_VADC_REQ_GT_M','XMC_VADC_REQ_GT_N','XMC_VADC_REQ_GT_O','XMC_VADC_REQ_GT_P']
+
+List trigger_signal = [ 'XMC_VADC_REQ_TR_A','XMC_VADC_REQ_TR_B','XMC_VADC_REQ_TR_C','XMC_VADC_REQ_TR_D','XMC_VADC_REQ_TR_E','XMC_VADC_REQ_TR_F',
+						'XMC_VADC_REQ_TR_G','XMC_VADC_REQ_TR_H','XMC_VADC_REQ_TR_I','XMC_VADC_REQ_TR_J','XMC_VADC_REQ_TR_K','XMC_VADC_REQ_TR_L',
+						'XMC_VADC_REQ_TR_M','XMC_VADC_REQ_TR_N','XMC_VADC_REQ_TR_O','XMC_VADC_REQ_TR_P']
+
+List ServiceRequestLines = ['XMC_VADC_SR_GROUP_SR0','XMC_VADC_SR_GROUP_SR1','XMC_VADC_SR_GROUP_SR2','XMC_VADC_SR_GROUP_SR3',
+	'XMC_VADC_SR_SHARED_SR0','XMC_VADC_SR_SHARED_SR1','XMC_VADC_SR_SHARED_SR2','XMC_VADC_SR_SHARED_SR3'];
+	
+for (VADC_GLOBAL_CONFIG appInst : appInstancesList ) {
+	String appLabel = appInst.getInstanceLabel() /* Name provided for APP instance. */
+	List backgndUri      = (appInst.hwres_vadc_backgnd != null)? appInst.hwres_vadc_backgnd.getSolverUri() : null
+	List globalUri       = (appInst.hwres_vadc_global != null)? appInst.hwres_vadc_global.getSolverUri() : null
+	List globalLimitsUri = (appInst.hwres_vadc_global_limits != null)? appInst.hwres_vadc_global_limits.getSolverUri() : null
+	List globalResultUri = (appInst.hwres_vadc_global_result != null)? appInst.hwres_vadc_global_result.getSolverUri() : null
+	List group0ConfigUri = (appInst.hwres_vadc_group_0_config != null)? appInst.hwres_vadc_group_0_config.getSolverUri() : null
+	List group1ConfigUri = (appInst.hwres_vadc_group_1_config != null)? appInst.hwres_vadc_group_1_config.getSolverUri() : null
+	List group2ConfigUri = (appInst.hwres_vadc_group_2_config != null)? appInst.hwres_vadc_group_2_config.getSolverUri() : null
+	List group3ConfigUri = (appInst.hwres_vadc_group_3_config != null)? appInst.hwres_vadc_group_3_config.getSolverUri() : null
+	List globalClass0Uri = (appInst.hwres_vadc_global_class_0 != null)? appInst.hwres_vadc_global_class_0.getSolverUri() : null
+	List globalClass1Uri = (appInst.hwres_vadc_global_class_1 != null)? appInst.hwres_vadc_global_class_1.getSolverUri() : null
+	List emux0Uri        = (appInst.hwres_vadc_emux_0 != null)? appInst.hwres_vadc_emux_0.getSolverUri() : null
+	List emux1Uri        = (appInst.hwres_vadc_emux_1 != null)? appInst.hwres_vadc_emux_1.getSolverUri() : null
+	List shsGlobalUri    = (appInst.hwres_shs_global != null)? appInst.hwres_shs_global.getSolverUri() : null
+	List shsLoop0Uri     = (appInst.hwres_shs_loop1 != null)? appInst.hwres_shs_loop0.getSolverUri() : null
+	List shsLoop1Uri     = (appInst.hwres_shs_loop1 != null)? appInst.hwres_shs_loop1.getSolverUri() : null
+	List shsUnit0Uri     = (appInst.hwres_shs_shs_unit0 != null)? appInst.hwres_shs_shs_unit0.getSolverUri() : null
+	List shsUnit1Uri     = (appInst.hwres_shs_shs_unit1 != null)? appInst.hwres_shs_shs_unit1.getSolverUri() : null
+	
+	String family = daveEnv.project.selectedDevice.deviceId.family
+	String family_series = family + daveEnv.project.selectedDevice.deviceId.series
+	String device = family_series + "_" + daveEnv.project.selectedDevice.deviceId.icPackage
+	
+	boolean isfamily_4x = false,
+			isfamily_1x = false,
+			configureSHS
+				
+	int numGroups,
+		numChannels = 8
+
+	if (family == "XMC4") {
+		isfamily_4x = true
+		isfamily_1x = false
+	} else if (family == "XMC1") {
+		isfamily_1x = true
+		isfamily_4x = false
+	}
+	if (family_series ==~ 'XMC1[1234]') {
+		configureSHS = appInst.gcombo_configuration_mode.value == "Advanced"
+	} else {
+		configureSHS = false
+	}
+	if(family_series ==~ 'XMC4[4578]') {
+		numGroups = 4
+	} else if (family_series != "XMC11") { // XMC4[12], XMC11_Q040, XMC11_T038, XMC1[234]
+		numGroups = 2
+	} else { // XMC11_Q024, XMC11_T016
+		numGroups = 1
+	}
+	
+	boolean VADCBackgndAvailable = backgndUri != null,
+			VADCGlobalAvailable = globalUri != null,
+			VADCGlobalLimitsAvailable = family_series == 'XMC11' || globalLimitsUri != null,
+			VADCGlobalResultAvailable = globalResultUri != null,
+			VADCGroup0ConfigAvailable = group0ConfigUri != null,
+			VADCGroup1ConfigAvailable = numGroups == 1 || group1ConfigUri != null,
+			VADCGroup2ConfigAvailable = numGroups <= 2 || group2ConfigUri != null,
+			VADCGroup3ConfigAvailable = numGroups <= 2 || group3ConfigUri != null,
+			VADCGlobalClass0Available = globalClass0Uri != null,
+			VADCGlobalClass1Available = globalClass1Uri != null,
+			VADCEmuxAvailable = family_series == 'XMC11' || appInst.gcombo_configuration_mode.value == "Basic" ||
+				(emux0Uri != null && emux1Uri != null),
+			
+			SHSAvailable = (!(family_series ==~ 'XMC1[1234]')) || appInst.gcombo_configuration_mode.value == "Basic" ||
+					(shsGlobalUri != null && shsUnit0Uri != null && shsUnit1Uri != null),
+			SHSLoop0Available = (!(family_series ==~ 'XMC1[234]')) || appInst.gcombo_configuration_mode.value == "Basic" ||
+					appInst.gcheck_sigma_delta_loop0_enable.value == false || shsLoop0Uri != null,
+			SHSLoop1Available = (!(family_series ==~ 'XMC1[234]')) || appInst.gcombo_configuration_mode.value == "Basic" ||
+					appInst.gcheck_sigma_delta_loop1_enable.value == false || shsLoop1Uri != null,
+			configureAdvancedStuff = appInst.gcombo_configuration_mode.value == "Advanced",
+			SHSOnlySubSet = false
+			
+			if(family_series == 'XMC11')
+			{
+				SHSAvailable = true;
+				SHSLoop0Available = true;
+				SHSLoop1Available = true;
+				SHSOnlySubSet = true
+			}
+
+	/* If all of the resources are available */
+	if (VADCBackgndAvailable &&
+		VADCGlobalAvailable &&
+		VADCGlobalLimitsAvailable &&
+		VADCGlobalResultAvailable &&
+		VADCGroup0ConfigAvailable &&
+		VADCGroup1ConfigAvailable &&
+		VADCGroup2ConfigAvailable &&
+		VADCGroup3ConfigAvailable &&
+		VADCGlobalClass0Available &&
+		VADCGlobalClass1Available &&
+		VADCEmuxAvailable &&
+		SHSAvailable &&
+		SHSLoop0Available &&
+		SHSLoop1Available) {
+
+		/**********************************Dummy read*************************************/
+		
+		/*********************************************************************************/
+	
+		
+		out.print("""
+/***********************************************************************************************************************
+ * DATA STRUCTURES
+ **********************************************************************************************************************/
+
+VADC_GLOBAL_CONFIG_STATUS_t ${appLabel}_Init(void);""")
+
+if(family_series != 'XMC11' )
+{
+		for (groupNo in 0..numGroups-1) {
+			out.print("""
+/* Configuration of group ${groupNo} for the initialization */
+const XMC_VADC_GROUP_CONFIG_t group${groupNo}_init_config =
+{
+  .emux_config =
+  {
+    .stce_usage                 = (uint32_t) 0,                          /*Use STCE when the setting changes*/
+    .emux_mode                  = XMC_VADC_GROUP_EMUXMODE_SWCTRL,        /*Mode for Emux conversion*/
+    .emux_coding                = XMC_VADC_GROUP_EMUXCODE_BINARY,        /*Channel progression - binary format*/
+    .starting_external_channel  = (uint32_t) 0,                          /*Channel starts at 0 for EMUX*/
+    .connected_channel          = (uint32_t) 0                           /*Channel connected to EMUX*/
+  },
+
+  .class0 =
+  {
+    .sample_time_std_conv         = (uint32_t) 0,                        /*The Sample time is (2*tadci)*/
+    .conversion_mode_standard     = XMC_VADC_CONVMODE_12BIT,             /*12bit conversion Selected*/
+    .sampling_phase_emux_channel  = (uint32_t) 0,                        /*The Sample time is (2*tadci)*/
+    .conversion_mode_emux         = XMC_VADC_CONVMODE_12BIT              /*12bit conversion Selected*/
+  },  /* !<ICLASS-0 */
+
+  .class1 =
+  {
+    .sample_time_std_conv         = (uint32_t) 0,                        /*The Sample time is (2*tadci)*/
+    .conversion_mode_standard     = XMC_VADC_CONVMODE_12BIT,             /*12bit conversion Selected*/
+    .sampling_phase_emux_channel  = (uint32_t) 0,                        /*The Sample time is (2*tadci)*/
+    .conversion_mode_emux         = XMC_VADC_CONVMODE_12BIT              /*12bit conversion Selected*/
+  }, /* !< ICLASS-1 */
+
+  .boundary0                 = (uint32_t) 0,             /*Lower boundary value for Normal comparison mode*/
+  .boundary1                 = (uint32_t) 0,             /*Upper boundary value for Normal comparison mode*/
+  .arbitration_round_length  = (uint32_t) ${arbitration_round_length[appInst."gcombo_arbitration_slots_per_round_group${groupNo}".value]}U,               /*Number of arbitration slots per round selected */
+  .arbiter_mode              = (uint32_t) ${arbitration_mode[appInst."gcombo_arb_mode_group${groupNo}".value]}  /*Determines when the arbiter should run.*/
+};
+""")
+		} /* for all groups */
+
+
+		out.print("""
+/* Global configuration */
+const XMC_VADC_GLOBAL_CONFIG_t global_config =
+{
+  .boundary0  = ${appInst.ginteger_boundary0.value}U,
+  .boundary1  = ${appInst.ginteger_boundary1.value}U,
+
+  .clock_config =
+  {
+    .analog_clock_divider   = ${appInst.ginteger_globcfg_diva.value - 1}U,
+    .msb_conversion_clock   = ${(appInst.gcheck_globcfg_dcmsb.value == true) ? 1 : 0}U,
+    .arbiter_clock_divider  = ${appInst.ginteger_globcfg_divd.value - 1}U,
+  },
+
+  .class0 =
+  {
+    .sample_time_std_conv         = ${appInst.ginteger_globic0_std_conv_sample_phase_length.value}U,
+    .conversion_mode_standard     = ${input_class_conversion_mode[appInst.gcombo_globic0_std_conv_conversion_mode.value]},
+    .sampling_phase_emux_channel  = ${appInst.ginteger_globic0_emux_conv_sample_phase_length.value}U,
+    .conversion_mode_emux         = ${input_class_conversion_mode[appInst.gcombo_globic0_emux_conv_conversion_mode.value]},
+  },
+
+  .class1 =
+  {
+    .sample_time_std_conv         = ${appInst.ginteger_globic1_std_conv_sample_phase_length.value}U,
+    .conversion_mode_standard     = ${input_class_conversion_mode[appInst.gcombo_globic1_std_conv_conversion_mode.value]},
+    .sampling_phase_emux_channel  = ${appInst.ginteger_globic1_emux_conv_sample_phase_length.value}U,
+    .conversion_mode_emux         = ${input_class_conversion_mode[appInst.gcombo_globic1_emux_conv_conversion_mode.value]},
+  },
+
+  .data_reduction_control      = ${appInst.gcombo_drctr.options.indexOf(appInst.gcombo_drctr.value)}U,
+  .wait_for_read_mode          = ${(appInst.gcheck_result_register_wait_for_read_enable.value == true) ? 1 : 0}U,
+  .event_gen_enable            = ${(appInst.gcheck_result_register_event_enable.value == true) ? 1 : 0}U,
+  .disable_sleep_mode_control  = ${(appInst.gcheck_disable_sleep_mode.value == true) ? 1 : 0}U,
+};
+""")
+		for (groupNo in 0..numGroups-1) {
+			out.print("""
+const VADC_GLOBAL_CONFIG_GROUP_t group${groupNo}_config =
+{
+  .group_handle        = (XMC_VADC_GROUP_t *) (void*) VADC_G${groupNo},         /*Holds the hardware group pointer*/
+  .group_config_handle = &group${groupNo}_init_config, /*Holds the group config structure */
+  .post_calibration    = (bool) ${(appInst."gcheck_post_cal_group${groupNo}".value == true) ? true : false}, /* Enable or disable the post calibration*/
+};
+""")
+		}
+}else // only for XMC1100
+{
+	out.print("""
+/* Global configuration */
+const XMC_VADC_GLOBAL_CONFIG_t global_config =
+{
+  .boundary0  = ${appInst.ginteger_boundary0.value}U,
+  .boundary1  = ${appInst.ginteger_boundary1.value}U,
+
+  .class0 =
+  {
+    .sample_time_std_conv         = ${appInst.ginteger_globic0_std_conv_sample_phase_length.value}U,
+    .conversion_mode_standard     = ${input_class_conversion_mode[appInst.gcombo_globic0_std_conv_conversion_mode.value]},
+  },
+
+  .class1 =
+  {
+    .sample_time_std_conv         = ${appInst.ginteger_globic1_std_conv_sample_phase_length.value}U,
+    .conversion_mode_standard     = ${input_class_conversion_mode[appInst.gcombo_globic1_std_conv_conversion_mode.value]},
+  },
+
+  .data_reduction_control      = ${appInst.gcombo_drctr.options.indexOf(appInst.gcombo_drctr.value)}U,
+  .wait_for_read_mode          = ${(appInst.gcheck_result_register_wait_for_read_enable.value == true) ? 1 : 0}U,
+  .event_gen_enable            = ${(appInst.gcheck_result_register_event_enable.value == true) ? 1 : 0}U,
+  .disable_sleep_mode_control  = ${(appInst.gcheck_disable_sleep_mode.value == true) ? 1 : 0}U,
+};
+""")
+}
+String shs_config_calibration_order =''
+		if(configureSHS) {
+			
+			if(!SHSOnlySubSet)
+			{
+				shs_config_calibration_order = """  .calibration_order        = (XMC_VADC_GLOBAL_SHS_CALIBRATION_ORDER_t) 
+                              ${calibration_order[(configureAdvancedStuff) ? appInst.gcombo_shs_calibration_order.value : 'Do Conversions Then Calibration']}"""
+			}
+
+		out.print("""
+/* SHS configuration */
+const XMC_VADC_GLOBAL_SHS_CONFIG_t ${appLabel}_shs_config_handle =
+{
+  .shs_clock_divider        = ${appInst.ginteger_shs_divs.value - 1}U,
+  .analog_reference_select  = ${analog_reference_voltage[appInst.gcombo_shs_analog_ref.value]}U,
+${shs_config_calibration_order}  
+};
+""")
+			if(configureAdvancedStuff && !SHSOnlySubSet) {
+				out.print("""
+/* Stepper configuration */
+const XMC_VADC_GLOBAL_SHS_STEP_CONFIG_t ${appLabel}_stepper_config =
+{
+  .sh_unit_step0  = ${stepper_kernel_select[appInst.gcombo_stepper_step0_group.value]}U,
+  .enable_step0   = ${(appInst.gcheck_stepper_step0_enabled.value == true) ? 1 : 0}U,
+  .sh_unit_step1  = ${stepper_kernel_select[appInst.gcombo_stepper_step1_group.value]}U,
+  .enable_step1   = ${(appInst.gcheck_stepper_step1_enabled.value == true) ? 1 : 0}U,
+  .sh_unit_step2  = ${stepper_kernel_select[appInst.gcombo_stepper_step2_group.value]}U,
+  .enable_step2   = ${(appInst.gcheck_stepper_step2_enabled.value == true) ? 1 : 0}U,
+  .sh_unit_step3  = ${stepper_kernel_select[appInst.gcombo_stepper_step3_group.value]}U,
+  .enable_step3   = ${(appInst.gcheck_stepper_step3_enabled.value == true) ? 1 : 0}U,
+  .sh_unit_step4  = ${stepper_kernel_select[appInst.gcombo_stepper_step4_group.value]}U,
+  .enable_step4   = ${(appInst.gcheck_stepper_step4_enabled.value == true) ? 1 : 0}U,
+  .sh_unit_step5  = ${stepper_kernel_select[appInst.gcombo_stepper_step5_group.value]}U,
+  .enable_step5   = ${(appInst.gcheck_stepper_step5_enabled.value == true) ? 1 : 0}U,
+  .sh_unit_step6  = ${stepper_kernel_select[appInst.gcombo_stepper_step6_group.value]}U,
+  .enable_step6   = ${(appInst.gcheck_stepper_step6_enabled.value == true) ? 1 : 0}U,
+  .sh_unit_step7  = ${stepper_kernel_select[appInst.gcombo_stepper_step7_group.value]}U,
+  .enable_step7   = ${(appInst.gcheck_stepper_step7_enabled.value == true) ? 1 : 0}U
+};
+""")
+			}
+		
+		}
+
+		/* Write APP handle structure */
+		out.print("""
+/* APP handle structure */
+VADC_GLOBAL_CONFIG_t ${appLabel} =
+{
+  .init_function           = (${appLabel}_Init),""")
+		if(numGroups == 2) {
+			out.print("""
+  .group_ptrs_array        = {&group0_config,
+                              &group1_config },""")
+		} else if(numGroups > 2) {
+			out.print("""
+  .group_ptrs_array        = {&group0_config,
+                              &group1_config,
+                              &group2_config,
+                              &group3_config },""")
+		}
+				
+//		if(configureSHS) {
+//			out.print("""
+//  .shs_config_handle       = (XMC_VADC_GLOBAL_SHS_CONFIG_t*) &shs_config,""")
+//			if(configureAdvancedStuff && !SHSOnlySubSet) {
+//				out.print("""
+//  .shs_step_config_handle  = (XMC_VADC_GLOBAL_SHS_STEP_CONFIG_t*) &stepper_config,""")
+//			}
+//		}
+		out.print("""
+  .init_state              = (VADC_GLOBAL_CONFIG_STATUS_t) VADC_GLOBAL_CONFIG_STATUS_UNINITIALIZED,
+};
+""")
+		/* Write the init function definition */
+		String src_specific_result_reg = ''
+		if((family_series != "XMC45") && (family_series != "XMC11"))
+		{
+			src_specific_result_reg = """.src_specific_result_reg = (uint32_t) ${(appInst.gcombo_background_srcreg.value == "No Specific Register")? "0":appInst.gcombo_background_srcreg.value.split("GxRES")[-1]}"""
+		}
+		
+		out.print("""
+/**********************BACKGROUND scan Request source configuration*********************************/
+static const XMC_VADC_BACKGROUND_CONFIG_t ${appLabel}_background_scan_config = {
+  .conv_start_mode   = (uint32_t) ${StartMode[appInst.gcombo_background_startmode.options.indexOf(appInst.gcombo_background_startmode.value)]},        /* Conversion start mode WFS/CIR/CNR*/
+  .req_src_priority  = (uint32_t) ${rs_priority[appInst.gcombo_background_priority.options.indexOf(appInst.gcombo_background_priority.value)]}, /*The scan request source priority */
+  .trigger_signal    = (uint32_t) ${String temp = appInst.hwres_vadc_backgnd.getRegValue("","brsctrl_xtsel"); if(temp !=null){ trigger_signal[temp.toInteger()] } else { trigger_signal[0]} },          /*If trigger needed the signal input*/
+  .trigger_edge      = (uint32_t) ${Trigger[appInst.gcombo_background_trigger_edge_sel.options.indexOf(appInst.gcombo_background_trigger_edge_sel.value)]},   /*Trigger edge needed if trigger enabled*/
+  .gate_signal       = (uint32_t) ${String temp = appInst.hwres_vadc_backgnd.getRegValue("","brsctrl_gtsel"); if(temp !=null){ Gating_signal[temp.toInteger()] } else { Gating_signal[0]} },            /*If gating needed the signal input*/
+  .timer_mode        = (uint32_t) ${appInst.gcheck_background_timer_mode.value},                            /* equidistant sampling*/
+  .external_trigger  = (uint32_t) ${appInst.gcheck_background_trigger_enable.value},                       /*External trigger Enabled/Disabled*/
+  .req_src_interrupt = (uint32_t) ${appInst.gcheck_background_req_src_intr.value},                         /*Request source event Enabled/disabled*/
+  .enable_auto_scan  = (uint32_t) ${appInst.gcheck_background_autoscan.value},  /*Autoscan enabled/disabled */
+  .load_mode         = (uint32_t) XMC_VADC_SCAN_LOAD_COMBINE,   /*Response from SCAN when a Load event occours.*/
+$src_specific_result_reg
+};
+/***********************************************************************************************************************
+ * MACROS
+ **********************************************************************************************************************/
+#define ${appLabel}_MODULE_PTR ((XMC_VADC_GLOBAL_t*)(void*) VADC)
+${configureSHS?'#define '+appLabel+'_GLOBAL_SHS_PTR ((XMC_VADC_GLOBAL_SHS_t*)(void*) SHS0)':''}
+/***********************************************************************************************************************
+ * API IMPLEMENTATION
+ **********************************************************************************************************************/
+/* Channel initialization function */
+VADC_GLOBAL_CONFIG_STATUS_t ${appLabel}_Init(void)
+{
+#if (XMC_VADC_GROUP_AVAILABLE == 1U)
+  uint32_t group_index;
+#endif
+
+  if (${appLabel}.init_state == VADC_GLOBAL_CONFIG_STATUS_UNINITIALIZED)
+  {
+    /* Initialize an instance of Global hardware */
+    XMC_VADC_GLOBAL_Init(${appLabel}_MODULE_PTR, &global_config);
+
+    /* Initialize all the Groups */
+#if (XMC_VADC_GROUP_AVAILABLE == 1U)
+    for (group_index = (uint32_t)0; group_index < XMC_VADC_MAXIMUM_NUM_GROUPS; group_index++)
+    {
+      /*Initialize Group*/
+      XMC_VADC_GROUP_Init(${appLabel}.group_ptrs_array[group_index]->group_handle,
+                          ${appLabel}.group_ptrs_array[group_index]->group_config_handle);
+
+      /* Switch on the converter of the Group[group_index]*/
+      XMC_VADC_GROUP_SetPowerMode(${appLabel}.group_ptrs_array[group_index]->group_handle,
+                                  (XMC_VADC_GROUP_POWERMODE_t) XMC_VADC_GROUP_POWERMODE_NORMAL);
+
+      /* Disable the post calibration option for the respective group*/
+      if (${appLabel}.group_ptrs_array[group_index]->post_calibration == (bool)false)
+      {
+        XMC_VADC_GLOBAL_DisablePostCalibration(${appLabel}_MODULE_PTR,group_index);
+      }
+    }
+#endif /* _XMC_VADC_GROUP_AVAILABLE_ */
+""")
+		if(configureAdvancedStuff && (family_series != "XMC11"))
+		{
+			out.print("""
+    XMC_VADC_GLOBAL_BindGroupToEMux(${appLabel}_MODULE_PTR, 0U, ${Integer.valueOf(appInst.gcombo_emux_select_interface_0.value)}U);
+    XMC_VADC_GLOBAL_BindGroupToEMux(${appLabel}_MODULE_PTR, 1U, ${Integer.valueOf(appInst.gcombo_emux_select_interface_1.value)}U);""")
+		}
+		if(configureSHS) {
+			out.print("""
+#if(XMC_VADC_SHS_AVAILABLE == 1U)
+    XMC_VADC_GLOBAL_SHS_Init(${appLabel}_GLOBAL_SHS_PTR, &${appLabel}_shs_config_handle);""")
+  		if(configureAdvancedStuff && !SHSOnlySubSet) {
+				out.print("""
+    XMC_VADC_GLOBAL_SHS_SetStepperSequence(${appLabel}_GLOBAL_SHS_PTR, &${appLabel}_stepper_config);""")
+			}
+		for (groupNo in 0..numGroups-1) {
+			if(configureAdvancedStuff && !SHSOnlySubSet) {
+					out.print("""
+    XMC_VADC_GLOBAL_SHS_DisableAcceleratedMode(${appLabel}_GLOBAL_SHS_PTR, 
+                                               (XMC_VADC_GROUP_INDEX_t) XMC_VADC_GROUP_INDEX_${groupNo});""")
+				out.print("""
+    XMC_VADC_GLOBAL_SHS_SetMaxCalTime(${appLabel}_GLOBAL_SHS_PTR, (uint32_t) ${appInst.ginteger_shs_calibration_max_cycles.value});""")
+			}
+			if (appInst.gcheck_shs_calibration_enable.value == false && !SHSOnlySubSet) {
+				out.print("""
+    XMC_VADC_GLOBAL_SHS_DisableGainAndOffsetCalibrations(${appLabel}_GLOBAL_SHS_PTR, 
+                                                        (XMC_VADC_GROUP_INDEX_t) XMC_VADC_GROUP_INDEX_${groupNo});""")
+			}
+		}
+		if (configureAdvancedStuff) {		
+		if(appInst.gcheck_sigma_delta_loop0_enable.value == true) {
+			out.print("""
+  
+    XMC_VADC_GLOBAL_SHS_SetSigmaDeltaLoop(${appLabel}_GLOBAL_SHS_PTR, 
+                                          ${sigma_delta_loop_sh[appInst.gcombo_sigma_delta_loop0_sh.value]}, 
+                                          (XMC_VADC_SHS_LOOP_CH_t) XMC_VADC_SHS_LOOP_CH_0, 
+                                          (uint8_t) ${sigma_delta_loop_ch[appInst.gcombo_sigma_delta_loop0_ch.value]});""")
+		}
+		if(appInst.gcheck_sigma_delta_loop1_enable.value == true) {
+			out.print("""
+  
+    XMC_VADC_GLOBAL_SHS_SetSigmaDeltaLoop(${appLabel}_GLOBAL_SHS_PTR, 
+                                          ${sigma_delta_loop_sh[appInst.gcombo_sigma_delta_loop1_sh.value]}, 
+                                          (XMC_VADC_SHS_LOOP_CH_t) XMC_VADC_SHS_LOOP_CH_1, 
+                                          (uint8_t) ${sigma_delta_loop_ch[appInst.gcombo_sigma_delta_loop1_ch.value]});
+    XMC_VADC_GLOBAL_SHS_EnableSigmaDeltaLoop(${appLabel}_GLOBAL_SHS_PTR, 
+                                             (XMC_VADC_SHS_LOOP_CH_t)XMC_VADC_SHS_LOOP_CH_1);""")
+  	}
+		if(appInst.gcheck_sigma_delta_loop0_enable.value == true) {
+			out.print("""
+    XMC_VADC_GLOBAL_SHS_EnableSigmaDeltaLoop(${appLabel}_GLOBAL_SHS_PTR, 
+                                             (XMC_VADC_SHS_LOOP_CH_t) XMC_VADC_SHS_LOOP_CH_0);""");
+		}
+		
+}
+out.print("""
+#endif
+    """)
+		}
+		out.print("""
+
+    ${appInst.gcheck_startup_calibration.value? 'XMC_VADC_GLOBAL_StartupCalibration('+appLabel+'_MODULE_PTR);':''}
+""");
+if(appInst.gcheck_background_init.value)
+{
+    out.print("""    XMC_VADC_GLOBAL_BackgroundInit(${appLabel}_MODULE_PTR, &${appLabel}_background_scan_config);
+    XMC_VADC_GLOBAL_BackgroundSetGatingMode(${appLabel}_MODULE_PTR, 
+                                            (XMC_VADC_GATEMODE_t) ${Gating[appInst.gcombo_background_gating_sel.options.indexOf(appInst.gcombo_background_gating_sel.value)]});""")
+		if(appInst.gcheck_background_req_src_intr.value)
+		{
+			out.print("""
+    XMC_VADC_GLOBAL_BackgroundSetReqSrcEventInterruptNode(${appLabel}_MODULE_PTR, 
+                                                          (XMC_VADC_SR_t) ${ServiceRequestLines[appInst.hwres_vadc_backgnd.getRegValue("","globevnp_sev0np").toInteger()]});""")
+		}
+}
+		if(appInst.gcheck_result_register_event_enable.value)
+		{
+			out.print("""
+    XMC_VADC_GLOBAL_SetResultEventInterruptNode(${appLabel}_MODULE_PTR, 
+                                                (XMC_VADC_SR_t) ${ServiceRequestLines[appInst.hwres_vadc_global_result.getRegValue("","globevnp_revnp").toInteger()]});""")
+		}
+		out.print("""
+    ${appLabel}.init_state = (VADC_GLOBAL_CONFIG_STATUS_t) VADC_GLOBAL_CONFIG_STATUS_SUCCESS;
+  }
+  return (${appLabel}.init_state);
+}""")
+	}
+} /* for all instances */
+
+out.print("""
+/* CODE_BLOCK_END */""")

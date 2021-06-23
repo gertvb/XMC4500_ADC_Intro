@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="ASCII"?>
+<ApplicationModel:ApplicationData xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ApplicationModel="www.infineon.com/dave/applicationmodel" xmlns:ResourceModel="http://www.infineon.com/Davex/Resource.ecore">
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/VADC_GLOBAL_CONFIG/v4_0_8/VADC_GLOBAL_CONFIG_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CLOCK_XMC4/v4_0_22/CLOCK_XMC4_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/VADC/VADC_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/SCU/SCU_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_CCU4/v4_1_12/GLOBAL_CCU4_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU41/CCU41_1.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:DevicePackageNode">
+    <resource xsi:type="ResourceModel:DevicePackage" href="HW_RESOURCES/DEVICEPACKAGE/DEVICEPACKAGE_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port2/Port2_2.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/DEBUG/DEBUG_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CPU/CPU_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port15/Port15_15.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port5/Port5_5.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port1/Port1_1.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_1.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_2.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_3.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_4.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PortNode">
+    <resource xsi:type="ResourceModel:Port" href="HW_RESOURCES/Port14/Port14_14.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_5.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_2.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_3.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_4.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/USBD/v4_0_14/USBD_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/USBD_VCOM/v4_0_10/USBD_VCOM_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/USB/USB_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/GLOBAL_DMA/v4_0_8/GLOBAL_DMA_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DMA_CH/v4_1_8/DMA_CH_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/GPDMA1/GPDMA1_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/DLR/DLR_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/GPDMA0/GPDMA0_0.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/ERU1/ERU1_1.dd#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/DMA_CH/v4_1_8/DMA_CH_1.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_2.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU43/CCU43_3.dd#/0"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU43/CCU43_3.dd#/1"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU43/CCU43_3.dd#/2"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/INTERRUPT/v4_0_8/INTERRUPT_0.app#/"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:PeripheralNode">
+    <resource xsi:type="ResourceModel:Peripheral" href="HW_RESOURCES/CCU43/CCU43_3.dd#/3"/>
+  </nodes>
+  <nodes xsi:type="ApplicationModel:AppNode">
+    <resource xsi:type="ResourceModel:App" href="APPS/INTERRUPT/v4_0_8/INTERRUPT_1.app#/"/>
+  </nodes>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.0" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.2" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.5" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.27" target="//@nodes.9"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.27" target="//@nodes.1"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.28" target="//@nodes.27"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.30" target="//@nodes.9"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.31" target="//@nodes.30"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.36" target="//@nodes.30"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.37" target="//@nodes.0"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.41" target="//@nodes.9"/>
+  <connections xsi:type="ApplicationModel:NodeConnection" source="//@nodes.43" target="//@nodes.9"/>
+  <hwConnections href="APPS/CLOCK_XMC4/v4_0_22/CLOCK_XMC4_0.app#//@connections.0"/>
+  <hwConnections href="APPS/CLOCK_XMC4/v4_0_22/CLOCK_XMC4_0.app#//@connections.5"/>
+  <hwConnections href="APPS/CLOCK_XMC4/v4_0_22/CLOCK_XMC4_0.app#//@connections.6"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_0.app#//@connections.0"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_0.app#//@connections.1"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_0.app#//@connections.2"/>
+  <hwConnections href="APPS/GLOBAL_CCU4/v4_1_12/GLOBAL_CCU4_0.app#//@connections.0"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.7"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.8"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.9"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.10"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.11"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.12"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.13"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.14"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.15"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.16"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.17"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.18"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.19"/>
+  <hwConnections href="APPS/CPU_CTRL_XMC4/v4_0_16/CPU_CTRL_XMC4_0.app#//@connections.20"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_0.app#//@connections.0"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_0.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_0.app#//@connections.0"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_0.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_1.app#//@connections.0"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_1.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_2.app#//@connections.0"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_2.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_3.app#//@connections.0"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_3.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_4.app#//@connections.0"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_4.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_5.app#//@connections.0"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_5.app#//@connections.1"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_0.app#//@connections.2"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_1.app#//@connections.2"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#//@connections.0"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_1.app#//@connections.1"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_2.app#//@connections.0"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_2.app#//@connections.1"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_3.app#//@connections.0"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_3.app#//@connections.1"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_4.app#//@connections.0"/>
+  <hwConnections href="APPS/DIGITAL_IO/v4_0_16/DIGITAL_IO_4.app#//@connections.1"/>
+  <hwConnections href="APPS/DMA_CH/v4_1_8/DMA_CH_0.app#//@connections.0"/>
+  <hwConnections href="APPS/DMA_CH/v4_1_8/DMA_CH_0.app#//@connections.1"/>
+  <hwConnections href="APPS/DMA_CH/v4_1_8/DMA_CH_1.app#//@connections.0"/>
+  <hwConnections href="APPS/DMA_CH/v4_1_8/DMA_CH_1.app#//@connections.1"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_2.app#//@connections.0"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_2.app#//@connections.1"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_2.app#//@connections.2"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_2.app#//@connections.2"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_3.app#//@connections.2"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_4.app#//@connections.2"/>
+  <hwConnections href="APPS/ANALOG_IO/v4_0_10/ANALOG_IO_5.app#//@connections.2"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_2.app#//@connections.3"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_0.app#//@connections.3"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_0.app#//@connections.4"/>
+  <hwConnections href="APPS/VADC_GROUP_CONFIG/v4_0_6/VADC_GROUP_CONFIG_2.app#//@connections.4"/>
+</ApplicationModel:ApplicationData>

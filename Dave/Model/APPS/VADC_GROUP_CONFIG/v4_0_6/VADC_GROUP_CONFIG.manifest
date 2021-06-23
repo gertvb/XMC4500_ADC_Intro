@@ -1,0 +1,932 @@
+package Model.APPS.VADC_GROUP_CONFIG.v4_0_6;
+
+/*************** Revision History **********************************************
+ Version     Date          Description
+ 4.0.2       27-Jun-2016   Initial version for DAVEv4<br>
+ 4.0.4       18-Aug-2016   Documentation update.<br>                              
+ 4.0.6       31-May-2017   Added EMUX control.<br>                              
+ *******************************************************************************/
+import java.util.List;
+import java.util.Map;
+
+import ifx.davex.app.manifest.*
+
+class  VADC_GROUP_CONFIG extends VADC_GROUP_CONFIG_GUI {
+
+	/**
+	 * Global constant values
+	 */
+	static final int VADC_GROUP_CONFIG_GROUP_INPUT_CLASS_0 = 0
+	static final int VADC_GROUP_CONFIG_GROUP_INPUT_CLASS_1 = 1
+	static final int VADC_GROUP_CONFIG_GLOBAL_INPUT_CLASS_0 = 2
+	static final int VADC_GROUP_CONFIG_GLOBAL_INPUT_CLASS_1 = 3
+	static final int VADC_GROUP_CONFIG_GROUP_INPUT_CLASSES = 2
+	static final int VADC_GROUP_CONFIG_TOTAL_INPUT_CLASSES = 4
+	static final int VADC_GROUP_CONFIG_GROUP_CHANNELS_ASSIGNED_REGISTERS = 128 // 16 Registers x 8 Channels possible/each
+	static final int VADC_GROUP_CONFIG_GROUP_CHANNELS = 8
+	static final int VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS = 16
+	
+
+		private static final Map trigger_options = ["No External Trigger":"No Trigger",
+								"External Trigger Upon Rising Edge":"Rising Edge",
+								"External Trigger Upon Falling Edge":"Falling Edge",
+								"External Trigger Upon Both The Edge":"Both Edges",
+								"Autoscan":"Autoscan"];	
+	
+		private static final Map gating_options = ["No Conversion Request is Issued":"Block conversion",
+								"All Conversion Requests are Issued":"Always convert",
+								"Conversion Request Issued When Gate is High":"Ungate on a high",
+								"Conversion Request Issued When Gate is Low":"Ungate on a low"];
+		
+		private static final Map priority_map = ["Priority-0  (Lowest Priority)":"0 (lowest)",
+			"Priority-1":"1",
+			"Priority-2":"2",
+			"Priority-3 (Highest Priority)":"3 (highest)"];					
+		
+		private static final Map conversion_start_mode_map = ["Wait For Start Mode":"Wait-For-Start",
+			"Cancel Inject Repeat Mode":"Cancel-Inject-Repeat"];
+		
+		private static final Map channel_event_mode_map = ["NCM":"If result is inside the boundary band",
+			"FCM":"If result becomes high (above cmp. val.)"];
+		
+		private static final List channel_event_mode_ncm = ["Never","If Result is Inside The Boundary Band",
+			"If Result is Outside The Boundary Band","Always (ignore band)"];
+		
+		private static final List channel_event_mode_fcm = ["Never","If Result Becomes High (Above Cmp. Val.)",
+			"If Result Becomes Low (Below Cmp. Val.)","If Result Switches to Either Level"];
+
+	/*-----------------------Begin : APP Properties-------------------------------------------------------*/
+	/* Note  : Following App properties are mandatory and important */
+	/* Begin : APP property section */
+
+	/**
+	 * App version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version = '4.0.6'
+
+	/**
+	 * App categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = [
+		'Peripheral Configuration'
+	]
+
+	/** 
+	 * Minimum DAVE version required for this APP.
+	 * 
+	 * It is	 string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.3.2'
+
+	/** 
+	 * Keywords used by search feature in Apps selection view
+	 * 
+	 * It is a list of string.
+	 */
+	def keywords = [
+		'Config',
+		'ADC',
+		'VADC',
+		'Analog',
+		'Request Source',
+		'Measurement',
+		'Peripheral Configuration',
+		'VADC_GROUP_CONFIG'
+	]
+
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = ["XMC1.[1,2,3,4].*.*.*":"1.0.0", "XMC4.[1,2,3,4,5,7,8].*.*.*":"1.0.0"]
+	
+
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once. 
+	 */
+	def singleton     = false
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = false
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "Configures a specific group of the VADC peripheral"
+
+	/*-----------------End: APP Properties----------------------------------------------------------------*/
+	/*-----------------Begin : User Variables for hardware resources and virtual signals------------------*/    	
+
+	/*Required Apps*/
+	MRequiredApp appres_global
+
+
+	/*Required resource groups*/
+	MVirtualResourceGroup hwres_vadc_group_queue 		                                         /*[peripheral, vadc, 0, group, *, queue]*/
+	MVirtualResourceGroup hwres_vadc_group_scan 		                                         /*[peripheral, vadc, 0, group, *, scan]*/
+	MVirtualResourceGroup hwres_vadc_group_sync 		                                         /*[peripheral, vadc, 0, group, *, sync]*/
+	
+	MVirtualResourceGroup hwres_vadc_group_ch0 			                                         /*[peripheral, vadc, 0, group, *, ch, 0]*/
+	MVirtualResourceGroup hwres_vadc_group_ch1 			                                         /*[peripheral, vadc, 0, group, *, ch, 1]*/
+	MVirtualResourceGroup hwres_vadc_group_ch2 			                                         /*[peripheral, vadc, 0, group, *, ch, 2]*/
+	MVirtualResourceGroup hwres_vadc_group_ch3 		 	                                         /*[peripheral, vadc, 0, group, *, ch, 3]*/
+	MVirtualResourceGroup hwres_vadc_group_ch4 		 	                                         /*[peripheral, vadc, 0, group, *, ch, 4]*/
+	MVirtualResourceGroup hwres_vadc_group_ch5 		 	                                         /*[peripheral, vadc, 0, group, *, ch, 5]*/
+	MVirtualResourceGroup hwres_vadc_group_ch6 		 	                                         /*[peripheral, vadc, 0, group, *, ch, 6]*/
+	MVirtualResourceGroup hwres_vadc_group_ch7 		  	                                         /*[peripheral, vadc, 0, group, *, ch, 7]*/
+	RArray<MVirtualResourceGroup> rarray_hwres_vadc_group_config_channels = RArray(8)            /*[peripheral, vadc, 0, group, *, ch, i]*/
+
+	MVirtualResourceGroup hwres_vadc_group_class0	  	                                         /*[peripheral, vadc, 0, group, *, class, 0]*/
+	MVirtualResourceGroup hwres_vadc_group_class1		                                         /*[peripheral, vadc, 0, group, *, class, 1]*/
+	RArray<MVirtualResourceGroup> rarray_hwres_vadc_group_config_input_classes = RArray(2)       /*[peripheral, vadc, 0, group, *, class, i]*/
+
+	MVirtualResourceGroup hwres_shs_shsunit0	  	                                             /*[peripheral, shs, 0, shs_unit, 0]*/
+	MVirtualResourceGroup hwres_shs_shsunit1		                                             /*[peripheral, shs, 0, shs_unit, 1]*/
+	
+	SolverVariable sv_result_register_selection_0 = SolverVariable()
+	SolverVariable sv_result_register_selection_1 = SolverVariable()
+	SolverVariable sv_result_register_selection_2 = SolverVariable()
+	SolverVariable sv_result_register_selection_3 = SolverVariable()
+	SolverVariable sv_result_register_selection_4 = SolverVariable()
+	SolverVariable sv_result_register_selection_5 = SolverVariable()
+	SolverVariable sv_result_register_selection_6 = SolverVariable()
+	SolverVariable sv_result_register_selection_7 = SolverVariable()
+	SolverVariable sv_result_register_selection_8 = SolverVariable()
+	SolverVariable sv_result_register_selection_9 = SolverVariable()
+	SolverVariable sv_result_register_selection_10 = SolverVariable()
+	SolverVariable sv_result_register_selection_11 = SolverVariable()
+	SolverVariable sv_result_register_selection_12 = SolverVariable()
+	SolverVariable sv_result_register_selection_13 = SolverVariable()
+	SolverVariable sv_result_register_selection_14 = SolverVariable()
+	SolverVariable sv_result_register_selection_15 = SolverVariable()
+	RArray<SolverVariable> rarray_sv_channel_result_register_selection = RArray(8)
+	RArray<MVirtualResourceGroup> rarray_hwres_vadc_group_config_result_registers = RArray(16) 
+
+
+	/*Required input virtual signals */
+	MVirtualSignal vs_vadc_group_config_queue_global_signal                                      /*[peripheral, vadc, 0, group, *, queue, global_signal]*/
+	MVirtualSignal vs_vadc_group_config_queue_greqgt0sel                                         /*[peripheral, vadc, 0, group, *, queue, greqgt0sel]*/
+	MVirtualSignal vs_vadc_group_config_queue_greqtr0sel                                         /*[peripheral, vadc, 0, group, *, queue, greqtr0sel]*/
+	MVirtualSignal vs_vadc_group_config_scan_global_signal                                       /*[peripheral, vadc, 0, group, *, scan, global_signal]*/
+	MVirtualSignal vs_vadc_group_config_scan_greqgt1sel                                          /*[peripheral, vadc, 0, group, *, scan, greqgt1sel]*/
+	MVirtualSignal vs_vadc_group_config_scan_greqtr1sel                                          /*[peripheral, vadc, 0, group, *, scan, greqtr1sel]*/
+	MVirtualSignal vs_vadc_group_config_sync_global_signal                                       /*[peripheral, vadc, 0, group, *, sync, global_signal]*/
+	MVirtualSignal vs_vadc_group_config_sync_ready_in                                            /*[peripheral, vadc, 0, group, *, sync, ready_in]*/
+	MVirtualSignal vs_vadc_group_config_sync_sync_in                                             /*[peripheral, vadc, 0, group, *, sync, sync_in]*/
+
+	MVirtualSignal vs_group_vadc_ch0_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 0, gch]*/
+	MVirtualSignal vs_group_vadc_ch1_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 1, gch]*/
+	MVirtualSignal vs_group_vadc_ch2_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 2, gch]*/
+	MVirtualSignal vs_group_vadc_ch3_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 3, gch]*/
+	MVirtualSignal vs_group_vadc_ch4_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 4, gch]*/
+	MVirtualSignal vs_group_vadc_ch5_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 5, gch]*/
+	MVirtualSignal vs_group_vadc_ch6_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 6, gch]*/
+	MVirtualSignal vs_group_vadc_ch7_gch                                                         /*[peripheral, vadc, 0, group, *, ch, 7, gch]*/
+	RArray<MVirtualSignal> rarray_vs_vadc_group_config_channels_input = RArray(8)                /*[peripheral, vadc, 0, group, *, ch, i, gch]*/
+	RArray<MVirtualSignal> rarray_vs_vadc_group_config_channels_iclass_sel = RArray(8)           /*[peripheral, vadc, 0, group, *, ch, i, iclass_sel]*/
+	RArray<MVirtualSignal> rarray_vs_vadc_group_config_channels_select = RArray(8)               /*[peripheral, vadc, 0, group, *, ch, i, select]*/	
+
+	MVirtualSignal vs_group_vadc_result_adv0_res_sel                                             /*[peripheral, vadc, 0, group, *, result_adv, 0, res_sel]*/
+	MVirtualSignal vs_group_vadc_result_adv1_res_sel                                             /*[peripheral, vadc, 0, group, *, result_adv, 0, res_sel]*/
+	MVirtualSignal vs_group_vadc_result_adv2_res_sel                                             /*[peripheral, vadc, 0, group, *, result_adv, 0, res_sel]*/
+	MVirtualSignal vs_group_vadc_result_adv3_res_sel                                             /*[peripheral, vadc, 0, group, *, result_adv, 0, res_sel]*/
+	MVirtualSignal vs_group_vadc_result4_res_sel                                                 /*[peripheral, vadc, 0, group, *, result, 4, res_sel]*/
+	MVirtualSignal vs_group_vadc_result5_res_sel                                                 /*[peripheral, vadc, 0, group, *, result, 5, res_sel]*/
+	MVirtualSignal vs_group_vadc_result6_res_sel                                                 /*[peripheral, vadc, 0, group, *, result, 6, res_sel]*/
+	MVirtualSignal vs_group_vadc_result_filter7_res_sel                                          /*[peripheral, vadc, 0, group, *, result_filter, 7, res_sel]*/
+	MVirtualSignal vs_group_vadc_result8_res_sel                                                 /*[peripheral, vadc, 0, group, *, result, 8, res_sel]*/
+	MVirtualSignal vs_group_vadc_result9_res_sel                                                 /*[peripheral, vadc, 0, group, *, result, 9, res_sel]*/
+	MVirtualSignal vs_group_vadc_result10_res_sel                                                /*[peripheral, vadc, 0, group, *, result, 10, res_sel]*/
+	MVirtualSignal vs_group_vadc_result11_res_sel                                                /*[peripheral, vadc, 0, group, *, result, 11, res_sel]*/
+	MVirtualSignal vs_group_vadc_result12_res_sel                                                /*[peripheral, vadc, 0, group, *, result, 12, res_sel]*/
+	MVirtualSignal vs_group_vadc_result13_res_sel                                                /*[peripheral, vadc, 0, group, *, result, 13, res_sel]*/
+	MVirtualSignal vs_group_vadc_result14_res_sel                                                /*[peripheral, vadc, 0, group, *, result, 14, res_sel]*/
+	MVirtualSignal vs_group_vadc_result_filter15_res_sel                                         /*[peripheral, vadc, 0, group, *, result_filter, 14, res_sel]*/
+	RArray<MVirtualSignal> rarray_vs_vadc_group_config_result_registers_res_sel = RArray(16)     /*[peripheral, vadc, 0, group, *, result_filter, i, res_sel]*/
+
+
+	/*Required output virtual signals */
+	MVirtualSignal vs_vadc_group_config_queue_sev                                                /*[peripheral, vadc, 0, group, *, queue, sev]*/
+	MVirtualSignal vs_vadc_group_config_scan_sev                                                 /*[peripheral, vadc, 0, group, *, scan, sev]*/
+	MVirtualSignal vs_vadc_group_config_sync_adc_anon                                            /*[peripheral, vadc, 0, group, *, sync, adc_anon]*/
+	MVirtualSignal vs_vadc_group_config_sync_adc_ready                                           /*[peripheral, vadc, 0, group, *, sync, adc_ready]*/
+	MVirtualSignal vs_vadc_group_config_sync_req                                                 /*[peripheral, vadc, 0, group, *, sync, req]*/
+
+	MVirtualSignal vs_group_vadc_ch0_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 0, cev]*/
+	MVirtualSignal vs_group_vadc_ch0_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 0, res_sel]*/
+	MVirtualSignal vs_group_vadc_ch1_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 1, cev]*/
+	MVirtualSignal vs_group_vadc_ch1_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 1, res_sel]*/
+	MVirtualSignal vs_group_vadc_ch2_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 2, cev]*/
+	MVirtualSignal vs_group_vadc_ch2_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 2, res_sel]*/
+	MVirtualSignal vs_group_vadc_ch3_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 3, cev]*/
+	MVirtualSignal vs_group_vadc_ch3_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 3, res_sel]*/
+	MVirtualSignal vs_group_vadc_ch4_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 4, cev]*/
+	MVirtualSignal vs_group_vadc_ch4_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 4, res_sel]*/
+	MVirtualSignal vs_group_vadc_ch5_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 5, cev]*/
+	MVirtualSignal vs_group_vadc_ch5_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 5, res_sel]*/
+	MVirtualSignal vs_group_vadc_ch6_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 6, cev]*/
+	MVirtualSignal vs_group_vadc_ch6_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 6, res_sel]*/
+	MVirtualSignal vs_group_vadc_ch7_cev                                                         /*[peripheral, vadc, 0, group, *, ch, 7, cev]*/
+	MVirtualSignal vs_group_vadc_ch7_res_sel                                                     /*[peripheral, vadc, 0, group, *, ch, 7, res_sel]*/
+	RArray<MVirtualSignal> rarray_vs_vadc_group_config_channels_cev = RArray(8)                  /*[peripheral, vadc, 0, group, *, ch, i, cev]*/
+
+	MVirtualSignal vs_group_vadc_result_adv0_gbflout        /*[peripheral, vadc, 0, group, *, result_adv, 0, gbflout]*/
+	MVirtualSignal vs_group_vadc_result_adv0_rev            /*[peripheral, vadc, 0, group, *, result_adv, 0, rev]*/
+	MVirtualSignal vs_group_vadc_result_adv1_gbflout        /*[peripheral, vadc, 0, group, *, result_adv, 0, gbflout]*/
+	MVirtualSignal vs_group_vadc_result_adv1_rev            /*[peripheral, vadc, 0, group, *, result_adv, 0, rev]*/
+	MVirtualSignal vs_group_vadc_result_adv2_gbflout        /*[peripheral, vadc, 0, group, *, result_adv, 0, gbflout]*/
+	MVirtualSignal vs_group_vadc_result_adv2_rev            /*[peripheral, vadc, 0, group, *, result_adv, 0, rev]*/
+	MVirtualSignal vs_group_vadc_result_adv3_gbflout        /*[peripheral, vadc, 0, group, *, result_adv, 0, gbflout]*/
+	MVirtualSignal vs_group_vadc_result_adv3_rev            /*[peripheral, vadc, 0, group, *, result_adv, 0, rev]*/
+	MVirtualSignal vs_group_vadc_result4_rev                /*[peripheral, vadc, 0, group, *, result, 4, rev]*/
+	MVirtualSignal vs_group_vadc_result5_rev                /*[peripheral, vadc, 0, group, *, result, 5, rev]*/
+	MVirtualSignal vs_group_vadc_result6_rev                /*[peripheral, vadc, 0, group, *, result, 6, rev]*/
+	MVirtualSignal vs_group_vadc_result_filter7_rev         /*[peripheral, vadc, 0, group, *, result_filter, 7, rev]*/
+	MVirtualSignal vs_group_vadc_result8_rev                /*[peripheral, vadc, 0, group, *, result, 8, rev]*/
+	MVirtualSignal vs_group_vadc_result9_rev                /*[peripheral, vadc, 0, group, *, result, 9, rev]*/
+	MVirtualSignal vs_group_vadc_result10_rev               /*[peripheral, vadc, 0, group, *, result, 10, rev]*/
+	MVirtualSignal vs_group_vadc_result11_rev               /*[peripheral, vadc, 0, group, *, result, 11, rev]*/
+	MVirtualSignal vs_group_vadc_result12_rev               /*[peripheral, vadc, 0, group, *, result, 12, rev]*/
+	MVirtualSignal vs_group_vadc_result13_rev               /*[peripheral, vadc, 0, group, *, result, 13, rev]*/
+	MVirtualSignal vs_group_vadc_result14_rev               /*[peripheral, vadc, 0, group, *, result, 14, rev]*/
+	MVirtualSignal vs_group_vadc_result_filter15_rev        /*[peripheral, vadc, 0, group, *, result_filter, 14, rev]*/
+	RArray<MVirtualSignal> rarray_vs_vadc_group_config_result_registers_gbflout = RArray(4)      /*[peripheral, vadc, 0, group, *, result_adv, i, gbflout]*/
+	RArray<MVirtualSignal> rarray_vs_vadc_group_config_result_registers_rev = RArray(16)         /*[peripheral, vadc, 0, group, *, result_xx, i, rev]*/	
+
+	MVirtualSignal vs_vadc_group_config_gblout0
+	MVirtualSignal vs_vadc_group_config_gblout1
+	MVirtualSignal vs_vadc_group_config_gblout2
+	MVirtualSignal vs_vadc_group_config_gblout3
+
+	
+	/*Required APPs virtual signals */
+	MVirtualSignalRA vs_vadc_group_config_global
+
+
+	/*Variable definition*/
+	SolverVariable sv_vadc_no = SolverVariable()
+	SolverVariable sv_shs_no = SolverVariable()
+	SolverVariable sv_group_no = SolverVariable()
+
+	GFloat gfloat_fADC = GFloat()
+	GInteger ginteger_globcfg_divd = GInteger()
+	GFloat gfloat_fADCI = GFloat()
+	GCheck gcheck_dcmsb = GCheck()
+	GFloat gfloat_tadc = GFloat()
+	GFloat gfloat_tadci = GFloat()
+	GString global_ic0_std_conv_conversion_mode = GString()
+	GString global_ic1_std_conv_conversion_mode = GString()
+	
+	RArray<GString> rarray_scan_req_src_channels = RArray(8)
+	RArray<GString> rarray_bkgnd_req_src_channels = RArray(8)
+	RArray<GCheck> rarray_channels_consumed = RArray(8)
+	RArray<GString> rarray_channel_names = RArray(8)
+	RArray<GCheck> rarray_channels_use_fast_compare = RArray(8)
+	RArray<GInteger> rarray_channels_result_register = RArray(8)
+	RArray<GCheck> rarray_result_registers_generate_event = RArray(16)
+	RArray<GCheck> rarray_result_registers_use_filtering = RArray(16)
+	RArray<GCheck> rarray_gcheck_en_bfl = RArray(5)
+	RArray<GString> rarray_conversion_mode_value = RArray(4)
+	
+	
+	
+	/*-----------------End : User Variables for hardware resources and virtual signals--------------------*/
+	/*-----------------Begin : APP Constructor and Logic -------------------------------------------------*/
+
+	
+	public VADC_GROUP_CONFIG(DaveEnv daveEnv) {
+		/* -------------------------------------------------------------- */
+		/* --------------Local variables & constants--------------------- */
+		/* -------------------------------------------------------------- */
+		final String family = daveEnv.project.selectedDevice.deviceId.family,
+			  		 family_series = family + daveEnv.project.selectedDevice.deviceId.series,
+					 device = family_series + "_" + daveEnv.project.selectedDevice.deviceId.icPackage
+		final boolean isfamily_4x,
+		 			  isfamily_1x,
+					  hasVADC2Groups,
+					  hasVADC4Groups
+
+		List<MF> consumesChannel = new ArrayList<MF>(VADC_GROUP_CONFIG_GROUP_CHANNELS)
+		List<MF> generatesChannelEvent = new ArrayList<MF>(VADC_GROUP_CONFIG_GROUP_CHANNELS)
+		List<MF> generatesResultEvent = new ArrayList<MF>(VADC_GROUP_CONFIG_GROUP_CHANNELS)
+		List<MF> consumesResultReg = new ArrayList<MF>(VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS)
+					  
+
+		for (chNo in 0..VADC_GROUP_CONFIG_GROUP_CHANNELS-1) {
+			rarray_channel_names[chNo] = GString(value:"Channel ${chNo}")
+			rarray_channels_consumed[chNo] = GCheck()
+			rarray_channels_use_fast_compare[chNo] = GCheck()
+			rarray_channels_result_register[chNo] = GInteger()
+			rarray_scan_req_src_channels[chNo] = this."gcheck_scan_req_src_ch${chNo}"
+			rarray_bkgnd_req_src_channels[chNo] = this."gcheck_bkgnd_req_src_ch${chNo}"
+			rarray_hwres_vadc_group_config_channels[chNo] = this."hwres_vadc_group_ch${chNo}"
+			rarray_vs_vadc_group_config_channels_input[chNo] = this."vs_group_vadc_ch${chNo}_gch"
+			rarray_vs_vadc_group_config_channels_cev[chNo] = this."vs_group_vadc_ch${chNo}_cev"
+		}
+		for (icNo in 0..VADC_GROUP_CONFIG_GROUP_INPUT_CLASSES-1) {
+			rarray_hwres_vadc_group_config_input_classes[icNo] = this."hwres_vadc_group_class${icNo}"
+		}
+		for (resReg in 0..VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS-1) {
+			rarray_result_registers_generate_event[resReg] = GCheck()
+			rarray_result_registers_use_filtering[resReg] = GCheck()
+		}
+		
+		/* ------------------------------------------------------------- */
+		/* ------------------------------------------------------------- */
+		/* -----------------specific for XMC11-------------------------- */
+		if(family_series == 'XMC11')
+		{
+			gtab_channels.visible =false
+			gtab_arbitration.visible = false
+			gtab_input_classes.visible = false
+			gtab_result_registers.visible = false
+			gtab_general_settings.visible = false
+			gimage_queue_req_src.enabled = false
+			gimage_scan_req_src.enabled = false
+		}
+		/* ------------------------------------------------------------- */
+		/* ------------------------------------------------------------- */
+		/* ---------- Manifest function references ---------------------- */
+		/* -------------------------------------------------------------- */
+		/* ----- TAB : CHANNELS ----------------------------------------- */
+		for (channelNo in 0..VADC_GROUP_CONFIG_GROUP_CHANNELS-1) {
+			int ch = channelNo
+			consumesChannel[ch] = MF({
+				(rarray_channels_consumed[ch].value)
+			}, Boolean)
+			generatesChannelEvent[ch] = MF({
+				rarray_channels_consumed[ch].value &&
+				rArraygindexgroup_channels_configuration[ch].gcombo_ch_event_mode.value != "Never"
+			}, Boolean)
+		}
+		//TODO
+		if(family_series != 'XMC11')
+		{
+		for (resultReg in 0..VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS-1) {
+			int res = resultReg
+			consumesResultReg[res] = MF({
+				Boolean consumeRegister= false;
+					
+					consumeRegister = get_result_reg_consumed(rArraygindexgroup_channels_configuration[0].gcombo_result_register.value, res, rarray_channels_consumed[0].value)
+					consumeRegister |= get_result_reg_consumed(rArraygindexgroup_channels_configuration[1].gcombo_result_register.value, res, rarray_channels_consumed[1].value)
+					consumeRegister |= get_result_reg_consumed(rArraygindexgroup_channels_configuration[2].gcombo_result_register.value, res, rarray_channels_consumed[2].value)
+					consumeRegister |= get_result_reg_consumed(rArraygindexgroup_channels_configuration[3].gcombo_result_register.value, res, rarray_channels_consumed[3].value)
+					consumeRegister |= get_result_reg_consumed(rArraygindexgroup_channels_configuration[4].gcombo_result_register.value, res, rarray_channels_consumed[4].value)
+					consumeRegister |= get_result_reg_consumed(rArraygindexgroup_channels_configuration[5].gcombo_result_register.value, res, rarray_channels_consumed[5].value)
+					consumeRegister |= get_result_reg_consumed(rArraygindexgroup_channels_configuration[6].gcombo_result_register.value, res, rarray_channels_consumed[6].value)
+					consumeRegister |= get_result_reg_consumed(rArraygindexgroup_channels_configuration[7].gcombo_result_register.value, res, rarray_channels_consumed[7].value)
+					
+					consumeRegister |= get_result_reg_non_default_config(rArraygindexgroup_result_registers_configuration[res].gcombo_result_register_data_modification_mode.value, 
+																		 rArraygindexgroup_result_registers_configuration[res].gcombo_result_register_drctr.value,
+																		 rArraygindexgroup_result_registers_configuration[res].gcheck_result_register_wait_for_read_enable.value,
+																		 rArraygindexgroup_result_registers_configuration[res].gcheck_result_register_fifo_mode_enable.value, 
+																		 rArraygindexgroup_result_registers_configuration[res].gcheck_result_register_event_enable.value, 
+																		 rArraygindexgroup_result_registers_configuration[res].gcheck_result_reg_ass.value )
+					consumeRegister |= (gcombo_queue_req_src_res_reg.value != "No Specific Register") && (gcombo_queue_req_src_res_reg.value.split("GxRES")[-1].toInteger() == res)
+					consumeRegister |= (gcombo_scan_req_src_res_reg.value != "No Specific Register") && (gcombo_scan_req_src_res_reg.value.split("GxRES")[-1].toInteger() == res)
+					consumeRegister |= (gstring_bkgnd_req_src_result_reg.value != "No Specific Register") && (gstring_bkgnd_req_src_result_reg.value.split("GxRES")[-1].toInteger() == res)
+//					println("consumeRegister"+consumeRegister,MSG_INFORMATION)				
+			consumeRegister}, Boolean)
+
+		}
+		
+		
+		/* ----- TAB : RESULT REGISTERS --------------------------------- */
+		for (regNo in 0..VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS-1) {
+			int r = regNo
+			generatesResultEvent[r] = MF({
+				rArraygindexgroup_result_registers_configuration[r].gcheck_result_register_event_enable.value == true
+			}, Boolean)
+		}
+		
+		} //if(family_series != 'XMC11')
+		
+		/* -------------------------------------------------------------- */
+		/* ---------- Target Specific User Variable Initialization ------ */
+		/* -------------------------------------------------------------- */
+		if (family == "XMC4") {
+			isfamily_4x = true
+		} else if (family == "XMC1") {
+			isfamily_1x = true
+		}
+		hasVADC2Groups = family_series ==~ 'XMC1[1234]' || family_series ==~ 'XMC4[12]'
+		hasVADC4Groups = family_series ==~ 'XMC4[4578]'
+
+		/* -------------------------------------------------------------- */
+		/* ------------ APP consumption Block --------------------------- */
+		/* -------------------------------------------------------------- */
+		appres_global = MRequiredApp("VADC_GLOBAL_CONFIG", "VADC_GLOBAL_CONFIG", RSHARABLE, "4.0.2")
+
+		gfloat_fADC.value = MF({ appres_global.getVal(["gfloat_peripherial_clk_freq", "value"]) }, Float)
+		gfloat_fADCI.value = MF({ appres_global.getVal(["gfloat_act_analog_clk", "value"]) }, Float)
+		ginteger_globcfg_divd.value = MF({ appres_global.getVal(["ginteger_globcfg_divd", "value"]) }, Integer)
+		global_ic0_std_conv_conversion_mode.value = MF({ appres_global.getVal(["gcombo_globic0_std_conv_conversion_mode", "value"]) }, String)
+		global_ic1_std_conv_conversion_mode.value = MF({ appres_global.getVal(["gcombo_globic0_std_conv_conversion_mode", "value"]) }, String)
+		gstring_arbitration_slot2_priority.value = MF({priority_map[appres_global.getVal(["gcombo_background_priority", "value"])]},String)
+		gstring_arbitration_slot2_conversion_start_mode.value = MF({conversion_start_mode_map[appres_global.getVal(["gcombo_background_startmode", "value"])]},String)
+		
+		
+		/* -------------------------------------------------------------- */
+		/* ------------ Hardware resource consumption block ------------- */
+		/* -------------------------------------------------------------- */
+//		if (hasVADC2Groups) {
+//			addUriElementRangeConstraint(sv_group_no, [0,1])
+//		} else if (hasVADC4Groups) {
+//			addUriElementRangeConstraint(sv_group_no, [0,1,2,3])
+//		}
+		if(family_series != 'XMC11')
+		{
+			hwres_vadc_group_queue = MVirtualResourceGroup("Queue Request Source", ["peripheral", "vadc", sv_vadc_no, "group", sv_group_no, "queue"])
+			hwres_vadc_group_scan  = MVirtualResourceGroup("Scan Request Source", ["peripheral", "vadc", sv_vadc_no, "group", sv_group_no, "scan"])
+			hwres_vadc_group_sync  = MVirtualResourceGroup(MF({"Group Sync "+(gcombo_synctr_stsel.value=="Master"?"Master":"Slave")},String), ["peripheral", "vadc", sv_vadc_no, "group", sv_group_no, "sync"])
+		}
+		for (channelNo in 0..VADC_GROUP_CONFIG_GROUP_CHANNELS-1) {
+			int chNo = channelNo
+			// initalize the channels to different result registers			
+			this."hwres_vadc_group_ch${channelNo}" = MVirtualResourceGroup("Channel ${channelNo}",
+					["peripheral", "vadc", sv_vadc_no, "group", sv_group_no, "ch", "${channelNo}"], consumesChannel[channelNo])
+					
+		}
+		
+		if(family_series != 'XMC11')
+		{
+			for (resultReg in 0..VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS-1) 
+		{
+			int resNo = resultReg
+			addUriElementRangeConstraint(this."sv_result_register_selection_${resNo}",["result", "result_adv", "result_filter"],true);
+			rarray_hwres_vadc_group_config_result_registers[resNo] = MVirtualResourceGroup( MF({
+				String result_reg_name ='';
+				int channelNo;
+				if(get_result_reg_non_default_config(rArraygindexgroup_result_registers_configuration[resNo].gcombo_result_register_data_modification_mode.value, 
+																		 rArraygindexgroup_result_registers_configuration[resNo].gcombo_result_register_drctr.value,
+																		 rArraygindexgroup_result_registers_configuration[resNo].gcheck_result_register_wait_for_read_enable.value,
+																		 rArraygindexgroup_result_registers_configuration[resNo].gcheck_result_register_fifo_mode_enable.value, 
+																		 rArraygindexgroup_result_registers_configuration[resNo].gcheck_result_register_event_enable.value, 
+																		 rArraygindexgroup_result_registers_configuration[resNo].gcheck_result_reg_ass.value ))
+				{
+					result_reg_name = "Result Register${resNo}"
+				}
+				else if ((gcombo_queue_req_src_res_reg.value != "No Specific Register") && (gcombo_queue_req_src_res_reg.value.split("GxRES")[-1].toInteger() == resNo))
+				{
+					result_reg_name = "Queue-Specific Result Register${resNo}"
+				}	  
+				else if ((gcombo_scan_req_src_res_reg.value != "No Specific Register") && (gcombo_scan_req_src_res_reg.value.split("GxRES")[-1].toInteger() == resNo))
+				{
+					result_reg_name = "Scan-Specific Result Register${resNo}"
+				}
+				else if ((gstring_bkgnd_req_src_result_reg.value != "No Specific Register") && (gstring_bkgnd_req_src_result_reg.value.split("GxRES")[-1].toInteger() == resNo))  // for the reqeust src specifc result reg
+				{
+					result_reg_name = "Background-Specific Result Register${resNo}"
+				} 
+				else
+				{
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[0].gcombo_result_register.value, resNo, rarray_channels_consumed[0].value, 0) == -1? -1:0
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[1].gcombo_result_register.value, resNo, rarray_channels_consumed[1].value, 1) == -1? channelNo:1
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[2].gcombo_result_register.value, resNo, rarray_channels_consumed[2].value, 2) == -1? channelNo:2
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[3].gcombo_result_register.value, resNo, rarray_channels_consumed[3].value, 3) == -1? channelNo:3
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[4].gcombo_result_register.value, resNo, rarray_channels_consumed[4].value, 4) == -1? channelNo:4
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[5].gcombo_result_register.value, resNo, rarray_channels_consumed[5].value, 5) == -1? channelNo:5
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[6].gcombo_result_register.value, resNo, rarray_channels_consumed[6].value, 6) == -1? channelNo:6
+					channelNo = get_result_reg_consumed_channel_number(rArraygindexgroup_channels_configuration[7].gcombo_result_register.value, resNo, rarray_channels_consumed[7].value, 7) == -1? channelNo:7				
+							
+					result_reg_name = "Channel ${channelNo} Result Register${resNo}"
+				}
+				
+				result_reg_name},String),
+				["peripheral", "vadc", sv_vadc_no, "group", sv_group_no, this."sv_result_register_selection_${resNo}", "${resNo}"], consumesResultReg[resNo])
+			
+			rArraygindexgroup_result_registers_configuration[resNo].gcheck_result_reg_ass.visible = (family_series != 'XMC4' && family_series != 'XMC11' );
+			 
+		}
+		
+		for (inputClassNo in 0..VADC_GROUP_CONFIG_GROUP_INPUT_CLASSES-1) {
+			this."hwres_vadc_group_class${inputClassNo}" = MVirtualResourceGroup("Group Input Class ${inputClassNo}",
+					["peripheral", "vadc", sv_vadc_no, "group", sv_group_no, "class", "${inputClassNo}"])
+					
+		}
+		} //if(family_series != 'XMC11')
+
+		/* -------------------------------------------------------------- */
+		/* -------------- APP IO Signals -------------------------------- */
+		/* -------------------------------------------------------------- */
+		if(family_series != 'XMC11')
+		{
+			vs_vadc_group_config_queue_global_signal      = MVirtualSignal(hwres_vadc_group_queue, "queue_global_signal", "global_signal", true, false)
+			vs_vadc_group_config_queue_greqgt0sel         = MVirtualSignal(hwres_vadc_group_queue, "queue_gating_input", "greqgt0sel", true, true)
+			vs_vadc_group_config_queue_greqtr0sel         = MVirtualSignal(hwres_vadc_group_queue, "queue_trigger_input", "greqtr0sel", true, true)
+			vs_vadc_group_config_queue_sev                = MVirtualSignal(hwres_vadc_group_queue, "event_queue_source", "sev", true, true)
+			
+			vs_vadc_group_config_scan_global_signal       = MVirtualSignal(hwres_vadc_group_scan, "scan_global_signal", "global_signal", true, false)
+			vs_vadc_group_config_scan_greqgt1sel          = MVirtualSignal(hwres_vadc_group_scan, "scan_gating_input", "greqgt1sel", true, true)
+			vs_vadc_group_config_scan_greqtr1sel          = MVirtualSignal(hwres_vadc_group_scan, "scan_trigger_input", "greqtr1sel", true, true)
+			vs_vadc_group_config_scan_sev                 = MVirtualSignal(hwres_vadc_group_scan, "event_scan_source", "sev", true, true)
+			
+			vs_vadc_group_config_sync_adc_anon            = MVirtualSignal(hwres_vadc_group_sync, "sync_adc_anon", "adc_anon", true, false)
+			vs_vadc_group_config_sync_adc_ready           = MVirtualSignal(hwres_vadc_group_sync, "output_ready_signal", "adc_ready", true, true)
+			vs_vadc_group_config_sync_global_signal       = MVirtualSignal(hwres_vadc_group_sync, "sync_global_signal", "global_signal", true, false)
+			vs_vadc_group_config_sync_ready_in            = MVirtualSignal(hwres_vadc_group_sync, "input_ready_signal", "ready_in", true, true)
+			vs_vadc_group_config_sync_sync_in             = MVirtualSignal(hwres_vadc_group_sync, "sync_sync_in", "sync_in", true, false)
+		}
+
+		for (channelNo in 0..VADC_GROUP_CONFIG_GROUP_CHANNELS-1) {
+			this."vs_group_vadc_ch${channelNo}_cev"  = MVirtualSignal(this."hwres_vadc_group_ch${channelNo}", "event_ch_${channelNo}", "cev",  generatesChannelEvent[channelNo], generatesChannelEvent[channelNo],
+				                                                      "event_ch_${channelNo} is not connected to any target signal. Use HW signal connections dialog to establish connection")
+			this."vs_group_vadc_ch${channelNo}_gch"  = MVirtualSignal(this."hwres_vadc_group_ch${channelNo}", "ch${channelNo}_input", "gch", consumesChannel[channelNo], consumesChannel[channelNo])
+			this."vs_group_vadc_ch${channelNo}_res_sel" = MVirtualSignal(this."hwres_vadc_group_ch${channelNo}", "ch${channelNo}_res_sel", "res_sel", consumesChannel[channelNo], consumesChannel[channelNo])
+		}
+
+		vs_vadc_group_config_global                   = MVirtualSignalRA(appres_global, "vs_vadc_global_config_global_signal")
+		
+		addRegisterBitFieldConstraint(hwres_vadc_group_ch0,"galias_alias0",MF({
+			List ret_list=[]; 
+			rArraygindexgroup_channels_configuration[0].gcombo_alias.value =="None"?ret_list = [0]:ret_list.add(rArraygindexgroup_channels_configuration[0].gcombo_alias.value.split(" ")[1].toInteger())			
+		ret_list},List),true);
+		addRegisterBitFieldConstraint(hwres_vadc_group_ch1,"galias_alias1",MF({
+			List ret_list=[];
+			rArraygindexgroup_channels_configuration[1].gcombo_alias.value =="None"?ret_list = [1]:ret_list.add(rArraygindexgroup_channels_configuration[1].gcombo_alias.value.split(" ")[1].toInteger())
+		ret_list},List),true);
+		if(family_series != 'XMC11')
+		{
+			for (result_reg in 0..VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS-1) 
+			{	
+				Integer regNo = result_reg;
+				rarray_vs_vadc_group_config_result_registers_rev[regNo] = MVirtualSignal(rarray_hwres_vadc_group_config_result_registers[regNo], "event_result_reg${regNo}",
+					"rev",MF({rArraygindexgroup_result_registers_configuration[regNo].gcheck_result_register_event_enable.value},Boolean),MF({rArraygindexgroup_result_registers_configuration[regNo].gcheck_result_register_event_enable.value},Boolean),"event_result_reg${regNo} is not connected to any target signal. Use HW signal connections dialog to establish connection");
+			
+			}
+			
+		
+			for (regNo in 0..VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS-1) {
+				switch(regNo) {
+					case 0: case 1:
+					case 2: case 3:
+						this."vs_group_vadc_result_adv${regNo}_rev" = rarray_vs_vadc_group_config_result_registers_rev[regNo]
+						break;
+					case 7: case 15:
+						this."vs_group_vadc_result_filter${regNo}_rev" = rarray_vs_vadc_group_config_result_registers_rev[regNo]
+						break;
+					default:
+						this."vs_group_vadc_result${regNo}_rev" = rarray_vs_vadc_group_config_result_registers_rev[regNo]
+				}
+			}
+		}
+
+		/* -------------------------------------------------------------- */
+		/* ---------------- APP IO Connections -------------------------- */
+		/* -------------------------------------------------------------- */
+		if(family_series != 'XMC11')
+		{
+			addConnectionConstraint(vs_vadc_group_config_global, vs_vadc_group_config_queue_global_signal)
+			addConnectionConstraint(vs_vadc_group_config_global, vs_vadc_group_config_scan_global_signal)
+			addConnectionConstraint(vs_vadc_group_config_global, vs_vadc_group_config_sync_global_signal)
+		}
+
+		/* -------------------------------------------------------------- */
+		/* ------------ APP Configuration ------------------------------- */
+		/* -------------------------------------------------------------- */		
+		
+		/* ----- TAB : CHANNELS ----------------------------------------- */ //TODO
+		rArraygindexgroup_channels_configuration[0].gcombo_alias.options = ["None","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"]
+		rArraygindexgroup_channels_configuration[1].gcombo_alias.options = ["None","Channel 0","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"]
+		
+		/* MAP creation for the conversion mode*/
+		for ( cmv_index in 0..3)
+		{
+			rarray_conversion_mode_value[cmv_index] = GString(value:"12 Bit Conversion")
+		}
+		rarray_conversion_mode_value[0].value = MF({gcombo_grpic0_std_conv_conversion_mode.value},String) // GxICLASS0
+		rarray_conversion_mode_value[1].value = MF({gcombo_grpic1_std_conv_conversion_mode.value},String) // GxICLASS1
+		rarray_conversion_mode_value[2].value = MF({appres_global.getVal(["gcombo_globic0_std_conv_conversion_mode", "value"])},String) // GLOBICLASS0
+		rarray_conversion_mode_value[3].value = MF({appres_global.getVal(["gcombo_globic1_std_conv_conversion_mode", "value"])},String) // GLOBICLASS1
+		
+		for (channelNo in 0..VADC_GROUP_CONFIG_GROUP_CHANNELS-1) {
+			int ch = channelNo
+			
+			rArraygindexgroup_channels_configuration[ch].glabel_alias.visible = MF({ ch < 2 }, Boolean)
+			rArraygindexgroup_channels_configuration[ch].gcombo_alias.visible = MF({ ch < 2 }, Boolean)
+			rArraygindexgroup_channels_configuration[ch].gcombo_ch_event_mode.options =MF({
+//				int selected_iclass
+//				selected_iclass=get_selected_iclass(rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value)
+				List return_list = channel_event_mode_ncm
+				String compare_string
+				if(rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value == "Group-Specific Class 0")
+				{
+					compare_string = gcombo_grpic0_std_conv_conversion_mode.value
+				}else if (rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value == "Group-Specific Class 1")
+				{
+					compare_string = gcombo_grpic1_std_conv_conversion_mode.value
+				}else if(rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value == "Global Class 0")
+				{
+					compare_string = appres_global.getVal(["gcombo_globic0_std_conv_conversion_mode", "value"])
+				}else
+				{
+					compare_string = appres_global.getVal(["gcombo_globic1_std_conv_conversion_mode", "value"])
+				}
+//				selected_iclass = rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.options.indexOf(rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value)
+				if(compare_string == "10 Bit Fast Conversion")
+				{
+					return_list = channel_event_mode_fcm
+				}
+			return_list},List)
+		}
+		for (channelNo in 0..VADC_GROUP_CONFIG_GROUP_CHANNELS-1) {
+			int ch = channelNo
+			rarray_channels_consumed[ch].value = MF({
+				gcombo_queue_req_src_entry0.value == rarray_channel_names[ch].value ||
+				gcombo_queue_req_src_entry1.value == rarray_channel_names[ch].value ||
+				gcombo_queue_req_src_entry2.value == rarray_channel_names[ch].value ||
+				gcombo_queue_req_src_entry3.value == rarray_channel_names[ch].value ||
+				gcombo_queue_req_src_entry4.value == rarray_channel_names[ch].value ||
+				gcombo_queue_req_src_entry5.value == rarray_channel_names[ch].value ||
+				gcombo_queue_req_src_entry6.value == rarray_channel_names[ch].value ||
+				gcombo_queue_req_src_entry7.value == rarray_channel_names[ch].value ||
+				rarray_scan_req_src_channels[ch].value == true ||
+				rarray_bkgnd_req_src_channels[ch].value == true ||
+				rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value != "Group-Specific Class 0" ||
+				rArraygindexgroup_channels_configuration[ch].gcombo_result_register.value != "GxRES0" ||  rArraygindexgroup_channels_configuration[ch].gcombo_ch_result_target_bkgnd_src.value != "Group Result Register" ||
+				rArraygindexgroup_channels_configuration[ch].gcombo_ch_result_position.value != "Left-Aligned" ||  rArraygindexgroup_channels_configuration[ch].gcombo_ch_event_mode.value != "Never" ||
+				rArraygindexgroup_channels_configuration[ch].gcombo_ch_broken_wire_detection_channel.value != "V_AGND" ||  rArraygindexgroup_channels_configuration[ch].gcombo_alias.value != "None" ||
+				rArraygindexgroup_channels_configuration[ch].gcombo_ch_upper_boundary.value != "Group-Specific Boundary 0" ||  rArraygindexgroup_channels_configuration[ch].gcombo_ch_lower_boundary.value != "Group-Specific Boundary 0" ||
+				rArraygindexgroup_channels_configuration[ch].gcheck_ch_sync.value != false ||  rArraygindexgroup_channels_configuration[ch].gcheck_ch_reference_input_selection.value != false ||
+				rArraygindexgroup_channels_configuration[ch].gcheck_ch_broken_wire_detection_enable.value != false ||  rArraygindexgroup_channels_configuration[ch].gcheck_ch_ass.value != false
+			}, Boolean)
+			rarray_channels_use_fast_compare[ch].value = MF({
+				((rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value == "Group-Specific Class 0"
+					&& gcombo_grpic0_std_conv_conversion_mode.value == "10 Bit Fast Conversion") ||
+					(rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value == "Group-Specific Class 1"
+					&& gcombo_grpic1_std_conv_conversion_mode.value == "10 Bit Fast Conversion") ||
+					(rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value == "Global Class 0"
+					&& global_ic0_std_conv_conversion_mode.value == "10 Bit Fast Conversion") ||
+					(rArraygindexgroup_channels_configuration[ch].gcombo_ch_input_class.value == "Global Class 1"
+					&& global_ic1_std_conv_conversion_mode.value == "10 Bit Fast Conversion"))
+			}, Boolean)
+			rArraygindexgroup_channels_configuration[ch].gcombo_ch_result_position.options = MF({
+				if(rarray_channels_use_fast_compare[ch].value == false) {
+					["Left-Aligned", "Right-Aligned"]
+				} else {
+					["Left-Aligned"]
+				}
+			}, List)
+		}
+
+		
+		/* ----- TAB : REQUEST SOURCES ---------------------------------- */
+		gimage_scan_req_src.path = MF({
+			if(gcheck_scan_req_src_autoscan_enabled.value == true) {
+				"doc/VADC_GROUP_CONFIG_Scan_request_source_autoscan.png"
+			} else {
+				"doc/VADC_GROUP_CONFIG_Scan_request_source_no_autoscan.png"
+			}
+		}, String)
+
+		gcheck_bkgnd_req_src_autoscan_enabled.value = MF({appres_global.getVal(["gcheck_background_autoscan", "value"])},Boolean)
+		gcheck_bkgnd_req_src_enable_trigger.value = MF({appres_global.getVal(["gcheck_background_trigger_enable", "value"])},Boolean)
+		gcheck_bkgnd_req_src_enable_timer_mode.value = MF({appres_global.getVal(["gcheck_background_timer_mode", "value"])},Boolean)
+		gcheck_bkgnd_req_src_enable_interrupt.value = MF({appres_global.getVal(["gcheck_background_req_src_intr", "value"])},Boolean)
+		
+		gstring_bkgnd_req_src_trigger_mode.value = MF({trigger_options[appres_global.getVal(["gcombo_background_trigger_edge_sel", "value"])]},String)
+		gstring_bkgnd_req_src_gate_enable.value = MF({gating_options[appres_global.getVal(["gcombo_background_gating_sel", "value"])]},String)
+		gstring_bkgnd_req_src_result_reg.value = MF({appres_global.getVal(["gcombo_background_srcreg", "value"])},String)
+		
+		gimage_bkgnd_req_src.path = MF({
+			if(gcheck_bkgnd_req_src_autoscan_enabled.value == true) {
+				"doc/VADC_GROUP_CONFIG_Background_request_source_autoscan.png"
+			} else {
+				"doc/VADC_GROUP_CONFIG_Background_request_source_no_autoscan.png"
+			}
+		}, String)
+
+		for (channelNo in 0..VADC_GROUP_CONFIG_GROUP_CHANNELS-1) {
+			int ch = channelNo
+			this."gcheck_bkgnd_req_src_ch${ch}".enabled = MF({ rArraygindexgroup_channels_configuration[ch].gcheck_ch_ass.value == false }, Boolean)
+		}
+	
+		/* ----- TAB : RESULT REGISTERS --------------------------------- */				
+		for (resultRegNo in 0..VADC_GROUP_CONFIG_GROUP_RESULT_REGISTERS-1) {
+			int reg = resultRegNo
+			rarray_result_registers_generate_event[reg].value = MF({
+				rArraygindexgroup_result_registers_configuration[reg].gcheck_result_register_event_enable.value == true
+			}, Boolean)
+			rarray_result_registers_use_filtering[reg].value = MF({
+				rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.value == "Apply Filter"
+			}, Boolean)
+			rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.options = MF({
+				if(reg == 0) {
+					[ "Accumulate Values" ]
+				} else if(reg == 7 || reg == 15) {
+					[ "Accumulate Values", "Apply Filter", "Difference Mode" ]
+				} else {
+					[ "Accumulate Values", "Difference Mode" ]
+				}
+			}, List)
+			rArraygindexgroup_result_registers_configuration[reg].glabel_result_register_drctr.visible = MF({
+				rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.value != "Difference Mode"
+			}, Boolean)
+			rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_drctr.visible = MF({
+				rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.value != "Difference Mode"
+			}, Boolean)
+			rArraygindexgroup_result_registers_configuration[reg].glabel_result_register_drctr.text = MF({
+				if (rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.value == "Accumulate Values")
+				{
+					"Number of result values accumulated:"
+				}
+				else if (rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.value == "Apply Filter")
+				{
+					"Kind of filter to apply to results:"
+				}
+			}, String)
+			rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_drctr.options = MF({
+				if (rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.value == "Accumulate Values")
+				{
+					[ "Data Reduction Disabled", "2 Result Values", "3 Result Values", "4 Result Values" ]
+				}
+				else if (rArraygindexgroup_result_registers_configuration[reg].gcombo_result_register_data_modification_mode.value == "Apply Filter")
+				{
+					[ "FIR filter: a=2, b=1, c=0", "FIR filter: a=1, b=2, c=0", "FIR filter: a=2, b=0, c=1", "FIR filter: a=1, b=1, c=1", 
+						"FIR filter: a=1, b=0, c=2", "FIR filter: a=3, b=1, c=0", "FIR filter: a=2, b=2, c=0", "FIR filter: a=1, b=3, c=0", 
+						"FIR filter: a=3, b=0, c=1", "FIR filter: a=2, b=1, c=1", "FIR filter: a=1, b=2, c=1", "FIR filter: a=2, b=0, c=2",
+						"FIR filter: a=1, b=1, c=2", "FIR filter: a=1, b=0, c=3",  "IIR filter: a=2, b=2", "IIR filter: a=3, b=4" ]
+				}
+			}, List)
+			
+		}
+
+		/* ----- TAB : INPUT CLASSES ------------------------------------ */
+
+
+		/* ----- TAB : ARBITRATION -------------------------------------- */
+		//		glabel_arbitration_slots_per_round.text = MF({ "Number of arbitration slots per arbitration round (GxARBCFG.ARBRND)" as String }, String)
+		//		gfloat_arbitration_tslot.value = MF({ (float) (ginteger_globcfg_divd.value / ginteger_fADC.value) * 1000 }, Float)
+		//		gfloat_arbitration_tarb.value = MF({ (float) (Integer.valueOf(gcombo_arbitration_slots_per_round.value) * gfloat_arbitration_tslot.value) }, Float)
+		//		glabel_arbitration_mode.text = MF({ "Arbitration mode (GxARBCFG.ARBM)" as String }, String)
+		/* ----- GROUP : REQUEST SOURCES -------------------------------- */
+		//		for (reqSrc in 0..2) {
+		//			int rs = reqSrc
+		//			rArraygindexgroup_arbitration_request_sources[reqSrc].glabel_arbitration_priority.text = MF({ "Arbitration priority (GxARBPR.PRIO${rs})" as String }, String)
+		//			rArraygindexgroup_arbitration_request_sources[reqSrc].glabel_arbitration_conversion_start_mode.text = MF({ "Conversion start mode (GxARBPR.CSM${rs})" as String }, String)
+		//		}
+		gcombo_arbitration_slot0_priority.enabled = MF({ gcheck_arbitration_slot0_enable.value == true }, Boolean)
+		gcombo_arbitration_slot0_conversion_start_mode.enabled = MF({ gcheck_arbitration_slot0_enable.value == true }, Boolean)
+		gcombo_arbitration_slot1_priority.enabled = MF({ gcheck_arbitration_slot1_enable.value == true }, Boolean)
+		gcombo_arbitration_slot1_conversion_start_mode.enabled = MF({ gcheck_arbitration_slot1_enable.value == true }, Boolean)
+		gstring_arbitration_slot2_priority.enabled = MF({ gcheck_arbitration_slot2_enable.value == true }, Boolean)
+		gstring_arbitration_slot2_conversion_start_mode.enabled = MF({ gcheck_arbitration_slot2_enable.value == true }, Boolean)
+		
+		gcombo_queue_req_src_res_reg.enabled = (family_series != 'XMC45' || family_series != 'XMC11')
+		gcombo_scan_req_src_res_reg.enabled = (family_series != 'XMC45' || family_series != 'XMC11')
+		
+		/* ----- TAB : OTHERS ------------------------------------ */
+		
+//		rarray_gcheck_en_bfl[1] = gcheck_en_bfl_1
+//		rarray_gcheck_en_bfl[2] = gcheck_en_bfl_2
+//		rarray_gcheck_en_bfl[3] = gcheck_en_bfl_3
+				
+
+		if(family_series != 'XMC11')
+		{
+			for( i in 0..3)
+			{
+				int index = i;
+				rarray_gcheck_en_bfl[index] = this."gcheck_en_bfl_${index}"
+				if(family_series != 'XMC45')
+				{
+					this."vs_vadc_group_config_gblout${index}" = MVirtualSignal(rarray_hwres_vadc_group_config_result_registers[i],
+						"Boundary flag ${index}","gbflout",MF({rarray_gcheck_en_bfl[index].value},Boolean))
+				}
+				else
+				{
+					this."vs_vadc_group_config_gblout${index}" = MVirtualSignal(this."hwres_vadc_group_ch${i}",
+						"Boundary flag ${index}","gbflout",MF({rarray_gcheck_en_bfl[index].value},Boolean))
+				}
+				this."gcheck_inv_bfl_${index}".visible = ((family_series != 'XMC45') && (family_series != 'XMC11') );
+				this."gcombo_bfa_${index}".visible = ((family_series != 'XMC45') && (family_series != 'XMC11'));
+				
+			}			
+		}	
+		
+		if(family_series != 'XMC11')
+		{
+			ggroup_external_multiplexer_control.visible = true
+			MF is_extmul_enabled = MF({gcombo_extmul_mode.value != "Software Control"}, Boolean)
+			MF num_channels_selected = MF({((gcheck_extmul_ch0.value ? 1 : 0) + 
+				                           (gcheck_extmul_ch1.value ? 1 : 0) +
+										   (gcheck_extmul_ch2.value ? 1 : 0) +
+										   (gcheck_extmul_ch3.value ? 1 : 0) +
+										   (gcheck_extmul_ch4.value ? 1 : 0) +
+										   (gcheck_extmul_ch5.value ? 1 : 0) +
+										   (gcheck_extmul_ch6.value ? 1 : 0) +
+										   (gcheck_extmul_ch7.value ? 1 : 0)) > 1
+			                              }, Boolean)
+			
+			gcheck_extmul_ch0.enabled = is_extmul_enabled
+			gcheck_extmul_ch1.enabled = is_extmul_enabled
+			gcheck_extmul_ch2.enabled = is_extmul_enabled
+			gcheck_extmul_ch3.enabled = is_extmul_enabled
+			gcheck_extmul_ch4.enabled = is_extmul_enabled
+			gcheck_extmul_ch5.enabled = is_extmul_enabled
+			gcheck_extmul_ch6.enabled = is_extmul_enabled
+			gcheck_extmul_ch7.enabled = is_extmul_enabled
+			ginteger_extmul_start_selection.enabled = is_extmul_enabled
+			gcombo_extmul_coding_scheme.enabled = is_extmul_enabled
+			gcombo_extmul_sample_time_control.enabled = is_extmul_enabled
+			if (family_series == 'XMC45')
+			{
+  			  gmessage_extmux.visible = num_channels_selected
+			}
+			else
+			{
+			  gmessage_extmux.visible = false
+			}
+		}
+		else
+		{
+			ggroup_external_multiplexer_control.visible = false
+		}
+		
+		/* Disable the dummy tab */
+		gtab_dummy.visible = false;
+
+	}
+	/*------------------End : APP Constructor and Logic---------------------------------------------------*/
+	Boolean get_result_reg_consumed(String result_reg_selected, int result_reg_iter ,Boolean channel_consumed)
+	{
+//		gcombo_result_register.value
+//		if( result_reg_selected == "Select register")
+//		{
+//			return(false)
+//		}
+		Integer result_reg_number = result_reg_selected.split("GxRES")[-1].toInteger();
+		return( (result_reg_number == result_reg_iter) && channel_consumed);
+	}
+	
+	Boolean get_result_reg_non_default_config(String dmm_mode, String drctr_value,Boolean wfr,Boolean en_fifo,Boolean rev,Boolean rrass)
+	{
+		return((dmm_mode != "Accumulate Values") || (drctr_value != "Data Reduction Disabled") || (wfr) || (en_fifo) || (rev)|| (rrass));
+	}
+	
+	Integer get_result_reg_consumed_channel_number(String result_reg_selected, int result_reg_iter ,Boolean channel_consumed, int channelNo)
+	{
+//		gcombo_result_register.value
+//		if( result_reg_selected != "Select register")
+//		{
+		
+			Integer result_reg_number = result_reg_selected.split("GxRES")[-1].toInteger();
+			if((result_reg_number == result_reg_iter) && channel_consumed)
+			{
+				return channelNo;
+			}
+//		}
+		return( -1);
+	}
+	
+	Integer get_selected_iclass(String string_iclass_selected)
+	{
+		Integer selected_iclass;
+		if(string_iclass_selected == "Group-Specific Class 0")
+		{
+			selected_iclass = 0
+		}else if (string_iclass_selected == "Group-Specific Class 1")
+		{
+			selected_iclass = 1
+		}else if(string_iclass_selected == "Global Class 0")
+		{
+			selected_iclass = 2
+		}else
+		{
+			selected_iclass = 3
+		}
+		return (selected_iclass);
+	}
+	
+	/*------------------Begin: File Generation------------------------------------------------------------*/
+	def generateFiles() {
+		copy("vadc_group_config.c", "vadc_group_config.c")
+		copy("vadc_group_config.h", "vadc_group_config.h")
+		generate("vadc_group_config_confc.tmpl", "vadc_group_config_conf.c")
+		generate("vadc_group_config_confh.tmpl", "vadc_group_config_conf.h")
+		generate("vadc_group_config_extern.tmpl", "vadc_group_config_extern.h")
+	}
+	/*------------------End: File Generation--------------------------------------------------------------*/
+}

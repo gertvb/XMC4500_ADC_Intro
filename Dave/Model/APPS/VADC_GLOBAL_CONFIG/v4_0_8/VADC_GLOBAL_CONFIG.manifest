@@ -1,0 +1,524 @@
+package Model.APPS.VADC_GLOBAL_CONFIG.v4_0_8;
+
+/*************** Revision History **********************************************
+ Version     Date          Description
+ 4.0.2       27-Jun-2016   Initial version for DAVEv4<br>
+ 4.0.4       17-Aug-2016   Corrected typos in the UI.<br>                                    
+ 4.0.6       31-May-2017   EMUX interface allow all groups to be selected.<br>                                    
+ 4.0.8       10-Nov-2017   Fix C++ compilation warnings.<br>                                    
+ *******************************************************************************/
+import ifx.davex.app.manifest.*
+
+class  VADC_GLOBAL_CONFIG extends VADC_GLOBAL_CONFIG_GUI {
+	
+	/**
+	 * Global constant values
+	 */
+	private static final int VADC_GLOBAL_CONFIG_TOTAL_STEPS_STEPPER = 8
+	
+	/* -----------------------Begin : APP Properties------------------------------------------------------- */
+	/* Note  : Following App properties are mandatory and important */
+	/* Begin : APP property section */
+
+	/**
+	 * App version
+	 * Format: a string with three digit separated by a dot.
+	 */
+	def version = '4.0.8'
+
+	/**
+	 * App categories declaration. 
+	 * It is list of strings. Subcategories are separated by slash.
+	 * No limits on number of categories and subcategories depth.
+	 */
+	def categoriesDescription = [
+		'Peripheral Configuration'
+	]
+
+	/** 
+	 * Minimum DAVE version required for this APP.
+	 * 
+	 * It is	 string with three digit separated by a dot.
+	 */
+	def minDaveVersion           = '4.3.2'
+
+	/** 
+	 * Keywords used by search feature in Apps selection view
+	 * 
+	 * It is a list of string.
+	 */ 
+	def keywords = [
+		'all',
+		'Config',
+		'ADC',
+		'VADC',
+		'Analog',
+		'Peripheral Configuration',
+		'VADC_GLOBAL_CONFIG'
+	]
+
+	/** 
+	 * softwareIDs is used to declare which devices are compatible with this APP.
+	 * It is a map with key a string containing a pattern that shall match the SW id of
+	 * the device and as value the minimal version of the APP.
+	 */
+
+	def softwareIDs       = ["XMC1.[1,2,3,4].*.*.*":"1.0.0", "XMC4.[1,2,3,4,5,7,8].*.*.*":"1.0.0"]
+
+	/**
+	 * Singleton property:
+	 * When it is true the app can be instantiated only once. 
+	 */
+	def singleton     = true
+
+
+	/**
+	 * initProvider property
+	 * It shall be true to add a call to <AppName>_Init() 
+	 */
+	def initProvider  = true
+
+	/**
+	 * Deprecated APP
+	 * Set it to true to indicate that the app shall be not used for new projects.
+	 */
+	def deprecated    = false
+
+	/**
+	 * Sharable property.
+	 * It shall be true to allows multiple APPs to require the same instance of this APP.
+	 */
+	def sharable      = true
+
+	/**
+	 *  APP function description.
+	 */
+	def description = "Initializes VADC GLOBAL and basic GROUP resources."
+
+	/* -----------------End: APP Properties---------------------------------------------------------------- */
+	/* -----------------Begin : User Variables ------------------------------------------------------------ */    
+	
+	/*Required Apps*/
+	MRequiredApp appres_clock
+
+	/*Required resource groups*/
+	MVirtualResourceGroup hwres_vadc_backgnd 		                /*[peripheral, vadc, *, backgnd]*/
+	MVirtualResourceGroup hwres_vadc_global 		                /*[peripheral, vadc, *, global]*/
+	MVirtualResourceGroup hwres_vadc_global_limits	                /*[peripheral, vadc, *, global_limits]*/
+	MVirtualResourceGroup hwres_vadc_global_result	                /*[peripheral, vadc, *, global_result]*/
+	MVirtualResourceGroup hwres_vadc_group_0_config	                /*[peripheral, vadc, *, group, 0, config]*/
+	MVirtualResourceGroup hwres_vadc_group_1_config	                /*[peripheral, vadc, *, group, 1, config]*/
+	MVirtualResourceGroup hwres_vadc_group_2_config	                /*[peripheral, vadc, *, group, 2, config]*/
+	MVirtualResourceGroup hwres_vadc_group_3_config	                /*[peripheral, vadc, *, group, 3, config]*/
+	MVirtualResourceGroup hwres_vadc_global_class_0		            /*[peripheral, vadc, *, class, 0]*/
+	MVirtualResourceGroup hwres_vadc_global_class_1	 	            /*[peripheral, vadc, *, class, 1]*/
+	MVirtualResourceGroup hwres_vadc_emux_0			                /*[peripheral, vadc, *, emux, 0]*/
+	MVirtualResourceGroup hwres_vadc_emux_1			                /*[peripheral, vadc, *, emux, 1]*/
+	MVirtualResourceGroup hwres_shs_global                          /*[peripheral, shs, *, global]*/
+	MVirtualResourceGroup hwres_shs_loop0                           /*[peripheral, shs, *, loop, 0]*/
+	MVirtualResourceGroup hwres_shs_loop1                           /*[peripheral, shs, *, loop, 1]*/
+	
+	/*TODO: consume in VADC_GROUP_CONFIG -> Update UI (SHS Unit x timing) */
+	MVirtualResourceGroup hwres_shs_shs_unit0                       /*[peripheral, shs, *, shs_unit, 0]*/
+	MVirtualResourceGroup hwres_shs_shs_unit1                       /*[peripheral, shs, *, shs_unit, 1]*/
+	
+	/*Required input virtual signals */
+//	MVirtualSignal vs_vadc_global_config_bkgnd_global_signal        /*[peripheral, vadc, *, backgnd, global_signal]*/
+	MVirtualSignal vs_vadc_global_config_bkgnd_bgreqgtsel           /*[peripheral, vadc, *, backgnd, bgreqgtsel]*/
+	MVirtualSignal vs_vadc_global_config_bkgnd_bgreqtrsel           /*[peripheral, vadc, *, backgnd, bgreqtrsel]*/
+//	MVirtualSignal vs_vadc_global_config_g0_global_signal           /*[peripheral, vadc, *, group, 0, config, global_signal]*/
+//	MVirtualSignal vs_vadc_global_config_g0_emux0                   /*[peripheral, vadc, *, group, 0, config, emux0]*/
+//	MVirtualSignal vs_vadc_global_config_g0_emux1                   /*[peripheral, vadc, *, group, 0, config, emux1]*/
+//	MVirtualSignal vs_vadc_global_config_g0_emux2                   /*[peripheral, vadc, *, group, 0, config, emux2]*/
+//	MVirtualSignal vs_vadc_global_config_g0_select                  /*[peripheral, vadc, *, group, 0, config, select]*/
+//	MVirtualSignal vs_vadc_global_config_g0_shs_sel                 /*[peripheral, vadc, *, group, 0, config, shs_sel]*/	
+//	MVirtualSignal vs_vadc_global_config_g1_global_signal           /*[peripheral, vadc, *, group, 0, config, global_signal]*/
+//	MVirtualSignal vs_vadc_global_config_g1_emux0                   /*[peripheral, vadc, *, group, 0, config, emux0]*/
+//	MVirtualSignal vs_vadc_global_config_g1_emux1                   /*[peripheral, vadc, *, group, 0, config, emux1]*/
+//	MVirtualSignal vs_vadc_global_config_g1_emux2                   /*[peripheral, vadc, *, group, 0, config, emux2]*/
+//	MVirtualSignal vs_vadc_global_config_g1_select                  /*[peripheral, vadc, *, group, 0, config, select]*/
+//	MVirtualSignal vs_vadc_global_config_g1_shs_sel                 /*[peripheral, vadc, *, group, 0, config, shs_sel]*/
+//	MVirtualSignal vs_vadc_global_config_g2_global_signal           /*[peripheral, vadc, *, group, 0, config, global_signal]*/
+//	MVirtualSignal vs_vadc_global_config_g2_emux0                   /*[peripheral, vadc, *, group, 0, config, emux0]*/
+//	MVirtualSignal vs_vadc_global_config_g2_emux1                   /*[peripheral, vadc, *, group, 0, config, emux1]*/
+//	MVirtualSignal vs_vadc_global_config_g2_emux2                   /*[peripheral, vadc, *, group, 0, config, emux2]*/
+//	MVirtualSignal vs_vadc_global_config_g2_select                  /*[peripheral, vadc, *, group, 0, config, select]*/
+//	MVirtualSignal vs_vadc_global_config_g3_global_signal           /*[peripheral, vadc, *, group, 0, config, global_signal]*/
+//	MVirtualSignal vs_vadc_global_config_g3_emux0                   /*[peripheral, vadc, *, group, 0, config, emux0]*/
+//	MVirtualSignal vs_vadc_global_config_g3_emux1                   /*[peripheral, vadc, *, group, 0, config, emux1]*/
+//	MVirtualSignal vs_vadc_global_config_g3_emux2                   /*[peripheral, vadc, *, group, 0, config, emux2]*/
+//	MVirtualSignal vs_vadc_global_config_g3_select                  /*[peripheral, vadc, *, group, 0, config, select]*/
+	MVirtualSignal vs_vadc_global_config_global_signal              /*[peripheral, vadc, *, global, global_signal]*/
+	MVirtualSignal vs_vadc_global_config_vagnd                      /*[peripheral, vadc, *, global, vagnd]*/
+	MVirtualSignal vs_vadc_global_config_varef                      /*[peripheral, vadc, *, global, varef]*/
+	MVirtualSignal vs_vadc_global_config_vdda                       /*[peripheral, vadc, *, global, vdda]*/
+	MVirtualSignal vs_vadc_global_config_vssa                       /*[peripheral, vadc, *, global, vssa]*/
+//	MVirtualSignal vs_vadc_global_config_glob_ic0_global_select     /*[peripheral, vadc, *, class, 0, global_select]*/
+//	MVirtualSignal vs_vadc_global_config_glob_ic1_global_select     /*[peripheral, vadc, *, class, 1, global_select]*/
+//	MVirtualSignal vs_vadc_global_config_shs_vadc_global            /*[peripheral, shs, *, global, vadc_global]*/
+//	MVirtualSignal vs_vadc_global_config_loop0_shs_global           /*[peripheral, shs, *, loop, 0, shs_global]*/
+//	MVirtualSignal vs_vadc_global_config_loop1_shs_global           /*[peripheral, shs, *, loop, 1, shs_global]*/
+//	MVirtualSignal vs_vadc_global_config_shs_unit_shs_global        /*[peripheral, shs, 0, shs_unit, 0, shs_global]*/
+//	MVirtualSignal vs_vadc_global_config_shs_unit_shs_sel           /*[peripheral, shs, 0, shs_unit, 0, shs_sel]*/ 
+	
+	/*Required output virtual signals */
+	MVirtualSignal vs_vadc_global_config_bkgnd_sev0                 /*[peripheral, vadc, *, backgnd, sev0]*/
+	MVirtualSignal vs_vadc_global_config_g0_garbcnt                 /*[peripheral, vadc, *, group, 0, config, garbcnt]*/
+//	MVirtualSignal vs_vadc_global_config_g0_gqueuereq               /*[peripheral, vadc, *, group, 0, config, gqueuereq]*/
+    MVirtualSignal vs_vadc_global_config_g0_gsample                 /*[peripheral, vadc, *, group, 0, config, gsample]*/
+//	MVirtualSignal vs_vadc_global_config_g0_gscanreq                /*[peripheral, vadc, *, group, 0, config, gscanreq]*/
+//	MVirtualSignal vs_vadc_global_config_g0_gsyncreq                /*[peripheral, vadc, *, group, 0, config, gsyncreq]*/
+	MVirtualSignal vs_vadc_global_config_g1_garbcnt                 /*[peripheral, vadc, *, group, 0, config, garbcnt]*/
+//	MVirtualSignal vs_vadc_global_config_g1_gqueuereq               /*[peripheral, vadc, *, group, 1, config, gqueuereq]*/
+    MVirtualSignal vs_vadc_global_config_g1_gsample                 /*[peripheral, vadc, *, group, 1, config, gsample]*/
+//	MVirtualSignal vs_vadc_global_config_g1_gscanreq                /*[peripheral, vadc, *, group, 1, config, gscanreq]*/
+//	MVirtualSignal vs_vadc_global_config_g1_gsyncreq                /*[peripheral, vadc, *, group, 1, config, gsyncreq]*/
+	MVirtualSignal vs_vadc_global_config_g2_garbcnt                 /*[peripheral, vadc, *, group, 0, config, garbcnt]*/
+//	MVirtualSignal vs_vadc_global_config_g2_gqueuereq               /*[peripheral, vadc, *, group, 2, config, gqueuereq]*/
+	MVirtualSignal vs_vadc_global_config_g2_gsample                 /*[peripheral, vadc, *, group, 2, config, gsample]*/
+//	MVirtualSignal vs_vadc_global_config_g2_gscanreq                /*[peripheral, vadc, *, group, 2, config, gscanreq]*/
+//	MVirtualSignal vs_vadc_global_config_g2_gsyncreq                /*[peripheral, vadc, *, group, 2, config, gsyncreq]*/
+	MVirtualSignal vs_vadc_global_config_g3_garbcnt                 /*[peripheral, vadc, *, group, 0, config, garbcnt]*/
+//	MVirtualSignal vs_vadc_global_config_g3_gqueuereq               /*[peripheral, vadc, *, group, 3, config, gqueuereq]*/
+	MVirtualSignal vs_vadc_global_config_g3_gsample                 /*[peripheral, vadc, *, group, 3, config, gsample]*/
+//	MVirtualSignal vs_vadc_global_config_g3_gscanreq                /*[peripheral, vadc, *, group, 3, config, gscanreq]*/
+//	MVirtualSignal vs_vadc_global_config_g3_gsyncreq                /*[peripheral, vadc, *, group, 3, config, gsyncreq]*/
+//	MVirtualSignal vs_vadc_global_config_glob_limits_global_signal  /*[peripheral, vadc, *, global_limits, global_signal]*/
+	MVirtualSignal vs_vadc_global_config_glob_result_rev0           /*[peripheral, vadc, *, global_result, rev0]*/
+//	MVirtualSignal vs_vadc_global_config_glob_result_global_signal  /*[peripheral, vadc, *, global_result, global_signal]*/
+//	MVirtualSignal vs_vadc_global_config_glob_ic0_global_signal     /*[peripheral, vadc, *, class, 0, global_signal]*/
+//	MVirtualSignal vs_vadc_global_config_glob_ic1_global_signal     /*[peripheral, vadc, *, class, 1, global_signal]*/
+	MVirtualSignal vs_vadc_global_config_glob_emux0_emux0_in        /*[peripheral, vadc, *, emux, 0, emux0_in]*/
+	MVirtualSignal vs_vadc_global_config_glob_emux0_emux1_in        /*[peripheral, vadc, *, emux, 0, emux1_in]*/
+	MVirtualSignal vs_vadc_global_config_glob_emux0_emux2_in        /*[peripheral, vadc, *, emux, 0, emux2_in]*/
+	MVirtualSignal vs_vadc_global_config_glob_emux1_emux0_in        /*[peripheral, vadc, *, emux, 1, emux0_in]*/
+	MVirtualSignal vs_vadc_global_config_glob_emux1_emux1_in        /*[peripheral, vadc, *, emux, 1, emux1_in]*/
+	MVirtualSignal vs_vadc_global_config_glob_emux1_emux2_in        /*[peripheral, vadc, *, emux, 1, emux2_in]*/
+//	MVirtualSignal vs_group_vadc_config_shs_global                  /*[peripheral, shs, *, global, shs_global]*/
+	
+	
+	/*Variable definition*/
+	SolverVariable sv_vadc_no = SolverVariable()
+	SolverVariable sv_shs_no = SolverVariable()
+	
+	GFloat gfloat_tadc = GFloat()
+	GFloat gfloat_tadci = GFloat()
+	
+	/* -----------------End : User Variables -------------------------------------------------------------- */
+	/* -----------------Begin : APP Constructor and Logic ------------------------------------------------- */
+	
+	public VADC_GLOBAL_CONFIG(DaveEnv daveEnv) {
+		/* -------------------------------------------------------------- */
+		/* ---------- Local variables & constants ----------------------- */
+		/* -------------------------------------------------------------- */
+		final String family = daveEnv.project.selectedDevice.deviceId.family
+		final String family_series = family + daveEnv.project.selectedDevice.deviceId.series
+		final String device = family_series + "_" + daveEnv.project.selectedDevice.deviceId.icPackage
+		final boolean isfamily_4x
+		final boolean isfamily_1x
+		final int numGroups
+		
+		/* ------------------------------------------------------------- */
+		/* ---------- Manifest function references ---------------------- */
+		/* -------------------------------------------------------------- */
+		
+		/* ----- TAB : General ------------------------------------------ */
+		MF isConfigurationBasic = MF({ gcombo_configuration_mode.value == "Basic" }, Boolean)
+		MF isConfigurationAdvanced = MF({ gcombo_configuration_mode.value == "Advanced" }, Boolean)
+		
+		/* ----- TAB : Advanced ----------------------------------------- */
+		MF usesLoop0 = MF({
+			gcombo_configuration_mode.value == "Advanced" && 
+			gcheck_sigma_delta_loop0_enable.value == true
+		}, Boolean)
+		MF usesLoop1 = MF({
+			gcombo_configuration_mode.value == "Advanced" &&
+			gcheck_sigma_delta_loop1_enable.value == true
+		}, Boolean)
+		
+		/* -------------------------------------------------------------- */
+		/* ---------- Target Specific User Variable Initialization ------ */
+		/* -------------------------------------------------------------- */
+		if (family == "XMC4") {
+			isfamily_4x = true
+			isfamily_1x = false
+		} else if (family == "XMC1") {
+			isfamily_1x = true
+			isfamily_4x = false
+		}
+		
+		if(family_series ==~ 'XMC4[4578]') {
+			numGroups = 4
+		} else if (device != "XMC11_Q024" && device != "XMC11_T016") { // XMC4[12], XMC11_Q040, XMC11_T038, XMC1[234]
+			numGroups = 2
+		} else { // XMC11_Q024, XMC11_T016
+			numGroups = 1
+		}
+
+		/* -------------------------------------------------------------- */
+		/* ---------- APP consumption Block ----------------------------- */
+		/* -------------------------------------------------------------- */
+		if (isfamily_4x) {
+			appres_clock = MRequiredApp("CLOCK_XMC4", "Clock", RSHARABLE, "4.0.6")
+		} else if (isfamily_1x) {
+			appres_clock = MRequiredApp("CLOCK_XMC1", "Clock", RSHARABLE, "4.0.6")
+		}
+
+		/* -------------------------------------------------------------- */
+		/* ---------- Hardware resource consumption block --------------- */
+		/* -------------------------------------------------------------- */		
+		hwres_vadc_backgnd         = MVirtualResourceGroup("Background Request Source", ["peripheral", "vadc", sv_vadc_no, "backgnd"])		
+		hwres_vadc_global          = MVirtualResourceGroup("Global Configuration", ["peripheral", "vadc", sv_vadc_no, "global"])
+		hwres_vadc_global_result   = MVirtualResourceGroup("Global Result Register", ["peripheral", "vadc", sv_vadc_no, "global_result"])
+		hwres_vadc_group_0_config  = MVirtualResourceGroup("Group 0 Configuration", ["peripheral", "vadc", sv_vadc_no, "group", "0", "config"])
+		
+		if(numGroups > 1) {
+			hwres_vadc_group_1_config  = MVirtualResourceGroup("Group 1 Configuration", ["peripheral", "vadc", sv_vadc_no, "group", "1", "config"])
+		}
+		if(numGroups > 2) {
+			hwres_vadc_group_2_config  = MVirtualResourceGroup("Group 2 Configuration", ["peripheral", "vadc", sv_vadc_no, "group", "2", "config"])
+			hwres_vadc_group_3_config  = MVirtualResourceGroup("Group 3 Configuration", ["peripheral", "vadc", sv_vadc_no, "group", "3", "config"])
+		}
+		
+		hwres_vadc_global_class_0  = MVirtualResourceGroup("Global Input Class 0", ["peripheral", "vadc", sv_vadc_no, "class", "0"])
+		hwres_vadc_global_class_1  = MVirtualResourceGroup("Global Input Class 1", ["peripheral", "vadc", sv_vadc_no, "class", "1"])
+		
+		if(family_series != 'XMC11') {
+			hwres_vadc_global_limits   = MVirtualResourceGroup("Global Boundaries", ["peripheral", "vadc", sv_vadc_no, "global_limits"])
+			hwres_vadc_emux_0          = MVirtualResourceGroup("Ext. Mux Group for Interface 0", ["peripheral", "vadc", sv_vadc_no, "emux", "0"], isConfigurationAdvanced)
+			hwres_vadc_emux_1          = MVirtualResourceGroup("Ext. Mux Group for Interface 1", ["peripheral", "vadc", sv_vadc_no, "emux", "1"], isConfigurationAdvanced)
+		}
+		
+		if(family_series ==~ 'XMC1[1234]') {
+			hwres_shs_global           = MVirtualResourceGroup("SHS Global Configuration", ["peripheral", "shs", sv_shs_no, "global"], isConfigurationAdvanced)
+			hwres_shs_loop0            = MVirtualResourceGroup("SHS Loop 0", ["peripheral", "shs", sv_shs_no, "loop", "0"], usesLoop0)
+			hwres_shs_loop1            = MVirtualResourceGroup("SHS Loop 1", ["peripheral", "shs", sv_shs_no, "loop", "1"], usesLoop1)
+			if(family_series != 'XMC11')
+			{
+				hwres_shs_shs_unit0        = MVirtualResourceGroup("SHS Unit 0", ["peripheral", "shs", sv_shs_no, "shs_unit", "0"], isConfigurationAdvanced)
+				hwres_shs_shs_unit1        = MVirtualResourceGroup("SHS Unit 1", ["peripheral", "shs", sv_shs_no, "shs_unit", "1"], isConfigurationAdvanced)
+			}
+		}
+		
+		/* -------------------------------------------------------------- */
+		/* ---------- APP IO Signals ------------------------------------ */
+		/* -------------------------------------------------------------- */
+		/*Input signals */
+//		vs_vadc_global_config_bkgnd_global_signal        = MVirtualSignal(hwres_vadc_backgnd, "bkgnd_global_signal", "global_signal", true, false)
+		vs_vadc_global_config_bkgnd_bgreqgtsel           = MVirtualSignal(hwres_vadc_backgnd, "background_gating_input", "bgreqgtsel", true, true)
+		vs_vadc_global_config_bkgnd_bgreqtrsel           = MVirtualSignal(hwres_vadc_backgnd, "background_trigger_input", "bgreqtrsel", true, true )
+//		vs_vadc_global_config_g0_global_signal           = MVirtualSignal(hwres_vadc_group_0_config, "g0_global_signal", "global_signal", true, true)
+//		vs_vadc_global_config_g0_emux0                   = MVirtualSignal(hwres_vadc_group_0_config, "g0_emux0", "emux0", true, true)
+//		vs_vadc_global_config_g0_emux1                   = MVirtualSignal(hwres_vadc_group_0_config, "g0_emux1", "emux1", true, true)
+//		vs_vadc_global_config_g0_emux2                   = MVirtualSignal(hwres_vadc_group_0_config, "g0_emux2", "emux2", true, true)
+//		vs_vadc_global_config_g0_select                  = MVirtualSignal(hwres_vadc_group_0_config, "g0_select", "select", true, true)
+//		if(family_series ==~ 'XMC1[234]') {
+//			vs_vadc_global_config_g0_shs_sel             = MVirtualSignal(hwres_vadc_group_0_config, "g0_shs_sel", "shs_sel", true, true)
+//		}
+		if(numGroups > 1) {
+//			vs_vadc_global_config_g1_emux0               = MVirtualSignal(hwres_vadc_group_1_config, "g1_emux0", "emux0", true, true)
+//			vs_vadc_global_config_g1_emux1               = MVirtualSignal(hwres_vadc_group_1_config, "g1_emux1", "emux1", true, true)
+//			vs_vadc_global_config_g1_emux2               = MVirtualSignal(hwres_vadc_group_1_config, "g1_emux2", "emux2", true, true)
+//			vs_vadc_global_config_g1_global_signal       = MVirtualSignal(hwres_vadc_group_1_config, "g1_global_signal", "global_signal", true, true)
+//			vs_vadc_global_config_g1_select              = MVirtualSignal(hwres_vadc_group_1_config, "g1_select", "select", true, true)
+//			if(family_series ==~ 'XMC1[234]') {
+//				vs_vadc_global_config_g1_shs_sel         = MVirtualSignal(hwres_vadc_group_1_config, "g1_shs_sel", "shs_sel", true, true)
+//			}
+		}
+		if(numGroups > 2) {
+//			vs_vadc_global_config_g2_emux0               = MVirtualSignal(hwres_vadc_group_2_config, "g2_emux0", "emux0", true, true)
+//			vs_vadc_global_config_g2_emux1               = MVirtualSignal(hwres_vadc_g roup_2_config, "g2_emux1", "emux1", true, true)
+//			vs_vadc_global_config_g2_emux2               = MVirtualSignal(hwres_vadc_group_2_config, "g2_emux2", "emux2", true, true)
+//			vs_vadc_global_config_g2_global_signal       = MVirtualSignal(hwres_vadc_group_2_config, "g2_global_signal", "global_signal", true, true)
+//			vs_vadc_global_config_g2_select              = MVirtualSignal(hwres_vadc_group_2_config, "g2_select", "select", true, true)
+//			vs_vadc_global_config_g3_emux0               = MVirtualSignal(hwres_vadc_group_3_config, "g3_emux0", "emux0", true, true)
+//			vs_vadc_global_config_g3_emux1               = MVirtualSignal(hwres_vadc_group_3_config, "g3_emux1", "emux1", true, true)
+//			vs_vadc_global_config_g3_emux3               = MVirtualSignal(hwres_vadc_group_3_config, "g3_emux3", "emux2", true, true)
+//			vs_vadc_global_config_g3_global_signal       = MVirtualSignal(hwres_vadc_group_3_config, "g3_global_signal", "global_signal", true, true)
+//			vs_vadc_global_config_g3_select              = MVirtualSignal(hwres_vadc_group_3_config, "g3_select", "select", true, true)
+		}
+		vs_vadc_global_config_global_signal              = MVirtualSignal(hwres_vadc_global, "global_signal", "global_signal", true, true)
+		if(family_series ==~ 'XMC4[12]') {
+			vs_vadc_global_config_vagnd                  = MVirtualSignal(hwres_vadc_global, "vagnd_varef", "vagnd_varef", true, true)
+			vs_vadc_global_config_varef                  = MVirtualSignal(hwres_vadc_global, "vagnd_varef", "vagnd_varef", true, true)
+		} else if(family_series ==~ 'XMC4[4578]') {
+			vs_vadc_global_config_vagnd                  = MVirtualSignal(hwres_vadc_global, "vagnd", "vagnd", true, true)
+			vs_vadc_global_config_varef                  = MVirtualSignal(hwres_vadc_global, "varef", "varef", true, true)
+			vs_vadc_global_config_vdda                   = MVirtualSignal(hwres_vadc_global, "vdda", "vdda", true, true)
+			vs_vadc_global_config_vssa                   = MVirtualSignal(hwres_vadc_global, "vssa", "vssa", true, true)
+		}
+		
+//		vs_vadc_global_config_glob_ic0_global_select     = MVirtualSignal(hwres_vadc_global_class_0, "global_class_0_global_select", "global_select", true, true)
+//		vs_vadc_global_config_glob_ic1_global_select     = MVirtualSignal(hwres_vadc_global_class_1, "global_class_1_global_select", "global_select", true, true)
+//		vs_vadc_global_config_shs_vadc_global            /*[peripheral, shs, *, global, vadc_global]*/
+//		vs_vadc_global_config_loop0_shs_global           /*[peripheral, shs, *, loop, 0, shs_global]*/
+//		vs_vadc_global_config_loop1_shs_global           /*[peripheral, shs, *, loop, 1, shs_global]*/
+//		vs_vadc_global_config_shs_unit_shs_global        /*[peripheral, shs, 0, shs_unit, 0, shs_global]*/
+//		vs_vadc_global_config_shs_unit_shs_sel           /*[peripheral, shs, 0, shs_unit, 0, shs_sel]*/
+		
+		
+		/*Output signals */
+		vs_vadc_global_config_bkgnd_sev0                 = MVirtualSignal(hwres_vadc_backgnd, "event_background_source", "sev0", true, true)	
+		vs_vadc_global_config_g0_garbcnt                 = MVirtualSignal(hwres_vadc_group_0_config, "g0_end_of_arbitration_round", "garbcnt", true, true)
+//		vs_vadc_global_config_g0_gqueuereq               = MVirtualSignal(hwres_vadc_group_0_config, "g0_gqueuereq", "gqueuereq", true, true)
+		vs_vadc_global_config_g0_gsample                 = MVirtualSignal(hwres_vadc_group_0_config, "g0_end_of_sampling", "gsample", true, true)
+//		vs_vadc_global_config_g0_gscanreq                = MVirtualSignal(hwres_vadc_group_0_config, "g0_gscanreq", "gscanreq", true, true)
+//		vs_vadc_global_config_g0_gsyncreq                = MVirtualSignal(hwres_vadc_group_0_config, "g0_gsyncreq", "gsyncreq", true, true)
+		if(numGroups > 1) {
+			vs_vadc_global_config_g1_garbcnt             = MVirtualSignal(hwres_vadc_group_1_config, "g1_end_of_arbitration_round", "garbcnt", true, true)
+//			vs_vadc_global_config_g1_gqueuereq           = MVirtualSignal(hwres_vadc_group_1_config, "g1_gqueuereq", "gqueuereq", true, true)
+			if(!(family_series ==~ 'XMC4[12]')) {
+				vs_vadc_global_config_g1_gsample         = MVirtualSignal(hwres_vadc_group_1_config, "g1_end_of_sampling", "gsample", true, true)
+			}
+//			vs_vadc_global_config_g1_gscanreq            = MVirtualSignal(hwres_vadc_group_1_config, "g1_gscanreq", "gscanreq", true, true)
+//			vs_vadc_global_config_g1_gsyncreq            = MVirtualSignal(hwres_vadc_group_1_config, "g1_gsyncreq", "gsyncreq", true, true)
+		}
+		if(numGroups > 2) {
+			vs_vadc_global_config_g2_garbcnt             = MVirtualSignal(hwres_vadc_group_2_config, "g2_end_of_arbitration_round", "garbcnt", true, true)
+//			vs_vadc_global_config_g2_gqueuereq           = MVirtualSignal(hwres_vadc_group_2_config, "g2_gqueuereq", "gqueuereq", true, true)
+			vs_vadc_global_config_g2_gsample             = MVirtualSignal(hwres_vadc_group_2_config, "g2_end_of_sampling", "gsample", true, true)
+//			vs_vadc_global_config_g2_gscanreq            = MVirtualSignal(hwres_vadc_group_2_config, "g2_gscanreq", "gscanreq", true, true)
+//			vs_vadc_global_config_g2_gsyncreq            = MVirtualSignal(hwres_vadc_group_2_config, "g2_gsyncreq", "gsyncreq", true, true)
+			vs_vadc_global_config_g3_garbcnt             = MVirtualSignal(hwres_vadc_group_3_config, "g3_end_of_arbitration_round", "garbcnt", true, true)
+//			vs_vadc_global_config_g3_gqueuereq           = MVirtualSignal(hwres_vadc_group_3_config, "g3_gqueuereq", "gqueuereq", true, true)
+			vs_vadc_global_config_g3_gsample             = MVirtualSignal(hwres_vadc_group_3_config, "g3_end_of_sampling", "gsample", true, true)
+//			vs_vadc_global_config_g3_gscanreq            = MVirtualSignal(hwres_vadc_group_3_config, "g3_gscanreq", "gscanreq", true, true)
+//			vs_vadc_global_config_g3_gsyncreq            = MVirtualSignal(hwres_vadc_group_3_config, "g3_gsyncreq", "gsyncreq", true, true)
+		}
+//		vs_vadc_global_config_glob_limits_global_signal  = MVirtualSignal(hwres_vadc_global_limits, "glob_limits_global_signal", "global_signal", true, false)
+		vs_vadc_global_config_glob_result_rev0           = MVirtualSignal(hwres_vadc_global_result, "event_global_reg_result", "rev0", MF({gcheck_result_register_event_enable.value},Boolean), MF({gcheck_result_register_event_enable.value},Boolean),"event_global_reg_result is not connected to any target signal. Use HW signal connections dialog to establish connection")	
+//		vs_vadc_global_config_glob_result_global_signal  = MVirtualSignal(hwres_vadc_global_result, "glob_res_global_signal", "global_signal", true, false)	
+//		vs_vadc_global_config_glob_ic0_global_signal     = MVirtualSignal(hwres_vadc_global_class_0, "global_class_0_global_signal", "global_signal", true, false)
+//		vs_vadc_global_config_glob_ic1_global_signal     = MVirtualSignal(hwres_vadc_global_class_1, "global_class_1_global_signal", "global_signal", true, false)		
+		vs_vadc_global_config_glob_emux0_emux0_in        = MVirtualSignal(hwres_vadc_emux_0, "emux0_0", "emux0_in", true, true)
+		vs_vadc_global_config_glob_emux0_emux1_in        = MVirtualSignal(hwres_vadc_emux_0, "emux0_1", "emux1_in", true, true)
+		vs_vadc_global_config_glob_emux0_emux2_in        = MVirtualSignal(hwres_vadc_emux_0, "emux0_2", "emux2_in", true, true)	
+		vs_vadc_global_config_glob_emux1_emux0_in        = MVirtualSignal(hwres_vadc_emux_1, "emux1_0", "emux0_in", true, true)
+		vs_vadc_global_config_glob_emux1_emux1_in        = MVirtualSignal(hwres_vadc_emux_1, "emux1_1", "emux1_in", true, true)
+		vs_vadc_global_config_glob_emux1_emux2_in        = MVirtualSignal(hwres_vadc_emux_1, "emux1_2", "emux2_in", true, true)		
+//		vs_group_vadc_config_shs_global                  /*[peripheral, shs, *, global, shs_global]*/
+		
+		/* -------------------------------------------------------------- */
+		/* ---------- APP IO Connections -------------------------------- */
+		/* -------------------------------------------------------------- */
+
+
+		/* -------------------------------------------------------------- */
+		/* ---------- APP Configuration --------------------------------- */
+		/* -------------------------------------------------------------- */
+		if(isfamily_4x) {
+			/*Read the peripheral bus clock to obtain fADC*/
+			gfloat_peripherial_clk_freq.value = MF({ appres_clock.getVal(["gfloat_peribusfreq", "value"]) }, Float)
+		} else if (isfamily_1x) {
+			/*Read the MCLK value to obtain fADC*/
+			gfloat_peripherial_clk_freq.value = MF({ appres_clock.getVal(["gfloat_mclkactfrq", "value"]) }, Float)
+		}
+
+		/* -------------------------------------------------------------- */
+		/* --------------- TAB : General -------------------------------- */
+		if(family_series ==~ 'XMC11') {
+			gimage_clocking_scheme.path = "doc/VADC_GLOBAL_CONFIG_Clocking_scheme_xmc11.png"
+			ginteger_globcfg_divd.visible = false
+			ginteger_globcfg_diva.visible = false
+			ginteger_shs_divs.visible = false
+			gfloat_act_digi_clk.visible = false
+			gfloat_act_analog_clk.visible = false
+			gfloat_fSH.visible = false
+			
+		} else if(family_series ==~ 'XMC1[234]') {
+			gimage_clocking_scheme.path = MF({
+				if (gcombo_configuration_mode.value == "Advanced") {
+					"doc/VADC_GLOBAL_CONFIG_clocking_scheme_xmc1234_advanced.png"
+				} else {
+					"doc/VADC_GLOBAL_CONFIG_clocking_scheme_xmc1234_basic.png"
+				}
+			 }, String)
+			gfloat_fCONV.visible = isConfigurationAdvanced 
+			ginteger_shs_divs.visible = isConfigurationAdvanced
+			gfloat_fSH.visible = isConfigurationAdvanced
+			gfloat_fSH.value = MF({ gfloat_fCONV.value / ginteger_shs_divs.value }, Float)
+		} else if(family_series ==~ 'XMC4[124578]') {
+			gimage_clocking_scheme.path = "doc/VADC_GLOBAL_CONFIG_Clocking_scheme_xmc4x.png"
+			gfloat_fCONV.visible = false
+			ginteger_shs_divs.visible = false
+			gfloat_fSH.visible = false
+		}
+		gfloat_act_analog_clk.value = MF({ gfloat_peripherial_clk_freq.value / ginteger_globcfg_diva.value }, Float)
+		gfloat_tadci.value = MF({ ginteger_globcfg_diva.value / gfloat_peripherial_clk_freq.value }, Float)
+		gfloat_act_digi_clk.value = MF({ gfloat_peripherial_clk_freq.value / ginteger_globcfg_divd.value }, Float)
+		
+//		ggroup_boundaries.visible = 
+		glabel_shs_analog_ref.visible = family_series ==~ 'XMC1[1234]'
+		gcombo_shs_analog_ref.visible = family_series ==~ 'XMC1[1234]'
+		gcombo_background_srcreg.enabled = (family_series != 'XMC45' || family_series != 'XMC11')
+		
+		/* --------------------------------------------------------------- */
+		/* ---------- TAB : Groups --------------------------------------- */
+		ggroup_group1.visible = MF({ numGroups > 1 }, Boolean)
+		ggroup_group2.visible = MF({ numGroups > 2 }, Boolean)
+		ggroup_group3.visible = MF({ numGroups > 2 }, Boolean)
+		gtab_groups.visible = family_series != 'XMC11'
+		
+
+		/* --------------------------------------------------------------- */
+		/* ---------- TAB : Input classes -------------------------------- */
+		if(family_series == 'XMC11')
+		{
+			glabel_globic0_emux_conv_sample_phase_length.visible = false;
+			ginteger_globic0_emux_conv_sample_phase_length.visible = false;
+			glabel_globic0_emux_conv_conversion_mode.visible = false;
+			gcombo_globic0_emux_conv_conversion_mode.visible = false;
+			
+			glabel_globic1_emux_conv_sample_phase_length.visible = false;
+			ginteger_globic1_emux_conv_sample_phase_length.visible = false;
+			glabel_globic1_emux_conv_conversion_mode.visible = false;
+			gcombo_globic1_emux_conv_conversion_mode.visible = false;
+		}
+		/* --------------------------------------------------------------- */
+		/* ---------- TAB : Other Settings ------------------------------- */
+		gtab_sample_and_hold.visible = MF({ family_series ==~ 'XMC1[234]' && gcombo_configuration_mode.value == "Advanced" }, Boolean)
+		for (stepNo in 0..VADC_GLOBAL_CONFIG_TOTAL_STEPS_STEPPER-1) {
+			int sn = stepNo
+			this."gcombo_stepper_step${sn}_group".options = MF({
+				if(numGroups == 2) {
+					[ "None", "Group 0", "Group 1" ]
+				} else {
+					[ "None", "Group 0", "Group 1", "Group 2", "Group 3" ]
+				}
+			}, List)
+		}
+		
+		/* --------------------------------------------------------------- */
+		/* ---------- TAB : Other Settings ------------------------------- */
+		gtab_other_settings.visible = isConfigurationAdvanced
+		gcheck_globcfg_dcmsb.visible = family_series != 'XMC11'
+		ggroup_emux.visible = family_series != 'XMC11'		
+		ggroup_sigma_delta_loop0.visible = family_series ==~ 'XMC1[1234]'
+		ggroup_sigma_delta_loop1.visible = family_series ==~ 'XMC1[1234]'
+		gcheck_shs_calibration_enable.visible = family_series ==~ 'XMC1[234]'
+		if (numGroups > 2)
+		{
+		  gcombo_emux_select_interface_0.options = ['0', '1', '2', '3']
+		  gcombo_emux_select_interface_1.options = ['0', '1', '2', '3']
+		}
+		else
+		{
+		  gcombo_emux_select_interface_0.options = ['0', '1']
+		  gcombo_emux_select_interface_1.options = ['0', '1']
+		}
+		
+		/* --------------------------------------------------------------- */
+		/* ---------- TAB : Dummy ---------------------------------------- */
+		gtab_dummy.visible = false
+	}	
+	/* ------------------End : APP Constructor and Logic--------------------------------------------------- */
+	/* ------------------Begin: File Generation------------------------------------------------------------ */
+	def generateFiles() {
+		copy("vadc_global_config.c", "vadc_global_config.c")
+		copy("vadc_global_config.h", "vadc_global_config.h")
+		generate("vadc_global_config_confc.tmpl", "vadc_global_config_conf.c")
+		generate("vadc_global_config_confh.tmpl", "vadc_global_config_conf.h")
+		generate("vadc_global_config_extern.tmpl", "vadc_global_config_extern.h")
+	}
+	/* ------------------End: File Generation-------------------------------------------------------------- */
+}

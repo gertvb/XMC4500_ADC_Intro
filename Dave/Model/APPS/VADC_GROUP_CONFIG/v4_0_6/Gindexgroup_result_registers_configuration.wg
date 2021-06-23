@@ -1,0 +1,27 @@
+package Model.APPS.VADC_GROUP_CONFIG.v4_0_6;
+
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_result_registers_configuration{
+	 public GLabel glabel_result_register_data_modification_mode;
+	 public GCombo gcombo_result_register_data_modification_mode;
+	 public GLabel glabel_result_register_drctr;
+	 public GCombo gcombo_result_register_drctr;
+	 public GLabel glabel_result_register_selection;
+	 public GCheck gcheck_result_register_wait_for_read_enable;
+	 public GCheck gcheck_result_register_fifo_mode_enable;
+	 public GCheck gcheck_result_reg_ass;
+	 public GCheck gcheck_result_register_event_enable;
+
+	public Gindexgroup_result_registers_configuration (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_result_register_data_modification_mode = new GLabel(widgetName:"glabel_result_register_data_modification_mode", text:"Data modification mode:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_result_register_data_modification_mode = new GCombo(widgetName:"gcombo_result_register_data_modification_mode", options:["Accumulate Values","Apply Filter","Difference Mode"], value:"Accumulate Values", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 glabel_result_register_drctr = new GLabel(widgetName:"glabel_result_register_drctr", text:"Number of result values accumulated:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_result_register_drctr = new GCombo(widgetName:"gcombo_result_register_drctr", options:["Data Reduction Disabled","2 Result Values","3 Result Values","4 Result Values"], value:"Data Reduction Disabled", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 glabel_result_register_selection = new GLabel(widgetName:"glabel_result_register_selection", text:"Result register to be configured:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcheck_result_register_wait_for_read_enable = new GCheck(widgetName:"gcheck_result_register_wait_for_read_enable", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcheck_result_register_fifo_mode_enable = new GCheck(widgetName:"gcheck_result_register_fifo_mode_enable", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcheck_result_reg_ass = new GCheck(widgetName:"gcheck_result_reg_ass", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcheck_result_register_event_enable = new GCheck(widgetName:"gcheck_result_register_event_enable", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	}
+}

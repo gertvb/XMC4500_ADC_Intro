@@ -1,0 +1,328 @@
+package Model.APPS.VADC_GLOBAL_CONFIG.v4_0_8;
+
+// Import statements
+import ifx.davex.app.manifest.*
+
+abstract class VADC_GLOBAL_CONFIG_GUI extends AppManifest {
+
+    /* IMPORTANT NOTE: This is an auto generated file, please do not edit manually. */
+    /* User modifications in the GUI editor will be updated here automatically.     */
+    /* Manually editing the contents of this file will corrupt the APP SDK project. */
+
+	/* Begin : UI variable section */
+	 public GTab gtab_general_settings;
+	 public GTab gtab_1;
+	 public GTab gtab_groups;
+	 public GTab gtab_input_classes;
+	 public GTab gtab_sample_and_hold;
+	 public GTab gtab_other_settings;
+	 public GTab gtab_dummy;
+	 public GImage gimage_clocking_scheme;
+	 public GImage gimage_stepper_conf;
+	 public GInteger ginteger_globcfg_diva;
+	 public GInteger ginteger_shs_divs;
+	 public GInteger ginteger_globcfg_divd;
+	 public GInteger ginteger_boundary1;
+	 public GInteger ginteger_boundary0;
+	 public GInteger ginteger_globic0_emux_conv_sample_phase_length;
+	 public GInteger ginteger_globic0_std_conv_sample_phase_length;
+	 public GInteger ginteger_globic1_emux_conv_sample_phase_length;
+	 public GInteger ginteger_globic1_std_conv_sample_phase_length;
+	 public GInteger ginteger_shs_calibration_max_cycles;
+	 public GCombo gcombo_configuration_mode;
+	 public GCombo gcombo_drctr;
+	 public GCombo gcombo_shs_analog_ref;
+	 public GCombo gcombo_background_trigger_edge_sel;
+	 public GCombo gcombo_background_gating_sel;
+	 public GCombo gcombo_background_priority;
+	 public GCombo gcombo_background_startmode;
+	 public GCombo gcombo_background_srcreg;
+	 public GCombo gcombo_arbitration_slots_per_round_group0;
+	 public GCombo gcombo_arb_mode_group0;
+	 public GCombo gcombo_arbitration_slots_per_round_group1;
+	 public GCombo gcombo_arb_mode_group1;
+	 public GCombo gcombo_arbitration_slots_per_round_group2;
+	 public GCombo gcombo_arb_mode_group2;
+	 public GCombo gcombo_arbitration_slots_per_round_group3;
+	 public GCombo gcombo_arb_mode_group3;
+	 public GCombo gcombo_globic0_emux_conv_conversion_mode;
+	 public GCombo gcombo_globic0_std_conv_conversion_mode;
+	 public GCombo gcombo_globic1_emux_conv_conversion_mode;
+	 public GCombo gcombo_globic1_std_conv_conversion_mode;
+	 public GCombo gcombo_shs_calibration_order;
+	 public GCombo gcombo_stepper_step0_group;
+	 public GCombo gcombo_stepper_step1_group;
+	 public GCombo gcombo_stepper_step2_group;
+	 public GCombo gcombo_stepper_step3_group;
+	 public GCombo gcombo_stepper_step4_group;
+	 public GCombo gcombo_stepper_step5_group;
+	 public GCombo gcombo_stepper_step6_group;
+	 public GCombo gcombo_stepper_step7_group;
+	 public GCombo gcombo_sigma_delta_loop0_ch;
+	 public GCombo gcombo_sigma_delta_loop0_sh;
+	 public GCombo gcombo_sigma_delta_loop1_ch;
+	 public GCombo gcombo_sigma_delta_loop1_sh;
+	 public GCombo gcombo_emux_select_interface_1;
+	 public GCombo gcombo_emux_select_interface_0;
+	 public GFloat gfloat_peripherial_clk_freq;
+	 public GFloat gfloat_fCONV;
+	 public GFloat gfloat_act_digi_clk;
+	 public GFloat gfloat_act_analog_clk;
+	 public GFloat gfloat_fSH;
+	 public GCheck gcheck_startup_calibration;
+	 public GCheck gcheck_result_register_event_enable;
+	 public GCheck gcheck_result_register_wait_for_read_enable;
+	 public GCheck gcheck_background_init;
+	 public GCheck gcheck_background_autoscan;
+	 public GCheck gcheck_background_req_src_intr;
+	 public GCheck gcheck_background_trigger_enable;
+	 public GCheck gcheck_background_timer_mode;
+	 public GCheck gcheck_post_cal_group0;
+	 public GCheck gcheck_post_cal_group1;
+	 public GCheck gcheck_post_cal_group2;
+	 public GCheck gcheck_post_cal_group3;
+	 public GCheck gcheck_stepper_step0_enabled;
+	 public GCheck gcheck_stepper_step1_enabled;
+	 public GCheck gcheck_stepper_step2_enabled;
+	 public GCheck gcheck_stepper_step3_enabled;
+	 public GCheck gcheck_stepper_step4_enabled;
+	 public GCheck gcheck_stepper_step5_enabled;
+	 public GCheck gcheck_stepper_step6_enabled;
+	 public GCheck gcheck_stepper_step7_enabled;
+	 public GCheck gcheck_sigma_delta_loop0_enable;
+	 public GCheck gcheck_sigma_delta_loop1_enable;
+	 public GCheck gcheck_shs_calibration_enable;
+	 public GCheck gcheck_globcfg_dcmsb;
+	 public GCheck gcheck_disable_sleep_mode;
+	 public GLabel glabel_configuration_mode;
+	 public GLabel glabel_drctr;
+	 public GLabel glabel_boundary1;
+	 public GLabel glabel_boundary0;
+	 public GLabel glabel_shs_analog_ref;
+	 public GLabel glabel_background_trigger_edge_sel;
+	 public GLabel glabel_background_gating_sel;
+	 public GLabel glabel_background_priority;
+	 public GLabel glabel_background_startmode;
+	 public GLabel glabel_background_srcreg;
+	 public GLabel glabel_arbitration_slots_per_round_group0;
+	 public GLabel glabel_arb_mode_group0;
+	 public GLabel glabel_arbitration_slots_per_round_group1;
+	 public GLabel glabel_arb_mode_group1;
+	 public GLabel glabel_arbitration_slots_per_round_group2;
+	 public GLabel glabel_arb_mode_group2;
+	 public GLabel glabel_arbitration_slots_per_round_group3;
+	 public GLabel glabel_arb_mode_group3;
+	 public GLabel glabel_globic0_emux_conv_conversion_mode;
+	 public GLabel glabel_globic0_emux_conv_sample_phase_length;
+	 public GLabel glabel_globic0_std_conv_sample_phase_length;
+	 public GLabel glabel_globic0_std_conv_conversion_mode;
+	 public GLabel glabel_globic1_emux_conv_conversion_mode;
+	 public GLabel glabel_globic1_emux_conv_sample_phase_length;
+	 public GLabel glabel_globic1_std_conv_sample_phase_length;
+	 public GLabel glabel_globic1_std_conv_conversion_mode;
+	 public GLabel glabel_shs_calibration_order;
+	 public GLabel glabel_shs_calibration_max_cycles;
+	 public GLabel glabel_sigma_delta_loop0_ch;
+	 public GLabel glabel_sigma_delta_loop0_sh;
+	 public GLabel glabel_sigma_delta_loop1_ch;
+	 public GLabel glabel_sigma_delta_loop1_sh;
+	 public GLabel glabel_emux_select_interface_0;
+	 public GLabel glabel_emux_select_interface_1;
+	 public GLabel glabel_stepper_step0_group;
+	 public GLabel glabel_stepper_step1_group;
+	 public GLabel glabel_stepper_step2_group;
+	 public GLabel glabel_stepper_step3_group;
+	 public GLabel glabel_stepper_step4_group;
+	 public GLabel glabel_stepper_step5_group;
+	 public GLabel glabel_stepper_step6_group;
+	 public GLabel glabel_stepper_step7_group;
+	 public GLabel glabel_stepper_step0_enabled;
+	 public GLabel glabel_stepper_step1_enabled;
+	 public GLabel glabel_stepper_step2_enabled;
+	 public GLabel glabel_stepper_step3_enabled;
+	 public GLabel glabel_stepper_step4_enabled;
+	 public GLabel glabel_stepper_step5_enabled;
+	 public GLabel glabel_stepper_step6_enabled;
+	 public GLabel glabel_stepper_step7_enabled;
+	 public GLabel glabel_globcfg_divd;
+	 public GLabel glabel_shs_divs;
+	 public GLabel glabel_globcfg_diva;
+	 public GLabel glabel_fSH;
+	 public GLabel glabel_act_analog_clk;
+	 public GLabel glabel_act_digi_clk;
+	 public GLabel glabel_fCONV;
+	 public GLabel glabel_peripherial_clk_freq;
+	 public GGroup ggroup_result_register;
+	 public GGroup ggroup_boundaries;
+	 public GGroup gGroup_background_config;
+	 public GGroup ggroup_group0;
+	 public GGroup ggroup_group1;
+	 public GGroup ggroup_group2;
+	 public GGroup ggroup_group3;
+	 public GGroup ggroup_globic0;
+	 public GGroup ggroup_globic1;
+	 public GGroup ggroup_sigma_delta_loop0;
+	 public GGroup ggroup_sigma_delta_loop1;
+	 public GGroup ggroup_emux;
+
+	 public VADC_GLOBAL_CONFIG_GUI(DaveEnv daveEnv){
+
+	 gtab_general_settings = GTab(widgetName:"gtab_general_settings", text:"General", enabled:true, visible:true)
+	 gtab_1 = GTab(widgetName:"gtab_1", text:"Background", enabled:true, visible:true)
+	 gtab_groups = GTab(widgetName:"gtab_groups", text:"Groups", enabled:true, visible:true)
+	 gtab_input_classes = GTab(widgetName:"gtab_input_classes", text:"Input Classes", enabled:true, visible:true)
+	 gtab_sample_and_hold = GTab(widgetName:"gtab_sample_and_hold", text:"Sample and Hold", enabled:true, visible:true)
+	 gtab_other_settings = GTab(widgetName:"gtab_other_settings", text:"Other", enabled:true, visible:true)
+	 gtab_dummy = GTab(widgetName:"gtab_dummy", text:"Dummy", enabled:true, visible:true)
+	 gimage_clocking_scheme = GImage(widgetName:"gimage_clocking_scheme", path: "doc/VADC_GLOBAL_CONFIG_clocking_scheme_xmc1234_advanced.png", enabled:true, visible:true)
+	 gimage_stepper_conf = GImage(widgetName:"gimage_stepper_conf", path: "doc/VADC_GLOBAL_CONFIG_Stepper.png", enabled:true, visible:true)
+	 ginteger_globcfg_diva = GInteger(widgetName:"ginteger_globcfg_diva", value:2, minValue:2, maxValue:32, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_shs_divs = GInteger(widgetName:"ginteger_shs_divs", value:1, minValue:1, maxValue:16, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_globcfg_divd = GInteger(widgetName:"ginteger_globcfg_divd", value:1, minValue:1, maxValue:4, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_boundary1 = GInteger(widgetName:"ginteger_boundary1", value:0, minValue:0, maxValue:4095, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_boundary0 = GInteger(widgetName:"ginteger_boundary0", value:0, minValue:0, maxValue:4095, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_globic0_emux_conv_sample_phase_length = GInteger(widgetName:"ginteger_globic0_emux_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_globic0_std_conv_sample_phase_length = GInteger(widgetName:"ginteger_globic0_std_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_globic1_emux_conv_sample_phase_length = GInteger(widgetName:"ginteger_globic1_emux_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_globic1_std_conv_sample_phase_length = GInteger(widgetName:"ginteger_globic1_std_conv_sample_phase_length", value:0, minValue:0, maxValue:31, enabled:true, visible:true, isMandatoryValue:false)
+	 ginteger_shs_calibration_max_cycles = GInteger(widgetName:"ginteger_shs_calibration_max_cycles", value:3, minValue:1, maxValue:63, enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_configuration_mode = GCombo(widgetName:"gcombo_configuration_mode", options:["Basic","Advanced"], value:"Basic", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_drctr = GCombo(widgetName:"gcombo_drctr", options:["Data Reduction Disabled","2 Result Values","3 Result Values","4 Result Values"], value:"Data Reduction Disabled", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_shs_analog_ref = GCombo(widgetName:"gcombo_shs_analog_ref", options:["External Reference, Upper Supply Range","Internal Reference, Upper Supply Range","Internal Reference, Lower Supply Range"], value:"Internal Reference, Upper Supply Range", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_background_trigger_edge_sel = GCombo(widgetName:"gcombo_background_trigger_edge_sel", options:["No External Trigger","External Trigger Upon Rising Edge","External Trigger Upon Falling Edge","External Trigger Upon Both The Edge"], value:"No External Trigger", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_background_gating_sel = GCombo(widgetName:"gcombo_background_gating_sel", options:["No Conversion Request is Issued","All Conversion Requests are Issued","Conversion Request Issued When Gate is High","Conversion Request Issued When Gate is Low"], value:"All Conversion Requests are Issued", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_background_priority = GCombo(widgetName:"gcombo_background_priority", options:["Priority-0  (Lowest Priority)","Priority-1","Priority-2","Priority-3 (Highest Priority)"], value:"Priority-0  (Lowest Priority)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_background_startmode = GCombo(widgetName:"gcombo_background_startmode", options:["Wait For Start Mode","Cancel Inject Repeat Mode"], value:"Wait For Start Mode", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_background_srcreg = GCombo(widgetName:"gcombo_background_srcreg", options:["No Specific Register","GxRES0","GxRES1","GxRES2","GxRES3","GxRES4","GxRES5","GxRES6","GxRES7","GxRES8","GxRES9","GxRES10","GxRES11","GxRES12","GxRES13","GxRES14","GxRES15"], value:"No Specific Register", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slots_per_round_group0 = GCombo(widgetName:"gcombo_arbitration_slots_per_round_group0", options:["4","8","16","20"], value:"4", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group0 = GCombo(widgetName:"gcombo_arb_mode_group0", options:["Always (Runs Permanently)","Run on a Conversion Request"], value:"Always (Runs Permanently)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slots_per_round_group1 = GCombo(widgetName:"gcombo_arbitration_slots_per_round_group1", options:["4","8","16","20"], value:"4", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group1 = GCombo(widgetName:"gcombo_arb_mode_group1", options:["Always (Runs Permanently)","Run on a Conversion Request"], value:"Always (Runs Permanently)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slots_per_round_group2 = GCombo(widgetName:"gcombo_arbitration_slots_per_round_group2", options:["4","8","16","20"], value:"4", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group2 = GCombo(widgetName:"gcombo_arb_mode_group2", options:["Always (Runs Permanently)","Run on a Conversion Request"], value:"Always (Runs Permanently)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arbitration_slots_per_round_group3 = GCombo(widgetName:"gcombo_arbitration_slots_per_round_group3", options:["4","8","16","20"], value:"4", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_arb_mode_group3 = GCombo(widgetName:"gcombo_arb_mode_group3", options:["Always (Runs Permanently)","Run on a Conversion Request"], value:"Always (Runs Permanently)", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_globic0_emux_conv_conversion_mode = GCombo(widgetName:"gcombo_globic0_emux_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_globic0_std_conv_conversion_mode = GCombo(widgetName:"gcombo_globic0_std_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_globic1_emux_conv_conversion_mode = GCombo(widgetName:"gcombo_globic1_emux_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_globic1_std_conv_conversion_mode = GCombo(widgetName:"gcombo_globic1_std_conv_conversion_mode", options:["12 Bit Conversion","10 Bit Conversion","8 Bit Conversion","10 Bit Fast Conversion"], value:"12 Bit Conversion", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_shs_calibration_order = GCombo(widgetName:"gcombo_shs_calibration_order", options:["Do Conversions Then Calibration","Do Calibration Then Conversions"], value:"Do Conversions Then Calibration", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step0_group = GCombo(widgetName:"gcombo_stepper_step0_group", options:["None","Group 0","Group 1"], value:"Group 0", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step1_group = GCombo(widgetName:"gcombo_stepper_step1_group", options:["None","Group 0","Group 1"], value:"Group 1", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step2_group = GCombo(widgetName:"gcombo_stepper_step2_group", options:["None","Group 0","Group 1"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step3_group = GCombo(widgetName:"gcombo_stepper_step3_group", options:["None","Group 0","Group 1"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step4_group = GCombo(widgetName:"gcombo_stepper_step4_group", options:["None","Group 0","Group 1"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step5_group = GCombo(widgetName:"gcombo_stepper_step5_group", options:["None","Group 0","Group 1"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step6_group = GCombo(widgetName:"gcombo_stepper_step6_group", options:["None","Group 0","Group 1"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_stepper_step7_group = GCombo(widgetName:"gcombo_stepper_step7_group", options:["None","Group 0","Group 1"], value:"None", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_sigma_delta_loop0_ch = GCombo(widgetName:"gcombo_sigma_delta_loop0_ch", options:["Input Channel 0","Input Channel 1","Input Channel 2","Input Channel 3","Input Channel 4","Input Channel 5","Input Channel 6","Input Channel 7"], value:"Input Channel 0", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_sigma_delta_loop0_sh = GCombo(widgetName:"gcombo_sigma_delta_loop0_sh", options:["S&H unit 0","S&H unit 1"], value:"S&H unit 0", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_sigma_delta_loop1_ch = GCombo(widgetName:"gcombo_sigma_delta_loop1_ch", options:["Input Channel 0","Input Channel 1","Input Channel 2","Input Channel 3","Input Channel 4","Input Channel 5","Input Channel 6","Input Channel 7"], value:"Input Channel 0", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_sigma_delta_loop1_sh = GCombo(widgetName:"gcombo_sigma_delta_loop1_sh", options:["S&H unit 0","S&H unit 1"], value:"S&H unit 0", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_emux_select_interface_1 = GCombo(widgetName:"gcombo_emux_select_interface_1", options:["0","1"], value:"1", enabled:true, visible:true, isMandatoryValue:false)
+	 gcombo_emux_select_interface_0 = GCombo(widgetName:"gcombo_emux_select_interface_0", options:["0","1"], value:"0", enabled:true, visible:true, isMandatoryValue:false)
+	 gfloat_peripherial_clk_freq = GFloat(widgetName:"gfloat_peripherial_clk_freq", value:120, minValue:0, maxValue:200, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_fCONV = GFloat(widgetName:"gfloat_fCONV", value:32, minValue:0, maxValue:200, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_act_digi_clk = GFloat(widgetName:"gfloat_act_digi_clk", value:120, minValue:0, maxValue:200, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_act_analog_clk = GFloat(widgetName:"gfloat_act_analog_clk", value:120, minValue:0, maxValue:100, enabled:false, visible:true, isMandatoryValue:false)
+	 gfloat_fSH = GFloat(widgetName:"gfloat_fSH", value:32, minValue:0, maxValue:200, enabled:false, visible:true, isMandatoryValue:false)
+	 gcheck_startup_calibration = GCheck(widgetName:"gcheck_startup_calibration", value:true, enabled:true, visible:true)
+	 gcheck_result_register_event_enable = GCheck(widgetName:"gcheck_result_register_event_enable", value:false, enabled:true, visible:true)
+	 gcheck_result_register_wait_for_read_enable = GCheck(widgetName:"gcheck_result_register_wait_for_read_enable", value:false, enabled:true, visible:true)
+	 gcheck_background_init = GCheck(widgetName:"gcheck_background_init", value:true, enabled:true, visible:true)
+	 gcheck_background_autoscan = GCheck(widgetName:"gcheck_background_autoscan", value:false, enabled:true, visible:true)
+	 gcheck_background_req_src_intr = GCheck(widgetName:"gcheck_background_req_src_intr", value:false, enabled:true, visible:true)
+	 gcheck_background_trigger_enable = GCheck(widgetName:"gcheck_background_trigger_enable", value:false, enabled:true, visible:true)
+	 gcheck_background_timer_mode = GCheck(widgetName:"gcheck_background_timer_mode", value:false, enabled:true, visible:true)
+	 gcheck_post_cal_group0 = GCheck(widgetName:"gcheck_post_cal_group0", value:true, enabled:true, visible:true)
+	 gcheck_post_cal_group1 = GCheck(widgetName:"gcheck_post_cal_group1", value:true, enabled:true, visible:true)
+	 gcheck_post_cal_group2 = GCheck(widgetName:"gcheck_post_cal_group2", value:true, enabled:true, visible:true)
+	 gcheck_post_cal_group3 = GCheck(widgetName:"gcheck_post_cal_group3", value:true, enabled:true, visible:true)
+	 gcheck_stepper_step0_enabled = GCheck(widgetName:"gcheck_stepper_step0_enabled", value:true, enabled:true, visible:true)
+	 gcheck_stepper_step1_enabled = GCheck(widgetName:"gcheck_stepper_step1_enabled", value:true, enabled:true, visible:true)
+	 gcheck_stepper_step2_enabled = GCheck(widgetName:"gcheck_stepper_step2_enabled", value:false, enabled:true, visible:true)
+	 gcheck_stepper_step3_enabled = GCheck(widgetName:"gcheck_stepper_step3_enabled", value:false, enabled:true, visible:true)
+	 gcheck_stepper_step4_enabled = GCheck(widgetName:"gcheck_stepper_step4_enabled", value:false, enabled:true, visible:true)
+	 gcheck_stepper_step5_enabled = GCheck(widgetName:"gcheck_stepper_step5_enabled", value:false, enabled:true, visible:true)
+	 gcheck_stepper_step6_enabled = GCheck(widgetName:"gcheck_stepper_step6_enabled", value:false, enabled:true, visible:true)
+	 gcheck_stepper_step7_enabled = GCheck(widgetName:"gcheck_stepper_step7_enabled", value:false, enabled:true, visible:true)
+	 gcheck_sigma_delta_loop0_enable = GCheck(widgetName:"gcheck_sigma_delta_loop0_enable", value:false, enabled:true, visible:true)
+	 gcheck_sigma_delta_loop1_enable = GCheck(widgetName:"gcheck_sigma_delta_loop1_enable", value:false, enabled:true, visible:true)
+	 gcheck_shs_calibration_enable = GCheck(widgetName:"gcheck_shs_calibration_enable", value:true, enabled:true, visible:true)
+	 gcheck_globcfg_dcmsb = GCheck(widgetName:"gcheck_globcfg_dcmsb", value:false, enabled:true, visible:true)
+	 gcheck_disable_sleep_mode = GCheck(widgetName:"gcheck_disable_sleep_mode", value:false, enabled:true, visible:true)
+	 glabel_configuration_mode = GLabel(widgetName:"glabel_configuration_mode", text:"Configuration settings available:", enabled:true, visible:true)
+	 glabel_drctr = GLabel(widgetName:"glabel_drctr", text:"Result accumulation:", enabled:true, visible:true)
+	 glabel_boundary1 = GLabel(widgetName:"glabel_boundary1", text:"Global boundary value 1:", enabled:true, visible:true)
+	 glabel_boundary0 = GLabel(widgetName:"glabel_boundary0", text:"Global boundary value 0:", enabled:true, visible:true)
+	 glabel_shs_analog_ref = GLabel(widgetName:"glabel_shs_analog_ref", text:"Analog reference voltage:", enabled:true, visible:true)
+	 glabel_background_trigger_edge_sel = GLabel(widgetName:"glabel_background_trigger_edge_sel", text:"Trigger edge selection:", enabled:true, visible:true)
+	 glabel_background_gating_sel = GLabel(widgetName:"glabel_background_gating_sel", text:"Gating selection:", enabled:true, visible:true)
+	 glabel_background_priority = GLabel(widgetName:"glabel_background_priority", text:"Priority of background source:", enabled:true, visible:true)
+	 glabel_background_startmode = GLabel(widgetName:"glabel_background_startmode", text:"Conversion start mode:", enabled:true, visible:true)
+	 glabel_background_srcreg = GLabel(widgetName:"glabel_background_srcreg", text:"Background specific result register:", enabled:true, visible:true)
+	 glabel_arbitration_slots_per_round_group0 = GLabel(widgetName:"glabel_arbitration_slots_per_round_group0", text:"Number of arbitration slots per arbitration round:", enabled:true, visible:true)
+	 glabel_arb_mode_group0 = GLabel(widgetName:"glabel_arb_mode_group0", text:"Arbitration mode:", enabled:true, visible:true)
+	 glabel_arbitration_slots_per_round_group1 = GLabel(widgetName:"glabel_arbitration_slots_per_round_group1", text:"Number of arbitration slots per arbitration round:", enabled:true, visible:true)
+	 glabel_arb_mode_group1 = GLabel(widgetName:"glabel_arb_mode_group1", text:"Arbitration mode:", enabled:true, visible:true)
+	 glabel_arbitration_slots_per_round_group2 = GLabel(widgetName:"glabel_arbitration_slots_per_round_group2", text:"Number of arbitration slots per arbitration round:", enabled:true, visible:true)
+	 glabel_arb_mode_group2 = GLabel(widgetName:"glabel_arb_mode_group2", text:"Arbitration mode:", enabled:true, visible:true)
+	 glabel_arbitration_slots_per_round_group3 = GLabel(widgetName:"glabel_arbitration_slots_per_round_group3", text:"Number of arbitration slots per arbitration round:", enabled:true, visible:true)
+	 glabel_arb_mode_group3 = GLabel(widgetName:"glabel_arb_mode_group3", text:"Arbitration mode:", enabled:true, visible:true)
+	 glabel_globic0_emux_conv_conversion_mode = GLabel(widgetName:"glabel_globic0_emux_conv_conversion_mode", text:"Conversion mode for EMUX conversions:", enabled:true, visible:true)
+	 glabel_globic0_emux_conv_sample_phase_length = GLabel(widgetName:"glabel_globic0_emux_conv_sample_phase_length", text:"Sample phase clock cycles for EMUX conversions:", enabled:true, visible:true)
+	 glabel_globic0_std_conv_sample_phase_length = GLabel(widgetName:"glabel_globic0_std_conv_sample_phase_length", text:"Sample phase clock cycles for standard conversions:", enabled:true, visible:true)
+	 glabel_globic0_std_conv_conversion_mode = GLabel(widgetName:"glabel_globic0_std_conv_conversion_mode", text:"Conversion mode for standard conversions:", enabled:true, visible:true)
+	 glabel_globic1_emux_conv_conversion_mode = GLabel(widgetName:"glabel_globic1_emux_conv_conversion_mode", text:"Conversion mode for EMUX conversions:", enabled:true, visible:true)
+	 glabel_globic1_emux_conv_sample_phase_length = GLabel(widgetName:"glabel_globic1_emux_conv_sample_phase_length", text:"Sample phase clock cycles for EMUX conversions:", enabled:true, visible:true)
+	 glabel_globic1_std_conv_sample_phase_length = GLabel(widgetName:"glabel_globic1_std_conv_sample_phase_length", text:"Sample phase clock cycles for standard conversions:", enabled:true, visible:true)
+	 glabel_globic1_std_conv_conversion_mode = GLabel(widgetName:"glabel_globic1_std_conv_conversion_mode", text:"Conversion mode for standard conversions:", enabled:true, visible:true)
+	 glabel_shs_calibration_order = GLabel(widgetName:"glabel_shs_calibration_order", text:"Calibration order:", enabled:true, visible:true)
+	 glabel_shs_calibration_max_cycles = GLabel(widgetName:"glabel_shs_calibration_max_cycles", text:"Maximum clock cycles between calibrations:", enabled:true, visible:true)
+	 glabel_sigma_delta_loop0_ch = GLabel(widgetName:"glabel_sigma_delta_loop0_ch", text:"Channel assigned:", enabled:true, visible:true)
+	 glabel_sigma_delta_loop0_sh = GLabel(widgetName:"glabel_sigma_delta_loop0_sh", text:"Sample and Hold unit assigned:", enabled:true, visible:true)
+	 glabel_sigma_delta_loop1_ch = GLabel(widgetName:"glabel_sigma_delta_loop1_ch", text:"Channel assigned:", enabled:true, visible:true)
+	 glabel_sigma_delta_loop1_sh = GLabel(widgetName:"glabel_sigma_delta_loop1_sh", text:"Sample and Hold unit assigned:", enabled:true, visible:true)
+	 glabel_emux_select_interface_0 = GLabel(widgetName:"glabel_emux_select_interface_0", text:"External Multiplexer Group for Interface 0:", enabled:true, visible:true)
+	 glabel_emux_select_interface_1 = GLabel(widgetName:"glabel_emux_select_interface_1", text:"External Multiplexer Group for Interface 1:", enabled:true, visible:true)
+	 glabel_stepper_step0_group = GLabel(widgetName:"glabel_stepper_step0_group", text:"Step 0 group select:", enabled:true, visible:true)
+	 glabel_stepper_step1_group = GLabel(widgetName:"glabel_stepper_step1_group", text:"Step 1 group select:", enabled:true, visible:true)
+	 glabel_stepper_step2_group = GLabel(widgetName:"glabel_stepper_step2_group", text:"Step 2 group select:", enabled:true, visible:true)
+	 glabel_stepper_step3_group = GLabel(widgetName:"glabel_stepper_step3_group", text:"Step 3 group select:", enabled:true, visible:true)
+	 glabel_stepper_step4_group = GLabel(widgetName:"glabel_stepper_step4_group", text:"Step 4 group select:", enabled:true, visible:true)
+	 glabel_stepper_step5_group = GLabel(widgetName:"glabel_stepper_step5_group", text:"Step 5 group select:", enabled:true, visible:true)
+	 glabel_stepper_step6_group = GLabel(widgetName:"glabel_stepper_step6_group", text:"Step 6 group select:", enabled:true, visible:true)
+	 glabel_stepper_step7_group = GLabel(widgetName:"glabel_stepper_step7_group", text:"Step 7 group select:", enabled:true, visible:true)
+	 glabel_stepper_step0_enabled = GLabel(widgetName:"glabel_stepper_step0_enabled", text:"Step 0 enable:", enabled:true, visible:true)
+	 glabel_stepper_step1_enabled = GLabel(widgetName:"glabel_stepper_step1_enabled", text:"Step 1 enable:", enabled:true, visible:true)
+	 glabel_stepper_step2_enabled = GLabel(widgetName:"glabel_stepper_step2_enabled", text:"Step 2 enable:", enabled:true, visible:true)
+	 glabel_stepper_step3_enabled = GLabel(widgetName:"glabel_stepper_step3_enabled", text:"Step 3 enable:", enabled:true, visible:true)
+	 glabel_stepper_step4_enabled = GLabel(widgetName:"glabel_stepper_step4_enabled", text:"Step 4 enable:", enabled:true, visible:true)
+	 glabel_stepper_step5_enabled = GLabel(widgetName:"glabel_stepper_step5_enabled", text:"Step 5 enable:", enabled:true, visible:true)
+	 glabel_stepper_step6_enabled = GLabel(widgetName:"glabel_stepper_step6_enabled", text:"Step 6 enable:", enabled:true, visible:true)
+	 glabel_stepper_step7_enabled = GLabel(widgetName:"glabel_stepper_step7_enabled", text:"Step 7 enable:", enabled:true, visible:true)
+	 glabel_globcfg_divd = GLabel(widgetName:"glabel_globcfg_divd", text:"Divider factor for the arbiter clock:", enabled:true, visible:true)
+	 glabel_shs_divs = GLabel(widgetName:"glabel_shs_divs", text:"Divider factor for the SHS converter clock:", enabled:true, visible:true)
+	 glabel_globcfg_diva = GLabel(widgetName:"glabel_globcfg_diva", text:"Divider factor for the analog internal clock:", enabled:true, visible:true)
+	 glabel_fSH = GLabel(widgetName:"glabel_fSH", text:"SHS converter clock frequency:", enabled:true, visible:true)
+	 glabel_act_analog_clk = GLabel(widgetName:"glabel_act_analog_clk", text:"Analog internal clock frequency:", enabled:true, visible:true)
+	 glabel_act_digi_clk = GLabel(widgetName:"glabel_act_digi_clk", text:"Arbiter clock frequency:", enabled:true, visible:true)
+	 glabel_fCONV = GLabel(widgetName:"glabel_fCONV", text:"Converter clock frequency:", enabled:true, visible:true)
+	 glabel_peripherial_clk_freq = GLabel(widgetName:"glabel_peripherial_clk_freq", text:"Peripheral clock frequency:", enabled:true, visible:true)
+	 ggroup_result_register = GGroup(widgetName:"ggroup_result_register", text:"Global Result register", enabled:true, visible:true)
+	 ggroup_boundaries = GGroup(widgetName:"ggroup_boundaries", text:"Boundaries", enabled:true, visible:true)
+	 gGroup_background_config = GGroup(widgetName:"gGroup_background_config", text:"Background Settings", enabled:true, visible:true)
+	 ggroup_group0 = GGroup(widgetName:"ggroup_group0", text:"Group 0", enabled:true, visible:true)
+	 ggroup_group1 = GGroup(widgetName:"ggroup_group1", text:"Group 1", enabled:true, visible:true)
+	 ggroup_group2 = GGroup(widgetName:"ggroup_group2", text:"Group 2", enabled:true, visible:true)
+	 ggroup_group3 = GGroup(widgetName:"ggroup_group3", text:"Group 3", enabled:true, visible:true)
+	 ggroup_globic0 = GGroup(widgetName:"ggroup_globic0", text:"Global Input Class 0", enabled:true, visible:true)
+	 ggroup_globic1 = GGroup(widgetName:"ggroup_globic1", text:"Global Input Class 1", enabled:true, visible:true)
+	 ggroup_sigma_delta_loop0 = GGroup(widgetName:"ggroup_sigma_delta_loop0", text:"Sigma-Delta-Loop 0 Control", enabled:true, visible:true)
+	 ggroup_sigma_delta_loop1 = GGroup(widgetName:"ggroup_sigma_delta_loop1", text:"Sigma-Delta-Loop 1 Control", enabled:true, visible:true)
+	 ggroup_emux = GGroup(widgetName:"ggroup_emux", text:"External Multiplexer Selection", enabled:true, visible:true)
+
+
+	 }
+	/* End : UI variable section */
+}

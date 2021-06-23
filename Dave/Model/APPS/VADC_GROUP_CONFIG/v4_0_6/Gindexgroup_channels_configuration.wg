@@ -1,0 +1,53 @@
+package Model.APPS.VADC_GROUP_CONFIG.v4_0_6;
+
+import ifx.davex.app.manifest.*;
+
+class Gindexgroup_channels_configuration{
+	 public GLabel glabel_ch_selection;
+	 public GCheck gcheck_ch_ass;
+	 public GLabel glabel_ch_input_class;
+	 public GCombo gcombo_ch_input_class;
+	 public GLabel glabel_ch_result_position;
+	 public GCombo gcombo_ch_result_position;
+	 public GLabel glabel_ch_broken_wire_detection_channel;
+	 public GCombo gcombo_ch_broken_wire_detection_channel;
+	 public GImage gimage_ch_boundaries;
+	 public GCombo gcombo_ch_upper_boundary;
+	 public GCombo gcombo_ch_lower_boundary;
+	 public GCheck gcheck_ch_sync;
+	 public GCheck gcheck_ch_reference_input_selection;
+	 public GCheck gcheck_ch_broken_wire_detection_enable;
+	 public GLabel glabel_alias;
+	 public GCombo gcombo_alias;
+	 public GLabel glabel_ch_result_target_bkgnd_src;
+	 public GCombo gcombo_ch_result_target_bkgnd_src;
+	 public GLabel glabel_result_register;
+	 public GCombo gcombo_result_register;
+	 public GLabel glabel_ch_event_mode;
+	 public GCombo gcombo_ch_event_mode;
+
+	public Gindexgroup_channels_configuration (DaveEnv daveEnv, String widgetName,int index){
+	 glabel_ch_selection = new GLabel(widgetName:"glabel_ch_selection", text:"Channel to be configured:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcheck_ch_ass = new GCheck(widgetName:"gcheck_ch_ass", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	 glabel_ch_input_class = new GLabel(widgetName:"glabel_ch_input_class", text:"Input class:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_ch_input_class = new GCombo(widgetName:"gcombo_ch_input_class", options:["Group-Specific Class 0","Group-Specific Class 1","Global Class 0","Global Class 1"], value:"Group-Specific Class 0", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 glabel_ch_result_position = new GLabel(widgetName:"glabel_ch_result_position", text:"Store results:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_ch_result_position = new GCombo(widgetName:"gcombo_ch_result_position", options:["Left-Aligned","Right-Aligned"], value:"Left-Aligned", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 glabel_ch_broken_wire_detection_channel = new GLabel(widgetName:"glabel_ch_broken_wire_detection_channel", text:"Broken wire detection channel:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_ch_broken_wire_detection_channel = new GCombo(widgetName:"gcombo_ch_broken_wire_detection_channel", options:["V_AGND","V_AREF"], value:"V_AGND", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 gimage_ch_boundaries = new GImage(widgetName:"gimage_ch_boundaries", path: "doc/VADC_GROUP_CONFIG_Boundaries.png", enabled:true, visible:true , parentWidgetName:widgetName)
+	 gcombo_ch_upper_boundary = new GCombo(widgetName:"gcombo_ch_upper_boundary", options:["Group-Specific Boundary 0","Group-Specific Boundary 1","Global Boundary 0","Global Boundary 1"], value:"Group-Specific Boundary 0", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 gcombo_ch_lower_boundary = new GCombo(widgetName:"gcombo_ch_lower_boundary", options:["Group-Specific Boundary 0","Group-Specific Boundary 1","Global Boundary 0","Global Boundary 1"], value:"Group-Specific Boundary 0", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 gcheck_ch_sync = new GCheck(widgetName:"gcheck_ch_sync", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcheck_ch_reference_input_selection = new GCheck(widgetName:"gcheck_ch_reference_input_selection", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcheck_ch_broken_wire_detection_enable = new GCheck(widgetName:"gcheck_ch_broken_wire_detection_enable", value:false, enabled:true, visible:true, parentWidgetName:widgetName)
+	 glabel_alias = new GLabel(widgetName:"glabel_alias", text:"Alias value for conversion requests:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_alias = new GCombo(widgetName:"gcombo_alias", options:["None","Channel 0","Channel 1","Channel 2","Channel 3","Channel 4","Channel 5","Channel 6","Channel 7"], value:"None", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 glabel_ch_result_target_bkgnd_src = new GLabel(widgetName:"glabel_ch_result_target_bkgnd_src", text:"Result target for background source:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_ch_result_target_bkgnd_src = new GCombo(widgetName:"gcombo_ch_result_target_bkgnd_src", options:["Group Result Register","Global Result Register"], value:"Group Result Register", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 glabel_result_register = new GLabel(widgetName:"glabel_result_register", text:"Result register:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_result_register = new GCombo(widgetName:"gcombo_result_register", options:["GxRES0","GxRES1","GxRES2","GxRES3","GxRES4","GxRES5","GxRES6","GxRES7","GxRES8","GxRES9","GxRES10","GxRES11","GxRES12","GxRES13","GxRES14","GxRES15"], value:"GxRES0", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	 glabel_ch_event_mode = new GLabel(widgetName:"glabel_ch_event_mode", text:"Generate a channel event:", enabled:true, visible:true, parentWidgetName:widgetName)
+	 gcombo_ch_event_mode = new GCombo(widgetName:"gcombo_ch_event_mode", options:["Never","NCM: If result is inside the boundary band; FCM: If result becomes high (above cmp. val.)","NCM: If result is outside the boundary band; FCM: If result becomes low (below cmp. val.)","NCM: Always (ignore band); FCM: If result switches to either level"], value:"Never", enabled:true, visible:true, isMandatoryValue:false , parentWidgetName:widgetName)
+	}
+}
